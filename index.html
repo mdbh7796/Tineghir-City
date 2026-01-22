@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tineghir - Gateway to Todra Gorge</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Outfit:wght@300;400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <meta
+      name="description"
+      content="Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes."
+    />
+    <meta property="og:title" content="Tineghir - Gateway to Todra Gorge" />
+    <meta
+      property="og:description"
+      content="Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes."
+    />
+    <meta
+      property="og:image"
+      content="images/todra-gorge.jpg"
+    />
+    <meta property="og:type" content="website" />
+    <script src="/_sdk/element_sdk.js"></script>
+    <link rel="stylesheet" href="style.css" />
+    <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+  </head>
+
+  <body
+    class="h-full font-body bg-stone-50 text-stone-800 overflow-auto scroll-smooth"
+  >
+    <!-- Navigation -->
+    <nav
+      class="fixed top-0 left-0 right-0 z-50 bg-stone-900/90 backdrop-blur-md border-b border-amber-700/30"
+    >
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+          <div class="flex items-center gap-2">
+            <svg
+              class="w-8 h-8 text-amber-500"
+              viewbox="0 0 40 40"
+              fill="currentColor"
+            >
+              <path
+                d="M20 2L4 12v16l16 10 16-10V12L20 2zm0 4l12 7.5v11L20 32 8 24.5v-11L20 6z"
+              />
+              <path
+                d="M20 10l-8 5v8l8 5 8-5v-8l-8-5zm0 3l5 3.125v5L20 24.25l-5-3.125v-5L20 13z"
+              /></svg
+            ><span class="font-display text-xl font-semibold text-amber-100"
+              >Tineghir</span
+            >
+          </div>
+          <div class="hidden md:flex items-center gap-8">
+            <a
+              href="#home"
+              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
+              >Home</a
+            >
+            <a
+              href="#about"
+              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
+              >About</a
+            >
+            <a
+              href="#attractions"
+              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
+              >Attractions</a
+            >
+            <a
+              href="#gallery"
+              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
+              >Gallery</a
+            >
+            <a
+              href="#visit"
+              class="bg-amber-600 hover:bg-amber-500 text-white px-4 py-2 rounded-full text-sm font-medium transition-all"
+              >Plan Your Visit</a
+            >
+          </div>
+          <button id="mobile-menu-btn" class="md:hidden text-amber-200 p-2">
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewbox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Menu -->
+      <div
+        id="mobile-menu"
+        class="md:hidden bg-stone-900/95 border-t border-amber-700/30"
+      >
+        <div class="px-4 py-4 space-y-3">
+          <a
+            href="#home"
+            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            >Home</a
+          >
+          <a
+            href="#about"
+            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            >About</a
+          >
+          <a
+            href="#attractions"
+            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            >Attractions</a
+          >
+          <a
+            href="#gallery"
+            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            >Gallery</a
+          >
+          <a
+            href="#visit"
+            class="block bg-amber-600 text-white px-4 py-2 rounded-full text-center mt-4"
+            >Plan Your Visit</a
+          >
+        </div>
+      </div>
+    </nav>
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="relative min-h-screen flex items-center justify-center overflow-hidden pattern-overlay"
+      style="
+        background: linear-gradient(
+          135deg,
+          #1c1917 0%,
+          #292524 50%,
+          #44403c 100%
+        );
+      "
+    >
+      <!-- Hero Background Image -->
+      <img src="images/hero-bg.jpg" alt="Tineghir Landscape" class="absolute inset-0 w-full h-full object-cover blur-sm opacity-100 pointer-events-none">
+      
+      <!-- Dark Overlay Layer for Contrast -->
+      <div class="absolute inset-0 bg-black/70 pointer-events-none"></div>
+
+      <!-- Decorative Elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <svg
+          class="absolute top-20 left-10 w-64 h-64 text-amber-600/10 animate-float"
+          viewbox="0 0 200 200"
+          fill="currentColor"
+        >
+          <polygon points="100,10 40,198 190,78 10,78 160,198" />
+        </svg>
+        <svg
+          class="absolute bottom-20 right-10 w-48 h-48 text-amber-500/10 animate-float"
+          style="animation-delay: 1s"
+          viewbox="0 0 200 200"
+          fill="currentColor"
+        >
+          <circle cx="100" cy="100" r="80" />
+        </svg>
+        <svg
+          class="absolute top-1/3 right-1/4 w-32 h-32 text-orange-600/10 animate-float"
+          style="animation-delay: 2s"
+          viewbox="0 0 100 100"
+          fill="currentColor"
+        >
+          <rect
+            x="20"
+            y="20"
+            width="60"
+            height="60"
+            transform="rotate(45 50 50)"
+          />
+        </svg>
+      </div>
+      <!-- Canyon/Mountain Silhouette -->
+      <div class="absolute bottom-0 left-0 right-0">
+        <svg
+          viewbox="0 0 1440 320"
+          class="w-full"
+          fill="#D4A574"
+          fill-opacity="0.15"
+        >
+          <path
+            d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          />
+        </svg>
+      </div>
+      <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+        <div class="animate-fade-in">
+          <p
+            class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-4 drop-shadow-md"
+          >
+            Welcome to
+          </p>
+          <h1
+            id="hero-title"
+            class="font-display text-6xl md:text-8xl lg:text-9xl font-bold text-amber-50 mb-6 leading-none drop-shadow-2xl"
+          >
+            Tineghir
+          </h1>
+          <p
+            id="hero-subtitle"
+            class="font-display text-2xl md:text-3xl text-amber-300 font-semibold mb-8 italic drop-shadow-lg"
+          >
+            Gateway to the Majestic Todra Gorge
+          </p>
+          <p
+            class="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-medium drop-shadow-md"
+          >
+            Discover the heart of Morocco's Draa-Tafilalet region, where ancient
+            kasbahs meet towering canyon walls and palm-lined oases paint the
+            desert green.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="#attractions"
+              class="bg-amber-600 hover:bg-amber-500 text-white px-8 py-4 rounded-full font-medium text-lg transition-all transform hover:scale-105 shadow-lg shadow-amber-600/30"
+            >
+              Explore Attractions
+            </a>
+            <a
+              href="#about"
+              class="border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10 px-8 py-4 rounded-full font-medium text-lg transition-all"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+        <!-- Scroll Indicator -->
+        <div
+          class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+        >
+          <svg
+            class="w-6 h-10 text-amber-500/60"
+            fill="none"
+            stroke="currentColor"
+            viewbox="0 0 24 40"
+          >
+            <rect x="1" y="1" width="22" height="38" rx="11" stroke-width="2" />
+            <circle cx="12" cy="12" r="3" fill="currentColor" />
+          </svg>
+        </div>
+      </div>
+    </section>
+    <!-- Stats Bar -->
+    <section class="bg-amber-700 py-8">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+          <div>
+            <p class="text-4xl font-display font-bold text-white">300m</p>
+            <p class="text-amber-200 text-sm mt-1">Canyon Height</p>
+          </div>
+          <div>
+            <p class="text-4xl font-display font-bold text-white">42,000+</p>
+            <p class="text-amber-200 text-sm mt-1">Population</p>
+          </div>
+          <div>
+            <p class="text-4xl font-display font-bold text-white">1,400m</p>
+            <p class="text-amber-200 text-sm mt-1">Altitude</p>
+          </div>
+          <div>
+            <p class="text-4xl font-display font-bold text-white">1000+</p>
+            <p class="text-amber-200 text-sm mt-1">Years of History</p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 bg-stone-50">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="order-2 lg:order-1 reveal">
+            <p
+              class="text-amber-600 font-medium tracking-widest uppercase text-sm mb-4"
+            >
+              Discover
+            </p>
+            <h2
+              id="about-title"
+              class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6"
+            >
+              The Jewel of Southern Morocco
+            </h2>
+            <p
+              id="about-description"
+              class="text-stone-600 text-lg leading-relaxed mb-6"
+            >
+              Nestled at the foot of the High Atlas Mountains, Tineghir is an
+              enchanting oasis city that has captivated travelers for centuries.
+              This ancient Berber settlement sits along the legendary Route of a
+              Thousand Kasbahs, offering a window into Morocco's rich cultural
+              heritage.
+            </p>
+            <p class="text-stone-600 text-lg leading-relaxed mb-8">
+              The city is renowned for its spectacular palm groves stretching
+              along the Todra River, traditional mud-brick kasbahs, and its
+              position as the gateway to the breathtaking Todra Gorge — one of
+              Morocco's most dramatic natural wonders.
+            </p>
+            <div class="grid grid-cols-2 gap-6">
+              <div class="flex items-start gap-3">
+                <div
+                  class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    class="w-6 h-6 text-amber-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                    />
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-stone-800">
+                    Strategic Location
+                  </h4>
+                  <p class="text-stone-500 text-sm">
+                    Between Ouarzazate &amp; Errachidia
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div
+                  class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                >
+                  <svg
+                    class="w-6 h-6 text-amber-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewbox="0 0 24 24"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="font-semibold text-stone-800">Rich Heritage</h4>
+                  <p class="text-stone-500 text-sm">
+                    Berber &amp; Arab cultures
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="order-1 lg:order-2 relative reveal delay-200">
+            <!-- Decorative Frame with SVG Illustration -->
+            <div class="relative">
+              <div
+                class="absolute -top-4 -left-4 w-full h-full border-2 border-amber-400 rounded-2xl"
+              ></div>
+              <div
+                class="relative h-[400px] rounded-2xl overflow-hidden shadow-xl"
+              >
+                <img
+                  src="images/about-tineghir.jpg"
+                  alt="Tineghir City View"
+                  class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Attractions Section -->
+    <section id="attractions" class="py-16 md:py-24 bg-stone-100">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+          <p
+            class="text-amber-600 font-medium tracking-widest uppercase text-sm mb-4"
+          >
+            Explore
+          </p>
+          <h2
+            id="attractions-title"
+            class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6"
+          >
+            Must-See Attractions
+          </h2>
+          <p class="text-stone-600 text-lg max-w-2xl mx-auto">
+            From dramatic gorges to ancient kasbahs, Tineghir offers
+            unforgettable experiences for every traveler.
+          </p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <!-- Todra Gorge -->
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-orange-800 to-amber-600 relative overflow-hidden"
+            >
+              <img
+                src="images/todra-gorge.jpg"
+                alt="Todra Gorge Canyon"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+              ></div>
+              <span
+                class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full"
+                >Featured</span
+              >
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">
+                Todra Gorge
+              </h3>
+              <p class="text-stone-600 mb-4">
+                A spectacular canyon with 300-meter high walls, perfect for
+                hiking, rock climbing, and photography.
+              </p>
+              <div
+                class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all"
+              >
+                <span>Explore</span>
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Palm Groves -->
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-100"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-green-700 to-emerald-600 relative overflow-hidden"
+            >
+              <img
+                src="images/tineghir-palm-grove.jpg"
+                alt="Tineghir Palm Grove"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">
+                Palm Groves
+              </h3>
+              <p class="text-stone-600 mb-4">
+                Lush green oasis stretching 25km along the Todra River, home to
+                traditional Berber villages.
+              </p>
+              <div
+                class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all"
+              >
+                <span>Discover</span>
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Ancient Kasbahs -->
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-200"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-amber-700 to-yellow-600 relative overflow-hidden"
+            >
+              <img
+                src="images/ait-benhaddou.jpg"
+                alt="Ancient Kasbah"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">
+                Ancient Kasbahs
+              </h3>
+              <p class="text-stone-600 mb-4">
+                Explore centuries-old fortified villages built from red clay,
+                showcasing traditional Berber architecture.
+              </p>
+              <div
+                class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all"
+              >
+                <span>Visit</span>
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Berber Markets -->
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-red-600 to-rose-500 relative overflow-hidden flex items-center justify-center"
+            >
+              <div class="grid grid-cols-4 gap-2 p-6">
+                <div class="w-12 h-12 rounded-lg bg-amber-400"></div>
+                <div class="w-12 h-12 rounded-lg bg-red-400"></div>
+                <div class="w-12 h-12 rounded-lg bg-emerald-400"></div>
+                <div class="w-12 h-12 rounded-lg bg-blue-400"></div>
+                <div class="w-12 h-12 rounded-lg bg-purple-400"></div>
+                <div class="w-12 h-12 rounded-lg bg-orange-400"></div>
+                <div class="w-12 h-12 rounded-lg bg-pink-400"></div>
+                <div class="w-12 h-12 rounded-lg bg-teal-400"></div>
+              </div>
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">
+                Berber Markets
+              </h3>
+              <p class="text-stone-600 mb-4">
+                Vibrant souks filled with handwoven carpets, silver jewelry,
+                spices, and traditional crafts.
+              </p>
+              <div
+                class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all"
+              >
+                <span>Shop</span>
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Desert Excursions -->
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-100"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-yellow-500 to-orange-400 relative overflow-hidden"
+            >
+              <img
+                src="images/merzouga-dunes.jpg"
+                alt="Merzouga Dunes"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">
+                Desert Excursions
+              </h3>
+              <p class="text-stone-600 mb-4">
+                Camel treks, 4x4 adventures, and overnight camping under the
+                Saharan stars.
+              </p>
+              <div
+                class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all"
+              >
+                <span>Adventure</span>
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Local Cuisine -->
+          <div
+            class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-200"
+          >
+            <div
+              class="h-48 bg-gradient-to-br from-emerald-600 to-teal-500 relative overflow-hidden flex items-center justify-center"
+            >
+              <img
+                src="images/moroccan-tagine.jpg"
+                alt="Moroccan Tagine"
+                class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"
+              ></div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">
+                Local Cuisine
+              </h3>
+              <p class="text-stone-600 mb-4">
+                Savor traditional tagines, couscous, mint tea, and fresh dates
+                from the palm groves.
+              </p>
+              <div
+                class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all"
+              >
+                <span>Taste</span>
+                <svg
+                  class="w-5 h-5 ml-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewbox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8l4 4m0 0l-4 4m4-4H3"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="py-16 md:py-24 bg-white overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16 reveal">
+          <p class="text-amber-600 font-medium tracking-widest uppercase text-sm mb-4">
+            Guest Experiences
+          </p>
+          <h2 class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6">
+            Traveler Stories
+          </h2>
+        </div>
+        <div class="grid md:grid-cols-3 gap-8">
+          <!-- Review 1 -->
+          <div class="bg-stone-50 p-8 rounded-2xl relative reveal delay-100">
+            <svg class="w-10 h-10 text-amber-200 absolute top-6 left-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
+            </svg>
+            <p class="text-stone-600 italic mb-6 relative z-10 pt-6">
+              "The Todra Gorge left me speechless. Tineghir is the perfect base to explore it—the people are incredibly welcoming and the food is divine."
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center text-amber-700 font-bold text-xl">S</div>
+              <div>
+                <h4 class="font-bold text-stone-800">Sarah Jenkins</h4>
+                <p class="text-amber-600 text-sm">United Kingdom</p>
+              </div>
+            </div>
+          </div>
+          <!-- Review 2 -->
+          <div class="bg-stone-50 p-8 rounded-2xl relative reveal delay-200">
+             <svg class="w-10 h-10 text-amber-200 absolute top-6 left-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
+            </svg>
+            <p class="text-stone-600 italic mb-6 relative z-10 pt-6">
+              "Walking through the palm groves at sunset was the highlight of our Morocco trip. It felt like stepping back in time."
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center text-amber-700 font-bold text-xl">M</div>
+              <div>
+                <h4 class="font-bold text-stone-800">Marc & Elena</h4>
+                <p class="text-amber-600 text-sm">Spain</p>
+              </div>
+            </div>
+          </div>
+          <!-- Review 3 -->
+          <div class="bg-stone-50 p-8 rounded-2xl relative reveal delay-300">
+             <svg class="w-10 h-10 text-amber-200 absolute top-6 left-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H15.017C14.4647 8 14.017 8.44772 14.017 9V11C14.017 11.5523 13.5693 12 13.017 12H12.017V5H22.017V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM5.0166 21L5.0166 18C5.0166 16.8954 5.91203 16 7.0166 16H10.0166C10.5689 16 11.0166 15.5523 11.0166 15V9C11.0166 8.44772 10.5689 8 10.0166 8H6.0166C5.46432 8 5.0166 8.44772 5.0166 9V11C5.0166 11.5523 4.56889 12 4.0166 12H3.0166V5H13.0166V15C13.0166 18.3137 10.3303 21 7.0166 21H5.0166Z" />
+            </svg>
+            <p class="text-stone-600 italic mb-6 relative z-10 pt-6">
+              "Don't miss the rock climbing! The guides here are professional and the views from the top are unmatched."
+            </p>
+            <div class="flex items-center gap-4">
+              <div class="w-12 h-12 bg-amber-200 rounded-full flex items-center justify-center text-amber-700 font-bold text-xl">A</div>
+              <div>
+                <h4 class="font-bold text-stone-800">Alex Chen</h4>
+                <p class="text-amber-600 text-sm">USA</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-24 bg-stone-900">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16">
+          <p
+            class="text-amber-500 font-medium tracking-widest uppercase text-sm mb-4"
+          >
+            Visual Journey
+          </p>
+          <h2
+            class="font-display text-4xl md:text-5xl font-bold text-stone-100 mb-6"
+          >
+            Capture the Beauty
+          </h2>
+          <p class="text-stone-400 text-lg max-w-2xl mx-auto">
+            Experience the stunning landscapes and cultural richness of Tineghir
+            through these artistic impressions.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 reveal">
+          <div
+            class="sm:col-span-2 sm:row-span-2 rounded-2xl overflow-hidden bg-gradient-to-br from-amber-600 to-orange-700 p-8 flex items-end relative group cursor-pointer lightbox-trigger"
+          >
+            <svg
+              viewbox="0 0 400 300"
+              class="absolute inset-0 w-full h-full opacity-30"
+            >
+              <polygon
+                fill="white"
+                points="0,300 100,100 200,200 300,50 400,150 400,300"
+              />
+            </svg>
+            <div class="relative z-10">
+              <span class="text-amber-200 text-sm">📍 Todra Gorge</span>
+              <h3 class="font-display text-2xl font-bold text-white mt-2">
+                Canyon at Sunset
+              </h3>
+            </div>
+          </div>
+          <div
+            class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
+          >
+            <img src="images/gallery-palms.jpg" alt="Palm Valley" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+              <div>
+                <span class="text-emerald-200 text-xs">🌴 Oasis</span>
+                <h4 class="font-display text-lg font-bold text-white mt-1">
+                  Palm Valley
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
+          >
+            <img src="images/gallery-crafts.jpg" alt="Local Crafts" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+              <div>
+                <span class="text-rose-200 text-xs">🏺 Culture</span>
+                <h4 class="font-display text-lg font-bold text-white mt-1">
+                  Local Crafts
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
+          >
+            <img src="images/gallery-river.jpg" alt="Todra Waters" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+              <div>
+                <span class="text-sky-200 text-xs">💧 River</span>
+                <h4 class="font-display text-lg font-bold text-white mt-1">
+                  Todra Waters
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
+          >
+            <img src="images/gallery-trek.jpg" alt="Desert Trek" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
+              <div>
+                <span class="text-yellow-200 text-xs">🐪 Adventure</span>
+                <h4 class="font-display text-lg font-bold text-white mt-1">
+                  Desert Trek
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div
+            class="sm:col-span-2 rounded-2xl overflow-hidden bg-gradient-to-br from-stone-600 to-stone-800 p-6 flex items-end relative"
+          >
+            <svg
+              viewbox="0 0 300 100"
+              class="absolute bottom-0 left-0 w-full opacity-20"
+            >
+              <rect fill="white" x="20" y="40" width="40" height="60" />
+              <polygon fill="white" points="20,40 40,10 60,40" />
+              <rect fill="white" x="80" y="50" width="50" height="50" />
+              <polygon fill="white" points="80,50 105,20 130,50" />
+              <rect fill="white" x="150" y="35" width="45" height="65" />
+              <polygon fill="white" points="150,35 172,5 195,35" />
+            </svg>
+            <div class="relative z-10">
+              <span class="text-stone-400 text-sm">🏰 Heritage</span>
+              <h3 class="font-display text-xl font-bold text-white mt-2">
+                Ancient Kasbahs of Tineghir
+              </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Itineraries Section -->
+    <section class="py-16 md:py-24 bg-stone-900 text-stone-100 border-t border-stone-800">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid lg:grid-cols-2 gap-16 items-center">
+          <div class="reveal">
+            <p class="text-amber-500 font-medium tracking-widest uppercase text-sm mb-4">
+              Curated Trips
+            </p>
+            <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">
+              Suggested Itineraries
+            </h2>
+            <p class="text-stone-400 text-lg mb-8">
+              Whether you have a single day or a long weekend, make the most of your time in Tineghir with our curated guides.
+            </p>
+            
+            <div class="space-y-8">
+              <!-- Itinerary 1 -->
+              <div class="flex gap-6 p-4 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-amber-500/30">
+                <div class="w-16 h-16 rounded-full bg-amber-600 flex items-center justify-center flex-shrink-0 font-bold text-xl text-white">
+                  1D
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-amber-100 mb-2">The Gorge & Gardens Express</h3>
+                  <p class="text-stone-400 mb-2">Morning hike in Todra Gorge followed by a traditional lunch and afternoon stroll through the palm oasis.</p>
+                  <a href="#visit" class="text-amber-500 hover:text-amber-400 text-sm font-medium">Plan this day →</a>
+                </div>
+              </div>
+              <!-- Itinerary 2 -->
+              <div class="flex gap-6 p-4 rounded-xl hover:bg-white/5 transition-colors border border-transparent hover:border-amber-500/30">
+                <div class="w-16 h-16 rounded-full bg-stone-700 flex items-center justify-center flex-shrink-0 font-bold text-xl text-white">
+                  3D
+                </div>
+                <div>
+                  <h3 class="text-xl font-bold text-amber-100 mb-2">The Ultimate Explorer</h3>
+                  <p class="text-stone-400 mb-2">Day 1: Tineghir Souks & Kasbahs. Day 2: Rock climbing in Todra. Day 3: 4x4 excursion to Merzouga dunes.</p>
+                  <a href="#visit" class="text-amber-500 hover:text-amber-400 text-sm font-medium">Plan this trip →</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="reveal delay-200 relative">
+             <div class="absolute -inset-4 bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl opacity-20 blur-xl"></div>
+             <img src="images/todra-gorge.jpg" alt="Hiker in Gorge" class="relative rounded-2xl shadow-2xl w-full h-auto border border-stone-700 bg-stone-800">
+             <!-- Floating Badge -->
+             <div class="absolute -bottom-6 -left-6 bg-stone-800 border border-stone-700 p-4 rounded-xl shadow-xl flex items-center gap-3">
+               <span class="text-3xl">🥾</span>
+               <div>
+                 <p class="text-stone-400 text-xs uppercase tracking-wider">Activity Level</p>
+                 <p class="text-white font-bold">Moderate to High</p>
+               </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Visit Section -->
+    <section id="visit" class="py-16 md:py-24 bg-amber-50 pattern-overlay">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden reveal">
+          <div class="grid lg:grid-cols-2">
+            <div class="p-8 lg:p-12">
+              <p
+                class="text-amber-600 font-medium tracking-widest uppercase text-sm mb-4"
+              >
+                Plan Your Trip
+              </p>
+              <h2
+                class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6"
+              >
+                Visit Tineghir
+              </h2>
+              <p class="text-stone-600 text-lg mb-8">
+                The best time to visit is during spring (March-May) or autumn
+                (September-November) when temperatures are pleasant for
+                exploring.
+              </p>
+              <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-2xl">✈️</span>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-stone-800 text-lg">
+                      Getting There
+                    </h4>
+                    <p class="text-stone-600">
+                      Fly to Ouarzazate or Errachidia airports, then drive
+                      through scenic routes to Tineghir.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-2xl">🏨</span>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-stone-800 text-lg">
+                      Where to Stay
+                    </h4>
+                    <p class="text-stone-600">
+                      Choose from traditional riads, kasbah hotels, or modern
+                      accommodations with stunning views.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-2xl">🗣️</span>
+                  </div>
+                  <div>
+                    <h4 class="font-semibold text-stone-800 text-lg">
+                      Local Tips
+                    </h4>
+                    <p class="text-stone-600">
+                      Learn a few Berber phrases, dress modestly, and always
+                      negotiate prices in the souks!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-gradient-to-br from-amber-600 to-orange-700 p-8 lg:p-12 flex flex-col justify-center"
+            >
+              <div class="bg-white/10 backdrop-blur rounded-2xl p-6 mb-6">
+                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                  Quick Facts
+                </h3>
+                <div class="space-y-3 text-amber-100">
+                  <p>
+                    <strong class="text-white">Region:</strong> Draa-Tafilalet
+                  </p>
+                  <p>
+                    <strong class="text-white">Language:</strong> Berber,
+                    Arabic, French
+                  </p>
+                  <p>
+                    <strong class="text-white">Currency:</strong> Moroccan
+                    Dirham (MAD)
+                  </p>
+                  <p>
+                    <strong class="text-white">Climate:</strong> Semi-arid, hot
+                    summers
+                  </p>
+                  <p>
+                    <strong class="text-white">Best Season:</strong> Spring
+                    &amp; Autumn
+                  </p>
+                </div>
+              </div>
+              <div class="text-center">
+                <p class="text-amber-200 mb-4">Ready to explore?</p>
+                <a
+                  href="#"
+                  class="inline-block bg-white text-amber-700 px-8 py-4 rounded-full font-semibold text-lg hover:bg-amber-50 transition-all transform hover:scale-105 shadow-lg"
+                >
+                  Start Planning →
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-stone-900 py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
+          <!-- Column 1: Brand & Socials (Span 4) -->
+          <div class="lg:col-span-4 space-y-6">
+            <div class="flex items-center gap-2">
+              <svg
+                class="w-10 h-10 text-amber-500"
+                viewbox="0 0 40 40"
+                fill="currentColor"
+              >
+                <path
+                  d="M20 2L4 12v16l16 10 16-10V12L20 2zm0 4l12 7.5v11L20 32 8 24.5v-11L20 6z"
+                />
+                <path
+                  d="M20 10l-8 5v8l8 5 8-5v-8l-8-5zm0 3l5 3.125v5L20 24.25l-5-3.125v-5L20 13z"
+                />
+              </svg>
+              <span class="font-display text-2xl font-semibold text-amber-100">Tineghir</span>
+            </div>
+            <p id="footer-text" class="text-stone-400 max-w-sm leading-relaxed">
+              Discover the magic of Southern Morocco. Where ancient traditions
+              meet breathtaking natural beauty.
+            </p>
+            <div class="flex gap-4">
+              <a
+                href="https://twitter.com"
+                class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-stone-400 hover:bg-amber-600 hover:text-white transition-all transform hover:scale-110"
+                aria-label="Twitter"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                  <path
+                    d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"
+                  /></svg>
+              </a>
+              <a
+                href="https://instagram.com"
+                class="w-10 h-10 rounded-full bg-stone-800 flex items-center justify-center text-stone-400 hover:bg-amber-600 hover:text-white transition-all transform hover:scale-110"
+                aria-label="Instagram"
+              >
+                <svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"
+                  /></svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Column 2: Quick Links & Contact Info (Span 3) -->
+          <div class="lg:col-span-3 space-y-8">
+            <div>
+              <h4 class="font-display text-lg font-semibold text-amber-100 mb-4">Explore</h4>
+              <ul class="space-y-2 text-stone-400">
+                <li><a href="#home" class="hover:text-amber-400 transition-colors">Home</a></li>
+                <li><a href="#about" class="hover:text-amber-400 transition-colors">About</a></li>
+                <li><a href="#attractions" class="hover:text-amber-400 transition-colors">Attractions</a></li>
+                <li><a href="#gallery" class="hover:text-amber-400 transition-colors">Gallery</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 class="font-display text-lg font-semibold text-amber-100 mb-4">Contact Info</h4>
+              <ul class="space-y-3 text-stone-400">
+                <li class="flex items-start gap-3">
+                  <span>📍</span>
+                  <span>Center Ville, Tineghir,<br>Draa-Tafilalet, Morocco</span>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span>📧</span>
+                  <a href="mailto:info@tineghir.ma" class="hover:text-amber-400 transition-colors">info@tineghir.ma</a>
+                </li>
+                <li class="flex items-center gap-3">
+                  <span>📞</span>
+                  <span>+212 524 834 000</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Column 3: Contact Form (Span 5) -->
+          <div class="lg:col-span-5 reveal delay-100">
+            <div class="bg-stone-800 p-8 rounded-2xl border border-stone-700 shadow-xl">
+              <h4 class="font-display text-xl font-semibold text-amber-100 mb-2">
+                Send us a Message
+              </h4>
+              <p class="text-stone-400 text-sm mb-6">Have a question or want to book a tour? We'd love to hear from you.</p>
+              
+              <form class="space-y-4" action="#" method="POST">
+                <div class="grid grid-cols-2 gap-4">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    class="w-full bg-stone-900/50 border border-stone-600 text-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all placeholder-stone-500"
+                  />
+                  <input
+                    type="email"
+                    placeholder="Email"
+                    class="w-full bg-stone-900/50 border border-stone-600 text-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all placeholder-stone-500"
+                  />
+                </div>
+                <div>
+                  <textarea
+                    placeholder="How can we help you?"
+                    rows="4"
+                    class="w-full bg-stone-900/50 border border-stone-600 text-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all placeholder-stone-500 resize-none"
+                  ></textarea>
+                </div>
+                <button
+                  type="submit"
+                  class="w-full bg-amber-600 hover:bg-amber-500 text-white font-medium py-3 rounded-lg transition-all transform hover:scale-[1.02] shadow-lg shadow-amber-900/20"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
+            
+            <!-- Small Map Link -->
+            <div class="mt-6 flex items-center justify-between text-stone-500 text-sm px-2">
+              <span>Find us on Google Maps</span>
+              <a href="https://maps.google.com" target="_blank" class="text-amber-500 hover:text-amber-400 flex items-center gap-1 group">
+                Open Map
+                <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-t border-stone-800 pt-8 text-center text-stone-500 text-sm"
+        >
+          <p>
+            © 2024 Tineghir Tourism. All rights reserved. Made with ❤️ in
+            Morocco
+          </p>
+        </div>
+      </div>
+    </footer>
+    <!-- Lightbox Modal -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-[100] bg-black/90 hidden flex items-center justify-center opacity-0 transition-opacity duration-300"
+    >
+      <button
+        id="lightbox-close"
+        class="absolute top-4 right-4 text-white hover:text-amber-500 transition-colors"
+      >
+        <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+      <img
+        id="lightbox-img"
+        src=""
+        alt="Full screen view"
+        class="max-h-[90vh] max-w-[90vw] object-contain rounded-lg shadow-2xl transform scale-95 transition-transform duration-300"
+      />
+    </div>
+    <script src="script.js"></script>
+    <script>
+      (function () {
+        function c() {
+          var b = a.contentDocument || a.contentWindow.document;
+          if (b) {
+            var d = b.createElement("script");
+            d.innerHTML =
+              "window.__CF$cv$params={r:'9bdeb32b34e7f4f9',t:'MTc2ODQxMDEzNC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";
+            b.getElementsByTagName("head")[0].appendChild(d);
+          }
+        }
+        if (document.body) {
+          var a = document.createElement("iframe");
+          a.height = 1;
+          a.width = 1;
+          a.style.position = "absolute";
+          a.style.top = 0;
+          a.style.left = 0;
+          a.style.border = "none";
+          a.style.visibility = "hidden";
+          document.body.appendChild(a);
+          if ("loading" !== document.readyState) c();
+          else if (window.addEventListener)
+            document.addEventListener("DOMContentLoaded", c);
+          else {
+            var e = document.onreadystatechange || function () {};
+            document.onreadystatechange = function (b) {
+              e(b);
+              "loading" !== document.readyState &&
+                ((document.onreadystatechange = e), c());
+            };
+          }
+        }
+      })();
+    </script>
+  </body>
+</html>

@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* Custom Styles */
+body {
+  box-sizing: border-box;
+}
+.font-display {
+  font-family: "Playfair Display", serif;
+}
+.font-body {
+  font-family: "Outfit", sans-serif;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+.animate-fade-in {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+.animate-slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+.card-hover {
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.card-hover:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #d4a574 0%, #c4956a 50%, #8b6914 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pattern-overlay {
+  background-image: url("images/pattern.svg");
+}
+
+.scroll-smooth {
+  scroll-behavior: smooth;
+}
+
+@view-transition {
+  navigation: auto;
+}
+
+/* Mobile Menu Animation */
+#mobile-menu {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+  opacity: 0;
+}
+
+#mobile-menu.active {
+  max-height: 500px; /* Large enough to fit menu content */
+  opacity: 1;
+}
+
+/* Scroll Animation Classes */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease-out;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 {
+  transition-delay: 100ms;
+}
+.delay-200 {
+  transition-delay: 200ms;
+}
