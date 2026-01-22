@@ -1,6 +1,14 @@
 # Tineghir City Website
 
-A responsive discovery platform for Tineghir, Morocco, showcasing its natural beauty, cultural heritage, and travel attractions like the Todra Gorge and the palm groves.
+## Description
+This project is a comprehensive tourism and cultural platform dedicated to Tineghir, a stunning oasis city in eastern Morocco. It serves as a digital gateway for travelers and locals alike to explore the region's unique heritage and natural wonders.
+
+## What is this website about?
+The website is designed to promote Tineghir as a premier travel destination by highlighting:
+*   **Natural Wonders:** Detailed information on the iconic Todra Gorge and the lush palm groves (Palmerie).
+*   **Cultural Heritage:** Insights into the traditional Berber architecture, crafts, and the local way of life.
+*   **Travel Planning:** A showcase of attractions and experiences to help visitors plan their trip to the region.
+*   **Modern Interface:** A responsive, user-friendly design built with Tailwind CSS to ensure a seamless experience across all devices.
 
 ## Installation
 
