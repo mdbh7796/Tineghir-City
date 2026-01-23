@@ -1,78 +1,69 @@
-const defaultConfig = {
-  hero_title: 'Tineghir',
-  hero_subtitle: 'Gateway to the Majestic Todra Gorge',
-  about_title: 'The Jewel of Southern Morocco',
-  about_description: 'Nestled at the foot of the High Atlas Mountains, Tineghir is an enchanting oasis city that has captivated travelers for centuries. This ancient Berber settlement sits along the legendary Route of a Thousand Kasbahs, offering a window into Morocco\'s rich cultural heritage.',
-  attractions_title: 'Must-See Attractions',
-  footer_text: 'Discover the magic of Southern Morocco. Where ancient traditions meet breathtaking natural beauty.',
-  background_color: '#1C1917',
-  surface_color: '#FFFFFF',
-  text_color: '#44403C',
-  primary_action_color: '#D97706',
-  secondary_action_color: '#B45309'
-};
-
-async function onConfigChange(config) {
-  document.getElementById('hero-title').textContent = config.hero_title || defaultConfig.hero_title;
-  document.getElementById('hero-subtitle').textContent = config.hero_subtitle || defaultConfig.hero_subtitle;
-  document.getElementById('about-title').textContent = config.about_title || defaultConfig.about_title;
-  document.getElementById('about-description').textContent = config.about_description || defaultConfig.about_description;
-  document.getElementById('attractions-title').textContent = config.attractions_title || defaultConfig.attractions_title;
-  document.getElementById('footer-text').textContent = config.footer_text || defaultConfig.footer_text;
-  
-  // Apply colors
-  const bgColor = config.background_color || defaultConfig.background_color;
-  const surfaceColor = config.surface_color || defaultConfig.surface_color;
-  const textColor = config.text_color || defaultConfig.text_color;
-  const primaryAction = config.primary_action_color || defaultConfig.primary_action_color;
-  const secondaryAction = config.secondary_action_color || defaultConfig.secondary_action_color;
-  
-  document.documentElement.style.setProperty('--bg-color', bgColor);
-  document.documentElement.style.setProperty('--surface-color', surfaceColor);
-  document.documentElement.style.setProperty('--text-color', textColor);
-  document.documentElement.style.setProperty('--primary-action', primaryAction);
-  document.documentElement.style.setProperty('--secondary-action', secondaryAction);
+// Fetch Content from API
+async function loadContent() {
+  try {
+    const response = await fetch('/api/content');
+    if (!response.ok) throw new Error('Failed to load content');
+    const config = await response.json();
+    applyContent(config);
+  } catch (error) {
+    console.warn('Using default content due to error:', error);
+    // Defaults are already in the HTML, so we might just leave them be
+    // or apply a fallback object here if strictly necessary.
+  }
 }
 
-function mapToCapabilities(config) {
-  return {
-    recolorables: [
-      {
-        get: () => config.background_color || defaultConfig.background_color,
-        set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
-      },
-      {
-        get: () => config.surface_color || defaultConfig.surface_color,
-        set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
-      },
-      {
-        get: () => config.text_color || defaultConfig.text_color,
-        set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
-      },
-      {
-        get: () => config.primary_action_color || defaultConfig.primary_action_color,
-        set: (value) => { config.primary_action_color = value; window.elementSdk.setConfig({ primary_action_color: value }); }
-      },
-      {
-        get: () => config.secondary_action_color || defaultConfig.secondary_action_color,
-        set: (value) => { config.secondary_action_color = value; window.elementSdk.setConfig({ secondary_action_color: value }); }
-      }
-    ],
-    borderables: [],
-    fontEditable: undefined,
-    fontSizeable: undefined
-  };
+function applyContent(config) {
+  if (config.hero_title) document.getElementById('hero-title').textContent = config.hero_title;
+  if (config.hero_subtitle) document.getElementById('hero-subtitle').textContent = config.hero_subtitle;
+  if (config.about_description) document.getElementById('about-description').textContent = config.about_description;
+  if (config.footer_text) document.getElementById('footer-text').textContent = config.footer_text;
+  
+  // Hero Image (if stored as base64 or URL)
+  if (config.hero_image) {
+      // Find the hero image element - currently it is the first img in the hero section
+      const heroImg = document.querySelector('#home img');
+      if(heroImg) heroImg.src = config.hero_image;
+  }
 }
 
-function mapToEditPanelValues(config) {
-  return new Map([
-    ['hero_title', config.hero_title || defaultConfig.hero_title],
-    ['hero_subtitle', config.hero_subtitle || defaultConfig.hero_subtitle],
-    ['about_title', config.about_title || defaultConfig.about_title],
-    ['about_description', config.about_description || defaultConfig.about_description],
-    ['attractions_title', config.attractions_title || defaultConfig.attractions_title],
-    ['footer_text', config.footer_text || defaultConfig.footer_text]
-  ]);
+async function loadAttractions() {
+    try {
+        const response = await fetch('/api/attractions');
+        if (!response.ok) throw new Error('Failed to load attractions');
+        const attractions = await response.json();
+        
+        const grid = document.getElementById('attractions-grid');
+        if (!grid) return;
+        
+        grid.innerHTML = attractions.map((attr, index) => `
+          <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-${(index % 3) * 100}">
+            <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
+              ${attr.image 
+                ? `<img src="${attr.image}" alt="${attr.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">`
+                : `<div class="text-4xl">📷</div>`
+              }
+              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+              ${attr.tag ? `<span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">${attr.tag}</span>` : ''}
+            </div>
+            <div class="p-6">
+              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">${attr.title}</h3>
+              <p class="text-stone-600 mb-4">${attr.description}</p>
+              <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
+                <span>Explore</span>
+                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        `).join('');
+        
+        // Re-init observer for new elements
+        initScrollAnimations();
+        
+    } catch (error) {
+        console.error('Error loading attractions:', error);
+    }
 }
 
 // Mobile menu toggle
@@ -209,19 +200,32 @@ function initContactForm() {
   });
 }
 
+// 4. Initialize Leaflet Map
+function initMap() {
+  const mapElement = document.getElementById('map');
+  if (!mapElement) return;
+
+  // Coordinates for Tineghir, Morocco
+  const lat = 31.5139;
+  const lng = -5.5316;
+
+  const map = L.map('map').setView([lat, lng], 13);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  L.marker([lat, lng]).addTo(map)
+      .bindPopup('<b>Welcome to Tineghir</b><br>Gateway to Todra Gorge.')
+      .openPopup();
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
+  loadContent();
+  loadAttractions();
   initScrollAnimations();
   initLightbox();
   initContactForm();
+  initMap();
 });
-
-// Initialize SDK
-if (window.elementSdk) {
-  window.elementSdk.init({
-    defaultConfig,
-    onConfigChange,
-    mapToCapabilities,
-    mapToEditPanelValues
-  });
-}

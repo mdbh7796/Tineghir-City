@@ -2,8 +2,9 @@
   "name": "tineghir-website",
   "version": "1.0.0",
   "description": "",
-  "main": "script.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "build": "tailwindcss -i ./src/input.css -o ./style.css",
     "watch": "tailwindcss -i ./src/input.css -o ./style.css --watch"
   },
@@ -14,5 +15,13 @@
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
     "tailwindcss": "^4.1.18"
+  },
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.2",
+    "cors": "^2.8.6",
+    "express": "^5.2.1",
+    "multer": "^2.0.2",
+    "sqlite3": "^5.1.7"
   }
 }

@@ -1,24 +1,44 @@
-// Mock Data
-const defaultUsers = [
-    { id: 1, name: 'Admin User', email: 'admin@tineghir.ma', role: 'Administrator', status: 'Active', lastActive: 'Now' },
-    { id: 2, name: 'Editor Sarah', email: 'sarah@tineghir.ma', role: 'Editor', status: 'Active', lastActive: '2 hours ago' },
-    { id: 3, name: 'Guest Guide', email: 'guide@tineghir.ma', role: 'Viewer', status: 'Inactive', lastActive: '3 days ago' }
-];
+// Global state
+let currentUser = null;
 
 // Login Handling
-document.getElementById('login-form').addEventListener('submit', (e) => {
+document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = e.target.querySelector('button');
+    const emailInput = e.target.querySelector('input[type="email"]');
+    const passwordInput = e.target.querySelector('input[type="password"]');
+    
     const originalText = btn.innerText;
-    
     btn.innerText = 'Verifying...';
-    
-    // Simulate API call
-    setTimeout(() => {
-        document.getElementById('login-screen').classList.add('hidden');
-        document.getElementById('admin-layout').classList.remove('hidden');
-        initDashboard();
-    }, 800);
+    btn.disabled = true;
+
+    try {
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                email: emailInput.value,
+                password: passwordInput.value
+            })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            currentUser = data.user;
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('admin-layout').classList.remove('hidden');
+            initDashboard();
+        } else {
+            alert(data.error || 'Login failed');
+        }
+    } catch (error) {
+        console.error('Login error:', error);
+        alert('Connection error. Is the server running?');
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
 });
 
 document.getElementById('logout-btn').addEventListener('click', () => {
@@ -48,6 +68,7 @@ window.showTab = function(tabName) {
     const titles = {
         'dashboard': 'Dashboard',
         'content': 'Content Editor',
+        'attractions': 'Manage Attractions',
         'users': 'User Management'
     };
     document.getElementById('page-title').innerText = titles[tabName];
@@ -57,10 +78,11 @@ window.showTab = function(tabName) {
 function initDashboard() {
     initCharts();
     loadContentValues();
-    renderUsers();
+    loadAdminAttractions();
+    loadUsers();
 }
 
-// Chart.js Setup
+// Chart.js Setup (Keep static for now, or fetch real stats if implemented)
 function initCharts() {
     const ctx1 = document.getElementById('trafficChart').getContext('2d');
     new Chart(ctx1, {
@@ -103,82 +125,126 @@ function initCharts() {
     });
 }
 
-// Content Editor Logic
-function loadContentValues() {
-    // Try to load from localStorage, else use defaults mock
-    const savedConfig = JSON.parse(localStorage.getItem('siteConfig')) || {
-        hero_title: 'Tineghir',
-        hero_subtitle: 'Gateway to the Majestic Todra Gorge',
-        about_description: 'Nestled at the foot of the High Atlas Mountains...'
-    };
+// --- Content Editor Logic ---
 
-    document.getElementById('edit-hero-title').value = savedConfig.hero_title;
-    document.getElementById('edit-hero-subtitle').value = savedConfig.hero_subtitle;
-    document.getElementById('edit-about-desc').value = savedConfig.about_description;
-    
-    // Load saved image if exists
-    if(savedConfig.hero_image) {
-        const preview = document.getElementById('hero-preview');
-        const placeholder = document.getElementById('upload-placeholder');
-        preview.src = savedConfig.hero_image;
-        preview.classList.remove('hidden');
-        placeholder.classList.add('hidden');
+async function loadContentValues() {
+    try {
+        const response = await fetch('/api/content');
+        const config = await response.json();
+
+        if (config.hero_title) document.getElementById('edit-hero-title').value = config.hero_title;
+        if (config.hero_subtitle) document.getElementById('edit-hero-subtitle').value = config.hero_subtitle;
+        if (config.about_description) document.getElementById('edit-about-desc').value = config.about_description;
+        
+        // Load saved image if exists
+        if(config.hero_image) {
+            const preview = document.getElementById('hero-preview');
+            const placeholder = document.getElementById('upload-placeholder');
+            preview.src = config.hero_image;
+            preview.classList.remove('hidden');
+            placeholder.classList.add('hidden');
+        }
+    } catch (error) {
+        console.error('Error loading content:', error);
     }
 }
 
 // Image Upload Handler
-document.getElementById('hero-image-upload').addEventListener('change', function(e) {
+document.getElementById('hero-image-upload').addEventListener('change', async function(e) {
     const file = e.target.files[0];
     if (file) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
+        const formData = new FormData();
+        formData.append('image', file);
+
+        try {
+            // Show loading state
             const preview = document.getElementById('hero-preview');
             const placeholder = document.getElementById('upload-placeholder');
+            placeholder.innerHTML = '<span class="text-2xl animate-spin">⏳</span><p class="text-xs text-stone-500 mt-1">Uploading...</p>';
+            placeholder.classList.remove('hidden');
+            preview.classList.add('hidden');
+
+            const response = await fetch('/api/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) throw new Error('Upload failed');
+
+            const data = await response.json();
             
-            preview.src = e.target.result;
+            // Update preview
+            preview.src = data.filePath;
             preview.classList.remove('hidden');
             placeholder.classList.add('hidden');
             
-            // Store the base64 string in a temporary variable to be saved on submit
-            window.tempHeroImage = e.target.result;
+            // Store the server path to be saved on submit
+            window.tempHeroImage = data.filePath;
+
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            alert('Failed to upload image');
+            document.getElementById('upload-placeholder').innerHTML = '<span class="text-2xl">⚠️</span><p class="text-xs text-stone-500 mt-1">Error</p>';
         }
-        reader.readAsDataURL(file);
     }
 });
 
-document.getElementById('content-form').addEventListener('submit', (e) => {
+document.getElementById('content-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     
-    // Get existing config to merge
-    const existingConfig = JSON.parse(localStorage.getItem('siteConfig')) || {};
-
-    const newConfig = {
-        ...existingConfig,
+    const updates = {
         hero_title: document.getElementById('edit-hero-title').value,
         hero_subtitle: document.getElementById('edit-hero-subtitle').value,
-        about_description: document.getElementById('edit-about-desc').value,
-        // Save image if a new one was uploaded, otherwise keep existing
-        hero_image: window.tempHeroImage || existingConfig.hero_image
+        about_description: document.getElementById('edit-about-desc').value
     };
 
-    localStorage.setItem('siteConfig', JSON.stringify(newConfig));
-    
-    // Feedback
-    const btn = e.target.querySelector('button[type="submit"]');
-    const originalText = btn.innerText;
-    btn.innerText = 'Saved! ✅';
-    btn.classList.add('bg-green-600');
-    
-    setTimeout(() => {
-        btn.innerText = originalText;
-        btn.classList.remove('bg-green-600');
-    }, 2000);
+    // Only update image if changed
+    if (window.tempHeroImage) {
+        updates.hero_image = window.tempHeroImage;
+    }
+
+    try {
+        const response = await fetch('/api/content', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(updates)
+        });
+
+        if (response.ok) {
+            // Feedback
+            const btn = e.target.querySelector('button[type="submit"]');
+            const originalText = btn.innerText;
+            btn.innerText = 'Saved! ✅';
+            btn.classList.add('bg-green-600');
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.classList.remove('bg-green-600');
+            }, 2000);
+        } else {
+            alert('Failed to save content');
+        }
+    } catch (error) {
+        console.error('Error saving content:', error);
+        alert('Error saving content');
+    }
 });
 
-// User Management Logic
-function renderUsers() {
+// --- User Management Logic ---
+
+async function loadUsers() {
+    try {
+        const response = await fetch('/api/users');
+        const users = await response.json();
+        renderUsers(users);
+    } catch (error) {
+        console.error('Error loading users:', error);
+    }
+}
+
+function renderUsers(users) {
     const tbody = document.getElementById('users-table-body');
-    tbody.innerHTML = defaultUsers.map(user => `
+    tbody.innerHTML = users.map(user => `
         <tr class="hover:bg-stone-50 transition-colors">
             <td class="px-6 py-4">
                 <div class="flex items-center gap-3">
@@ -201,25 +267,169 @@ function renderUsers() {
                     ${user.status}
                 </span>
             </td>
-            <td class="px-6 py-4 text-stone-500 text-sm">${user.lastActive}</td>
+            <td class="px-6 py-4 text-stone-500 text-sm">
+                ${user.last_active ? new Date(user.last_active).toLocaleDateString() : 'Never'}
+            </td>
             <td class="px-6 py-4 text-right">
-                <button class="text-stone-400 hover:text-amber-600 mx-1">✏️</button>
                 <button onclick="deleteUser(${user.id})" class="text-stone-400 hover:text-red-600 mx-1">🗑️</button>
             </td>
         </tr>
     `).join('');
 }
 
-window.addNewUser = function() {
-    alert('Add User modal would open here.');
+window.addNewUser = async function() {
+    // Simple prompt-based creation for now (could be a modal)
+    const name = prompt("Enter Name:");
+    if (!name) return;
+    const email = prompt("Enter Email:");
+    if (!email) return;
+    const password = prompt("Enter Password:");
+    if (!password) return;
+    
+    try {
+        const response = await fetch('/api/users', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ name, email, password, role: 'Editor' })
+        });
+        
+        if (response.ok) {
+            loadUsers(); // Reload table
+        } else {
+            alert('Failed to add user');
+        }
+    } catch (error) {
+        console.error('Error adding user:', error);
+    }
 };
 
-window.deleteUser = function(id) {
+window.deleteUser = async function(id) {
     if(confirm('Delete this user?')) {
-        const index = defaultUsers.findIndex(u => u.id === id);
-        if (index > -1) {
-            defaultUsers.splice(index, 1);
-            renderUsers();
+        try {
+            const response = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                loadUsers(); // Reload table
+            } else {
+                alert('Failed to delete user');
+            }
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    }
+};
+
+// --- Attraction Management Logic ---
+
+async function loadAdminAttractions() {
+    try {
+        const response = await fetch('/api/attractions');
+        const attractions = await response.json();
+        
+        const grid = document.getElementById('admin-attractions-grid');
+        grid.innerHTML = attractions.map(attr => `
+            <div class="bg-white rounded-lg shadow-sm border border-stone-200 overflow-hidden group relative">
+                <div class="h-40 bg-stone-100 relative">
+                    ${attr.image 
+                        ? `<img src="${attr.image}" class="w-full h-full object-cover">`
+                        : `<div class="w-full h-full flex items-center justify-center text-3xl">📷</div>`
+                    }
+                    <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                        <button onclick="deleteAttraction(${attr.id})" class="bg-red-600 text-white p-2 rounded-full hover:bg-red-500 transition-colors" title="Delete">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <h4 class="font-bold text-stone-800">${attr.title}</h4>
+                        ${attr.tag ? `<span class="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">${attr.tag}</span>` : ''}
+                    </div>
+                    <p class="text-sm text-stone-500 line-clamp-2">${attr.description}</p>
+                </div>
+            </div>
+        `).join('');
+    } catch (error) {
+        console.error('Error loading attractions:', error);
+    }
+}
+
+window.addNewAttraction = function() {
+    document.getElementById('attraction-modal').classList.remove('hidden');
+};
+
+window.closeAttractionModal = function() {
+    document.getElementById('attraction-modal').classList.add('hidden');
+    document.getElementById('add-attraction-form').reset();
+};
+
+document.getElementById('add-attraction-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const btn = e.target.querySelector('button[type="submit"]');
+    const originalText = btn.innerText;
+    
+    btn.innerText = 'Saving...';
+    btn.disabled = true;
+
+    try {
+        let imagePath = '';
+        const imageFile = formData.get('image');
+        
+        // Upload image if present
+        if (imageFile && imageFile.size > 0) {
+            const uploadData = new FormData();
+            uploadData.append('image', imageFile);
+            
+            const uploadRes = await fetch('/api/upload', {
+                method: 'POST',
+                body: uploadData
+            });
+            
+            if (!uploadRes.ok) throw new Error('Image upload failed');
+            const uploadJson = await uploadRes.json();
+            imagePath = uploadJson.filePath;
+        }
+
+        // Add Attraction
+        const attractionData = {
+            title: formData.get('title'),
+            description: formData.get('description'),
+            tag: formData.get('tag'),
+            image: imagePath
+        };
+
+        const response = await fetch('/api/attractions', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(attractionData)
+        });
+        
+        if (response.ok) {
+            loadAdminAttractions();
+            closeAttractionModal();
+        } else {
+            alert('Failed to add attraction');
+        }
+    } catch (error) {
+        console.error('Error adding attraction:', error);
+        alert('Error adding attraction');
+    } finally {
+        btn.innerText = originalText;
+        btn.disabled = false;
+    }
+});
+
+window.deleteAttraction = async function(id) {
+    if(confirm('Delete this attraction?')) {
+        try {
+            const response = await fetch(`/api/attractions/${id}`, { method: 'DELETE' });
+            if (response.ok) {
+                loadAdminAttractions();
+            } else {
+                alert('Failed to delete attraction');
+            }
+        } catch (error) {
+            console.error('Error deleting attraction:', error);
         }
     }
 };
