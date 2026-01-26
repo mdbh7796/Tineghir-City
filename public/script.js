@@ -7,8 +7,6 @@ async function loadContent() {
     applyContent(config);
   } catch (error) {
     console.warn('Using default content due to error:', error);
-    // Defaults are already in the HTML, so we might just leave them be
-    // or apply a fallback object here if strictly necessary.
   }
 }
 
@@ -107,35 +105,19 @@ function initLightbox() {
   const lightboxImg = document.getElementById('lightbox-img');
   const closeBtn = document.getElementById('lightbox-close');
   
-  // Select all elements that should trigger lightbox (updated to be broader)
-  // We look for elements inside the gallery section specifically, or marked with .lightbox-trigger
-  const galleryItems = document.querySelectorAll('#gallery .rounded-2xl, .lightbox-trigger');
+  // Select all elements that should trigger lightbox
+  const galleryItems = document.querySelectorAll('.lightbox-trigger');
 
   galleryItems.forEach(item => {
     item.style.cursor = 'pointer';
     item.addEventListener('click', () => {
-      // Find an image or SVG inside the clicked item
-      // For placeholder SVGs that are backgrounds, this might need tweaking, 
-      // but for now we look for <img> tags first.
-      
-      // Check for image tag
-      const img = item.querySelector('img');
-      let src = '';
-      
-      if (img) {
-         src = img.src;
-      } else {
-         // Fallback for CSS background gradients/SVGs in the gallery
-         // Since we don't have real images there yet, we'll use a placeholder logic
-         // checking the text content to map to our new SVGs.
-         const text = item.innerText.toLowerCase();
-         if (text.includes('todra')) src = 'images/todra-gorge.svg';
-         else if (text.includes('palm')) src = 'images/tineghir-palm-grove.svg';
-         else if (text.includes('crafts')) src = 'images/ait-benhaddou.svg'; // Reuse kasbah/craft style
-         else if (text.includes('water')) src = 'images/todra-gorge.svg'; // Reuse gorge
-         else if (text.includes('desert')) src = 'images/merzouga-dunes.svg';
-         else if (text.includes('kasbah')) src = 'images/ait-benhaddou.svg';
-         else return; // Don't open if we can't determine image
+      // Use explicit data attribute first (Robust)
+      let src = item.getAttribute('data-lightbox-src');
+
+      // Fallback: look for image tag
+      if (!src) {
+         const img = item.querySelector('img');
+         if (img) src = img.src;
       }
 
       if (src) {

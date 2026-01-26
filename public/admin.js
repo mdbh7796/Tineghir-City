@@ -1,6 +1,28 @@
 // Global state
 let currentUser = null;
 
+// Check session on load
+document.addEventListener('DOMContentLoaded', checkSession);
+
+async function checkSession() {
+    try {
+        const response = await fetch('/api/me');
+        if (response.ok) {
+            const data = await response.json();
+            currentUser = data.user;
+            showDashboard();
+        }
+    } catch (error) {
+        console.log('Not logged in');
+    }
+}
+
+function showDashboard() {
+    document.getElementById('login-screen').classList.add('hidden');
+    document.getElementById('admin-layout').classList.remove('hidden');
+    initDashboard();
+}
+
 // Login Handling
 document.getElementById('login-form').addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -26,9 +48,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
         if (response.ok) {
             currentUser = data.user;
-            document.getElementById('login-screen').classList.add('hidden');
-            document.getElementById('admin-layout').classList.remove('hidden');
-            initDashboard();
+            showDashboard();
         } else {
             alert(data.error || 'Login failed');
         }
@@ -41,9 +61,15 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     }
 });
 
-document.getElementById('logout-btn').addEventListener('click', () => {
+document.getElementById('logout-btn').addEventListener('click', async () => {
     if(confirm('Are you sure you want to sign out?')) {
-        window.location.reload();
+        try {
+            await fetch('/api/logout', { method: 'POST' });
+            window.location.reload();
+        } catch (error) {
+            console.error('Logout failed:', error);
+            window.location.reload(); // Force reload anyway
+        }
     }
 });
 
@@ -130,6 +156,7 @@ function initCharts() {
 async function loadContentValues() {
     try {
         const response = await fetch('/api/content');
+        if (response.status === 401) return window.location.reload();
         const config = await response.json();
 
         if (config.hero_title) document.getElementById('edit-hero-title').value = config.hero_title;
@@ -169,6 +196,10 @@ document.getElementById('hero-image-upload').addEventListener('change', async fu
                 body: formData
             });
 
+            if (response.status === 401) {
+                alert('Session expired');
+                return window.location.reload();
+            }
             if (!response.ok) throw new Error('Upload failed');
 
             const data = await response.json();
@@ -210,6 +241,11 @@ document.getElementById('content-form').addEventListener('submit', async (e) => 
             body: JSON.stringify(updates)
         });
 
+        if (response.status === 401) {
+             alert('Session expired');
+             return window.location.reload();
+        }
+
         if (response.ok) {
             // Feedback
             const btn = e.target.querySelector('button[type="submit"]');
@@ -235,6 +271,7 @@ document.getElementById('content-form').addEventListener('submit', async (e) => 
 async function loadUsers() {
     try {
         const response = await fetch('/api/users');
+        if (response.status === 401) return; 
         const users = await response.json();
         renderUsers(users);
     } catch (error) {
@@ -277,36 +314,50 @@ function renderUsers(users) {
     `).join('');
 }
 
-window.addNewUser = async function() {
-    // Simple prompt-based creation for now (could be a modal)
-    const name = prompt("Enter Name:");
-    if (!name) return;
-    const email = prompt("Enter Email:");
-    if (!email) return;
-    const password = prompt("Enter Password:");
-    if (!password) return;
-    
+// User Modal Logic
+window.addNewUser = function() {
+    document.getElementById('user-modal').classList.remove('hidden');
+};
+
+window.closeUserModal = function() {
+    document.getElementById('user-modal').classList.add('hidden');
+    document.getElementById('add-user-form').reset();
+};
+
+document.getElementById('add-user-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    data.role = 'Editor'; // Default role
+
     try {
         const response = await fetch('/api/users', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name, email, password, role: 'Editor' })
+            body: JSON.stringify(data)
         });
         
+        if (response.status === 401) {
+            alert('Session expired');
+            return window.location.reload();
+        }
+
         if (response.ok) {
             loadUsers(); // Reload table
+            closeUserModal();
         } else {
             alert('Failed to add user');
         }
     } catch (error) {
         console.error('Error adding user:', error);
     }
-};
+});
 
 window.deleteUser = async function(id) {
     if(confirm('Delete this user?')) {
         try {
             const response = await fetch(`/api/users/${id}`, { method: 'DELETE' });
+            if (response.status === 401) return window.location.reload();
             if (response.ok) {
                 loadUsers(); // Reload table
             } else {
@@ -322,7 +373,7 @@ window.deleteUser = async function(id) {
 
 async function loadAdminAttractions() {
     try {
-        const response = await fetch('/api/attractions');
+        const response = await fetch('/api/attractions'); // Public endpoint, but safe to call
         const attractions = await response.json();
         
         const grid = document.getElementById('admin-attractions-grid');
@@ -385,6 +436,10 @@ document.getElementById('add-attraction-form').addEventListener('submit', async 
                 body: uploadData
             });
             
+            if (uploadRes.status === 401) {
+                alert('Session expired');
+                return window.location.reload();
+            }
             if (!uploadRes.ok) throw new Error('Image upload failed');
             const uploadJson = await uploadRes.json();
             imagePath = uploadJson.filePath;
@@ -404,6 +459,8 @@ document.getElementById('add-attraction-form').addEventListener('submit', async 
             body: JSON.stringify(attractionData)
         });
         
+        if (response.status === 401) return window.location.reload();
+
         if (response.ok) {
             loadAdminAttractions();
             closeAttractionModal();
@@ -423,6 +480,7 @@ window.deleteAttraction = async function(id) {
     if(confirm('Delete this attraction?')) {
         try {
             const response = await fetch(`/api/attractions/${id}`, { method: 'DELETE' });
+            if (response.status === 401) return window.location.reload();
             if (response.ok) {
                 loadAdminAttractions();
             } else {
