@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node server.js",
     "build": "tailwindcss -i ./src/input.css -o ./public/style.css",
-    "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch"
+    "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles"
   },
   "keywords": [],
   "author": "",
@@ -14,14 +15,21 @@
   "type": "commonjs",
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
-    "tailwindcss": "^4.1.18"
+    "cross-env": "^10.1.0",
+    "jest": "^30.2.0",
+    "supertest": "^7.2.2",
+    "tailwindcss": "^4.1.18",
+    "winston": "^3.19.0"
   },
   "dependencies": {
     "bcrypt": "^6.0.0",
     "body-parser": "^2.2.2",
     "cors": "^2.8.6",
+    "dotenv": "^17.2.3",
     "express": "^5.2.1",
+    "express-rate-limit": "^8.2.1",
     "express-session": "^1.19.0",
+    "helmet": "^8.1.0",
     "multer": "^2.0.2",
     "sqlite3": "^5.1.7",
     "uuid": "^13.0.0"

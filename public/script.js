@@ -162,22 +162,60 @@ function initLightbox() {
 function initContactForm() {
   const forms = document.querySelectorAll('form');
   forms.forEach(form => {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const btn = form.querySelector('button[type="submit"]');
       const originalText = btn.textContent;
       
-      btn.textContent = 'Message Sent! ✅';
-      btn.classList.add('bg-green-600');
-      btn.classList.remove('bg-amber-600', 'hover:bg-amber-500');
+      // Get form data
+      const nameInput = form.querySelector('input[type="text"]');
+      const emailInput = form.querySelector('input[type="email"]');
+      const messageInput = form.querySelector('textarea');
       
-      setTimeout(() => {
-        btn.textContent = originalText;
-        btn.classList.remove('bg-green-600');
-        btn.classList.add('bg-amber-600', 'hover:bg-amber-500');
-        form.reset();
-      }, 3000);
+      if (!nameInput || !emailInput || !messageInput) return;
+
+      const formData = {
+          name: nameInput.value,
+          email: emailInput.value,
+          message: messageInput.value
+      };
+
+      btn.textContent = 'Sending...';
+      btn.disabled = true;
+
+      try {
+          const response = await fetch('/api/messages', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData)
+          });
+
+          if (response.ok) {
+              btn.textContent = 'Message Sent! ✅';
+              btn.classList.add('bg-green-600');
+              btn.classList.remove('bg-amber-600', 'hover:bg-amber-500');
+              form.reset();
+              
+              setTimeout(() => {
+                  btn.textContent = originalText;
+                  btn.classList.remove('bg-green-600');
+                  btn.classList.add('bg-amber-600', 'hover:bg-amber-500');
+                  btn.disabled = false;
+              }, 3000);
+          } else {
+              throw new Error('Failed to send');
+          }
+      } catch (error) {
+          console.error('Error sending message:', error);
+          btn.textContent = 'Error. Try again.';
+          btn.classList.add('bg-red-600');
+          setTimeout(() => {
+              btn.textContent = originalText;
+              btn.classList.remove('bg-red-600');
+              btn.disabled = false;
+          }, 3000);
+      }
     });
   });
 }
