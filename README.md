@@ -1,7 +1,7 @@
 # Tineghir City Website
 
 ## Description
-This project is a comprehensive tourism and cultural platform dedicated to Tineghir, a stunning oasis city in eastern Morocco. It serves as a digital gateway for travelers and locals alike to explore the region's unique heritage and natural wonders.
+A static tourism and cultural website dedicated to Tineghir, a stunning oasis city in eastern Morocco. It serves as a digital gateway for travelers and locals alike to explore the region's unique heritage and natural wonders.
 
 ## What is this website about?
 The website is designed to promote Tineghir as a premier travel destination by highlighting:
@@ -18,7 +18,7 @@ The website is designed to promote Tineghir as a premier travel destination by h
    cd Tineghir-City
    ```
 
-2. **Install dependencies:**
+2. **Install dependencies (for Tailwind CSS only):**
    ```bash
    npm install
    ```
@@ -30,9 +30,16 @@ The website is designed to promote Tineghir as a premier travel destination by h
 
 ## Usage
 
-*   **View the Website:** Open `index.html` in any modern web browser.
-*   **Admin Panel:** Access `admin.html` to manage site content.
-*   **Development:** Use `npm run watch` to automatically compile styles during development.
+*   **View the Website:** Open `public/index.html` in any modern web browser, or serve the `public/` folder with any static file server.
+*   **Development:** Use `npm run watch` to automatically compile Tailwind styles during development.
+
+## Deployment
+
+This is a static website. Simply deploy the `public/` folder to any static hosting service:
+*   GitHub Pages
+*   Netlify
+*   Vercel
+*   Any web server
 
 ## Contributing
 

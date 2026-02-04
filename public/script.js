@@ -1,68 +1,3 @@
-// Fetch Content from API
-async function loadContent() {
-  try {
-    const response = await fetch('/api/content');
-    if (!response.ok) throw new Error('Failed to load content');
-    const config = await response.json();
-    applyContent(config);
-  } catch (error) {
-    console.warn('Using default content due to error:', error);
-  }
-}
-
-function applyContent(config) {
-  if (config.hero_title) document.getElementById('hero-title').textContent = config.hero_title;
-  if (config.hero_subtitle) document.getElementById('hero-subtitle').textContent = config.hero_subtitle;
-  if (config.about_description) document.getElementById('about-description').textContent = config.about_description;
-  if (config.footer_text) document.getElementById('footer-text').textContent = config.footer_text;
-  
-  // Hero Image (if stored as base64 or URL)
-  if (config.hero_image) {
-      // Find the hero image element - currently it is the first img in the hero section
-      const heroImg = document.querySelector('#home img');
-      if(heroImg) heroImg.src = config.hero_image;
-  }
-}
-
-async function loadAttractions() {
-    try {
-        const response = await fetch('/api/attractions');
-        if (!response.ok) throw new Error('Failed to load attractions');
-        const attractions = await response.json();
-        
-        const grid = document.getElementById('attractions-grid');
-        if (!grid) return;
-        
-        grid.innerHTML = attractions.map((attr, index) => `
-          <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-${(index % 3) * 100}">
-            <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              ${attr.image 
-                ? `<img src="${attr.image}" alt="${attr.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">`
-                : `<div class="text-4xl">📷</div>`
-              }
-              <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
-              ${attr.tag ? `<span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">${attr.tag}</span>` : ''}
-            </div>
-            <div class="p-6">
-              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">${attr.title}</h3>
-              <p class="text-stone-600 mb-4">${attr.description}</p>
-              <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
-                <span>Explore</span>
-                <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                </svg>
-              </div>
-            </div>
-          </div>
-        `).join('');
-        
-        // Re-init observer for new elements
-        initScrollAnimations();
-        
-    } catch (error) {
-        console.error('Error loading attractions:', error);
-    }
-}
 
 // Mobile menu toggle
 document.getElementById('mobile-menu-btn').addEventListener('click', () => {
@@ -158,64 +93,32 @@ function initLightbox() {
   });
 }
 
-// 3. Contact Form Handling
+// 3. Contact Form Handling (mailto fallback for static site)
 function initContactForm() {
   const forms = document.querySelectorAll('form');
   forms.forEach(form => {
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', (e) => {
       e.preventDefault();
       
-      const btn = form.querySelector('button[type="submit"]');
-      const originalText = btn.textContent;
-      
-      // Get form data
       const nameInput = form.querySelector('input[type="text"]');
       const emailInput = form.querySelector('input[type="email"]');
       const messageInput = form.querySelector('textarea');
       
       if (!nameInput || !emailInput || !messageInput) return;
 
-      const formData = {
-          name: nameInput.value,
-          email: emailInput.value,
-          message: messageInput.value
-      };
-
-      btn.textContent = 'Sending...';
-      btn.disabled = true;
-
-      try {
-          const response = await fetch('/api/messages', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(formData)
-          });
-
-          if (response.ok) {
-              btn.textContent = 'Message Sent! ✅';
-              btn.classList.add('bg-green-600');
-              btn.classList.remove('bg-amber-600', 'hover:bg-amber-500');
-              form.reset();
-              
-              setTimeout(() => {
-                  btn.textContent = originalText;
-                  btn.classList.remove('bg-green-600');
-                  btn.classList.add('bg-amber-600', 'hover:bg-amber-500');
-                  btn.disabled = false;
-              }, 3000);
-          } else {
-              throw new Error('Failed to send');
-          }
-      } catch (error) {
-          console.error('Error sending message:', error);
-          btn.textContent = 'Error. Try again.';
-          btn.classList.add('bg-red-600');
-          setTimeout(() => {
-              btn.textContent = originalText;
-              btn.classList.remove('bg-red-600');
-              btn.disabled = false;
-          }, 3000);
-      }
+      const subject = encodeURIComponent(`Message from ${nameInput.value}`);
+      const body = encodeURIComponent(`Name: ${nameInput.value}\nEmail: ${emailInput.value}\n\nMessage:\n${messageInput.value}`);
+      
+      window.location.href = `mailto:info@tineghir.ma?subject=${subject}&body=${body}`;
+      
+      const btn = form.querySelector('button[type="submit"]');
+      const originalText = btn.textContent;
+      btn.textContent = 'Opening email client...';
+      
+      setTimeout(() => {
+        btn.textContent = originalText;
+        form.reset();
+      }, 2000);
     });
   });
 }
@@ -242,8 +145,6 @@ function initMap() {
 
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-  loadContent();
-  loadAttractions();
   initScrollAnimations();
   initLightbox();
   initContactForm();
