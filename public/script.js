@@ -2,13 +2,13 @@
 // Mobile menu toggle
 document.getElementById('mobile-menu-btn').addEventListener('click', () => {
   const menu = document.getElementById('mobile-menu');
-  menu.classList.toggle('active');
+  menu.classList.toggle('hidden');
 });
 
 // Close mobile menu when clicking a link
 document.querySelectorAll('#mobile-menu a').forEach(link => {
   link.addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.remove('active');
+    document.getElementById('mobile-menu').classList.add('hidden');
   });
 });
 

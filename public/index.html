@@ -102,7 +102,7 @@
       <!-- Mobile Menu -->
       <div
         id="mobile-menu"
-        class="md:hidden bg-stone-900/95 border-t border-amber-700/30"
+        class="md:hidden bg-stone-900/95 border-t border-amber-700/30 hidden"
       >
         <div class="px-4 py-4 space-y-3">
           <a
@@ -147,7 +147,7 @@
       "
     >
       <!-- Hero Background Image -->
-      <img src="images/main%20picture.jpg" alt="Tineghir Landscape" class="absolute inset-0 w-full h-full object-cover blur-sm opacity-100 pointer-events-none">
+      <img src="images/hero-tineghir.jpg" alt="Tineghir Landscape" class="absolute inset-0 w-full h-full object-cover blur-[2px] opacity-100 pointer-events-none">
       
       <!-- Dark Overlay Layer for Contrast -->
       <div class="absolute inset-0 bg-black/70 pointer-events-none"></div>
@@ -414,7 +414,7 @@
           <!-- Todra Gorge -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/todra-gorge.jpg" alt="Todra Gorge" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">
+              <img src="images/todra-gorge.jpg" alt="Todra Gorge" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Must See</span>
             </div>
@@ -432,7 +432,7 @@
           <!-- Palm Grove -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-100">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/tineghir-palm-grove.jpg" alt="Palm Grove" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">
+              <img src="images/tineghir-palm-grove.jpg" alt="Palm Grove" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Nature</span>
             </div>
@@ -450,7 +450,7 @@
           <!-- Merzouga Dunes -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-200">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/merzouga-dunes.jpg" alt="Merzouga Dunes" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">
+              <img src="images/merzouga-dunes.jpg" alt="Merzouga Dunes" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Adventure</span>
             </div>
@@ -468,7 +468,7 @@
           <!-- Ait Benhaddou -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/ait-benhaddou.jpg" alt="Ait Benhaddou" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">
+              <img src="images/ait-benhaddou.jpg" alt="Ait Benhaddou" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">UNESCO</span>
             </div>
@@ -486,7 +486,7 @@
           <!-- Local Cuisine -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-100">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/moroccan-tagine.jpg" alt="Moroccan Cuisine" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">
+              <img src="images/moroccan-tagine.jpg" alt="Moroccan Cuisine" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Culture</span>
             </div>
@@ -504,7 +504,7 @@
           <!-- Traditional Souks -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-200">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/gallery-crafts.jpg" alt="Traditional Souks" class="w-full h-full object-cover transform group-hover:scale-110 transition-duration-700">
+              <img src="images/gallery-crafts.jpg" alt="Traditional Souks" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Shopping</span>
             </div>
@@ -865,7 +865,7 @@
               <div class="text-center">
                 <p class="text-amber-200 mb-4">Ready to explore?</p>
                 <a
-                  href="#"
+                  href="mailto:info@tineghir.ma?subject=Trip%20Planning%20Inquiry"
                   class="inline-block bg-white text-amber-700 px-8 py-4 rounded-full font-semibold text-lg hover:bg-amber-50 transition-all transform hover:scale-105 shadow-lg"
                 >
                   Start Planning →
@@ -951,16 +951,19 @@
                 <input
                   type="text"
                   placeholder="Name"
+                  required
                   class="w-full bg-stone-900/50 border border-stone-600 text-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all placeholder-stone-500"
                 />
                 <input
                   type="email"
                   placeholder="Email"
+                  required
                   class="w-full bg-stone-900/50 border border-stone-600 text-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all placeholder-stone-500"
                 />
                 <textarea
                   placeholder="How can we help you?"
                   rows="3"
+                  required
                   class="w-full bg-stone-900/50 border border-stone-600 text-stone-200 rounded-lg px-4 py-3 focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all placeholder-stone-500 resize-none"
                 ></textarea>
                 <button
@@ -972,7 +975,7 @@
               </form>
             </div>
             
-            <div class="mt-6 space-y-3 text-stone-400 text-sm">
+            <ul class="mt-6 space-y-3 text-stone-400 text-sm">
                 <li class="flex items-start gap-3">
                   <span>📍</span>
                   <span>Center Ville, Tineghir, Morocco</span>
@@ -981,14 +984,14 @@
                   <span>📧</span>
                   <a href="mailto:info@tineghir.ma" class="hover:text-amber-400 transition-colors">info@tineghir.ma</a>
                 </li>
-            </div>
+            </ul>
           </div>
         </div>
         <div
           class="border-t border-stone-800 pt-8 text-center text-stone-500 text-sm"
         >
           <p>
-            © 2024 Tineghir Tourism. All rights reserved. Made with ❤️ in
+            © 2026 Tineghir Tourism. All rights reserved. Made with ❤️ in
             Morocco
           </p>
         </div>
