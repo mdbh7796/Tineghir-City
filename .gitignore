@@ -3,3 +3,15 @@ node_modules
 tineghir.db
 public/uploads/*
 !public/uploads/.gitkeep
+
+# Android / Gradle (Capacitor) — keep android/ source, ignore build outputs
+android/.gradle/
+android/build/
+android/app/build/
+android/app/release/
+android/capacitor-cordova-android-plugins/build/
+*.apk
+*.aab
+*.keystore
+*.jks
+local.properties

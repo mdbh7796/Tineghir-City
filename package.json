@@ -2,15 +2,33 @@
   "name": "tineghir-website",
   "version": "1.0.0",
   "description": "Static tourism website for Tineghir, Morocco",
+  "type": "module",
   "scripts": {
     "build": "tailwindcss -i ./src/input.css -o ./public/style.css",
-    "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch"
+    "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",
+    "cap:sync": "npm run build && npx cap sync android",
+    "android:sync": "npm run build && npx cap sync android",
+    "android:open": "npm run android:sync && npx cap open android",
+    "android:build-debug": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug",
+    "android:build-debug-win": "npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
+    "android:build-release": "npm run build && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "android:build-release-win": "npm run build && npx cap sync android && cd android && gradlew.bat bundleRelease"
   },
-  "keywords": ["tineghir", "morocco", "tourism"],
+  "keywords": [
+    "tineghir",
+    "morocco",
+    "tourism"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.1.18",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@capacitor/android": "^8.5.3",
+    "@capacitor/cli": "^8.5.3",
+    "@capacitor/core": "^8.5.3"
   }
 }

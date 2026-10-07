@@ -41,6 +41,33 @@ This is a static website. Simply deploy the `public/` folder to any static hosti
 *   Vercel
 *   Any web server
 
+## Android app (Capacitor)
+
+The site is wrapped as a native Android app with [Capacitor](https://capacitorjs.com/):
+*   App ID: `com.tineghir.city`, name: `Tineghir City`
+*   Web assets: `public/` (built via `npm run build`), config: `capacitor.config.ts`
+*   Native project: `android/` (committed, build outputs ignored)
+
+Prerequisites for local builds: Node 22+, Java 21, Android SDK
+(`cmdline-tools`, `platforms;android-36`, `build-tools;36.0.0`),
+`ANDROID_HOME` set, licenses accepted (`sdkmanager --licenses`).
+
+```bash
+npm install
+npm run android:sync          # build Tailwind + copy public/ into android/
+npm run android:build-debug   # macOS/Linux -> android/app/build/outputs/apk/debug/app-debug.apk
+npm run android:build-debug-win   # Windows -> same APK via gradlew.bat
+npm run android:build-release # -> android/app/build/outputs/bundle/release/app-release.aab (unsigned)
+```
+
+No SDK installed? Push to `main` (or run the workflow manually) and grab the
+APK/AAB from the **Android build (Capacitor)** GitHub Actions artifacts.
+
+For Play Store release, create a keystore once and configure
+`android/app/build.gradle` signing, then build the AAB and upload it in
+Play Console. To customize the launcher icon/splash, run
+`npx @capacitor/assets generate` with your source icon.
+
 ## Contributing
 
 1. Fork the repository.
