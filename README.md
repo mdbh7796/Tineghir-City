@@ -48,7 +48,7 @@ The site is wrapped as a native Android app with [Capacitor](https://capacitorjs
 *   Web assets: `public/` (built via `npm run build`), config: `capacitor.config.ts`
 *   Native project: `android/` (committed, build outputs ignored)
 
-Prerequisites for local builds: Node 20+, Java 17, Android SDK
+Prerequisites for local builds: Node 22+, Java 17, Android SDK
 (`cmdline-tools`, `platforms;android-36`, `build-tools;36.0.0`),
 `ANDROID_HOME` set, licenses accepted (`sdkmanager --licenses`).
 
