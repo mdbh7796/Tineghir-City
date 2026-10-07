@@ -22,13 +22,17 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@tailwindcss/cli": "^4.1.18",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.1.18",
     "typescript": "^7.0.2"
   },
   "dependencies": {
     "@capacitor/android": "^8.5.3",
     "@capacitor/cli": "^8.5.3",
-    "@capacitor/core": "^8.5.3"
+    "@capacitor/core": "^8.5.3",
+    "@capacitor/geolocation": "^8.2.3",
+    "@capacitor/share": "^8.0.3"
   }
 }
