@@ -127,6 +127,104 @@ function initMap() {
         <p style="margin:0;font-size:13px;color:#555">${a.desc}</p>
       `);
   });
+
+  // 'Locate me' control (native GPS via Capacitor, browser fallback)
+  const locateBtn = L.control({ position: 'topright' });
+  locateBtn.onAdd = () => {
+    const btn = L.DomUtil.create('button', 'leaflet-locate-btn');
+    btn.type = 'button';
+    btn.title = 'Show my location';
+    btn.textContent = '📍';
+    btn.style.cssText = 'width:34px;height:34px;background:#fff;border:2px solid rgba(0,0,0,0.2);border-radius:4px;cursor:pointer;font-size:18px;line-height:30px;';
+    L.DomEvent.on(btn, 'click', async (e) => {
+      L.DomEvent.stopPropagation(e);
+      btn.textContent = '…';
+      try {
+        const pos = await getPosition();
+        const { latitude, longitude } = pos.coords;
+        map.setView([latitude, longitude], 14);
+        L.marker([latitude, longitude]).addTo(map).bindPopup('You are here').openPopup();
+        btn.textContent = '📍';
+      } catch (err) {
+        btn.textContent = '📍';
+        btn.title = err && err.message === 'denied'
+          ? 'Location permission denied — enable it in system settings'
+          : 'Could not get your location';
+      }
+    });
+    return btn;
+  };
+  locateBtn.addTo(map);
+}
+
+// Public site URL shared from attraction cards (never a local/dev URL)
+const SITE_URL = 'https://www.tineghir.ma';
+
+// Unified position lookup: Capacitor native GPS in the app, browser API on web
+async function getPosition() {
+  const Geo = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Geolocation;
+  if (Geo) {
+    let perm = await Geo.checkPermissions();
+    if (perm.location !== 'granted' && perm.coarseLocation !== 'granted') {
+      perm = await Geo.requestPermissions();
+    }
+    if (perm.location === 'granted' || perm.coarseLocation === 'granted') {
+      return await Geo.getCurrentPosition({ enableHighAccuracy: true, timeout: 10000 });
+    }
+    throw new Error('denied');
+  }
+  if (!('geolocation' in navigator)) throw new Error('unsupported');
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, (e) => {
+      reject(new Error(e.code === e.PERMISSION_DENIED ? 'denied' : 'unavailable'));
+    }, { timeout: 10000 });
+  });
+}
+
+// 4. Share buttons on attraction cards (native sheet via Capacitor, Web Share API, clipboard fallback)
+function initShareButtons() {
+  const cards = document.querySelectorAll('#attractions-grid > div');
+  cards.forEach(card => {
+    const nameEl = card.querySelector('h3');
+    const descEl = card.querySelector('.p-6 p');
+    const name = nameEl ? nameEl.textContent.trim() : 'Tineghir';
+    const desc = descEl ? descEl.textContent.trim() : 'Discover Tineghir, Morocco.';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'share-btn';
+    btn.textContent = 'Share ⤴';
+    btn.style.cssText = 'margin-top:12px;font-size:14px;font-weight:500;color:#B45309;background:none;border:none;cursor:pointer;padding:0;';
+    btn.addEventListener('click', () => shareAttraction(btn, name, desc));
+    const container = card.querySelector('.p-6');
+    if (container) container.appendChild(btn);
+  });
+}
+
+async function shareAttraction(btn, name, desc) {
+  const data = { title: `${name} — Tineghir`, text: desc, url: SITE_URL };
+  const SharePlugin = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.Share;
+  try {
+    if (SharePlugin && typeof SharePlugin.share === 'function') {
+      await SharePlugin.share(data);
+      return;
+    }
+    if (navigator.share) {
+      await navigator.share(data);
+      return;
+    }
+    throw new Error('no-share');
+  } catch (err) {
+    // User dismissal is not an error; otherwise fall back to clipboard
+    if (err && (err.name === 'AbortError' || /cancel/i.test(err.message || ''))) return;
+    try {
+      await navigator.clipboard.writeText(`${data.title}\n${data.text}\n${data.url}`);
+      const original = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => { btn.textContent = original; }, 1500);
+    } catch (_) {
+      btn.textContent = 'Share unavailable';
+    }
+  }
 }
 
 // Initialize everything when DOM is ready
@@ -134,4 +232,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initLightbox();
   initMap();
+  initShareButtons();
 });
