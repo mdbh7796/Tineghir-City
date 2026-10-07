@@ -8,9 +8,11 @@
     "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",
     "cap:sync": "npm run build && npx cap sync android",
     "android:sync": "npm run build && npx cap sync android",
-    "android:open": "npx cap open android",
+    "android:open": "npm run android:sync && npx cap open android",
     "android:build-debug": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug",
-    "android:build-release": "npm run build && npx cap sync android && cd android && ./gradlew bundleRelease"
+    "android:build-debug-win": "npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
+    "android:build-release": "npm run build && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "android:build-release-win": "npm run build && npx cap sync android && cd android && gradlew.bat bundleRelease"
   },
   "keywords": [
     "tineghir",

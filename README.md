@@ -49,13 +49,14 @@ The site is wrapped as a native Android app with [Capacitor](https://capacitorjs
 *   Native project: `android/` (committed, build outputs ignored)
 
 Prerequisites for local builds: Node 20+, Java 17, Android SDK
-(`cmdline-tools`, `platforms;android-34`, `build-tools;34.0.0`),
+(`cmdline-tools`, `platforms;android-36`, `build-tools;36.0.0`),
 `ANDROID_HOME` set, licenses accepted (`sdkmanager --licenses`).
 
 ```bash
 npm install
 npm run android:sync          # build Tailwind + copy public/ into android/
-npm run android:build-debug   # -> android/app/build/outputs/apk/debug/app-debug.apk
+npm run android:build-debug   # macOS/Linux -> android/app/build/outputs/apk/debug/app-debug.apk
+npm run android:build-debug-win   # Windows -> same APK via gradlew.bat
 npm run android:build-release # -> android/app/build/outputs/bundle/release/app-release.aab (unsigned)
 ```
 

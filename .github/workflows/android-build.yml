@@ -27,6 +27,13 @@ jobs:
       - name: Build web assets + sync Capacitor
         run: npm run android:sync
 
+      - name: Ensure Gradle wrapper is executable
+        run: chmod +x android/gradlew
+
+      - name: Install Android SDK packages (API 36)
+        run: |
+          echo "y" | $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "platforms;android-36" "build-tools;36.0.0"
+
       - name: Build debug APK
         working-directory: android
         run: ./gradlew assembleDebug
