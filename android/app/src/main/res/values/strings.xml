@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Tineghir City</string>
+    <string name="title_activity_main">Tineghir City</string>
+    <string name="package_name">com.tineghir.city</string>
+    <string name="custom_url_scheme">com.tineghir.city</string>
+</resources>
