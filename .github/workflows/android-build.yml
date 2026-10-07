@@ -2,7 +2,7 @@ name: Android build (Capacitor)
 
 on:
   push:
-    branches: [main, feature/capacitor-android]
+    branches: [main, 'feature/**']
   workflow_dispatch:
 
 jobs:
