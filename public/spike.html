@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Range-request spike (throwaway)</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    body { font-family: monospace; margin: 16px; }
+    #map { height: 40vh; margin-top: 12px; }
+    #log { white-space: pre-wrap; background: #111; color: #0f0; padding: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Range-request spike (throwaway page, do not ship)</h1>
+  <pre id="log">starting…</pre>
+  <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/protomaps-leaflet@5.0.0/dist/protomaps-leaflet.js"></script>
+  <script>
+    const logEl = document.getElementById('log');
+    const log = (m) => { logEl.textContent += '\n' + m; };
+    const URL = 'spike-tiles/spike-tinghir.pmtiles';
+
+    (async () => {
+      // Test 1: ranged request must come back 206.
+      const r = await fetch(URL, { headers: { Range: 'bytes=0-1023' } });
+      log(`range fetch -> status ${r.status}, content-range: ${r.headers.get('content-range')}`);
+      // Test 2: full request must come back 200.
+      const f = await fetch(URL);
+      log(`full fetch -> status ${f.status}, length: ${(await f.arrayBuffer()).byteLength}`);
+      // Test 3: protomaps-leaflet reads header + tiles end to end.
+      // Informational: the spike tile payload is empty (not valid MVT), so
+      // tileerror is expected here. Pass criteria are Tests 1-2 above:
+      //   range fetch -> status 206, content-range: bytes 0-1023/294
+      //   full fetch -> status 200, length: 294
+      const map = L.map('map').setView([31.5139, -5.5316], 14);
+      const layer = protomapsL.leafletLayer({ url: URL, flavor: 'light', lang: 'en' });
+      layer.on('tileload', () => log('tileload: renderer drew a tile'));
+      layer.on('tileerror', (e) => log('tileerror: ' + (e && e.error ? e.error.message : 'unknown')));
+      layer.addTo(map);
+      log('layer added - watch for tileload/tileerror above');
+    })().catch((e) => log('FATAL: ' + e.message));
+  </script>
+</body>
+</html>
