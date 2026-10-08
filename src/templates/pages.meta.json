@@ -70,5 +70,14 @@
     "leaflet": true,
     "activeNav": "visit",
     "fragments": ["visit.html"]
+  },
+  "stay": {
+    "title": "Where to Stay in Tineghir",
+    "description": "Kasbah-hotels, family riads, and garden lodges in Tineghir — book online, call, or message on WhatsApp.",
+    "canonical": "https://www.tineghir.ma/stay.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "stay",
+    "staySource": "stays.json"
   }
 }

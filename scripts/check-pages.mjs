@@ -10,6 +10,7 @@ const scopes = new Set((process.argv.find((a) => a.startsWith('--scope='))?.spli
 const checkLightbox = scopes.has('all') || scopes.has('lightbox');
 const checkSitemap = scopes.has('all') || scopes.has('sitemap');
 const checkScript = scopes.has('all') || scopes.has('script');
+const checkStay = scopes.has('all') || scopes.has('stay');
 // Default page-structure assertions always run.
 const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit'];
 const failures = [];
@@ -40,6 +41,44 @@ for (const p of pages) {
   if (ogUrl !== canon) fail(`${p}.html og:url does not match canonical`);
   const desc = (html.match(/<meta\s+name="description"\s+content="([^"]+)"\s*\/>/) || [])[1];
   if (!desc) fail(`${p}.html missing meta description`);
+}
+
+// Stay page vs stays.json data (stay plan, Task 1)
+if (checkStay) {
+  const dataPath = join(root, 'src', 'templates', 'stays.json');
+  if (!existsSync(dataPath)) fail('missing src/templates/stays.json');
+  else {
+    const stays = JSON.parse(readFileSync(dataPath, 'utf8'));
+    const stayFile = join(pub, 'stay.html');
+    if (!existsSync(stayFile)) fail('missing public/stay.html');
+    else {
+      const html = readFileSync(stayFile, 'utf8');
+      const cards = html.split('data-stay="').slice(1);
+      if (cards.length !== stays.length) fail(`stay.html has ${cards.length} cards for ${stays.length} stays`);
+      for (const s of stays) {
+        const chunk = cards.find((c) => c.startsWith(`${s.name}"`));
+        if (!chunk) { fail(`stay.html missing card for "${s.name}"`); continue; }
+        const body = chunk.slice(0, chunk.indexOf('data-stay="') < 0 ? chunk.length : chunk.indexOf('data-stay="'));
+        const actions = (body.match(/href="(https:\/\/www\.booking\.com|tel:|https:\/\/wa\.me\/|https:\/\/www\.google\.com\/maps\/dir\/)/g) || []).length;
+        if (!actions) fail(`stay card "${s.name}" has no action link`);
+        if (s.verified === false && body.includes('https://www.google.com/maps/dir/'))
+          fail(`unverified stay "${s.name}" must not render Directions`);
+      }
+      for (const m of html.matchAll(/href="(tel:[^"]+)"/g)) {
+        if (!/^tel:\+212\d{9}$/.test(m[1])) fail(`bad tel: link "${m[1]}"`);
+      }
+      for (const m of html.matchAll(/href="(https:\/\/wa\.me\/[^"]+)"/g)) {
+        if (!/^https:\/\/wa\.me\/212\d{9}(\?.*)?$/.test(m[1])) fail(`bad wa.me link "${m[1]}"`);
+      }
+      for (const m of html.matchAll(/href="(https:\/\/www\.booking\.com[^"]*)"/g)) {
+        if (!m[1].startsWith('https://www.booking.com/searchresults.html?ss=') || /\s/.test(m[1]))
+          fail(`bad booking link "${m[1]}"`);
+      }
+      for (const m of html.matchAll(/<img[^>]+src="(images\/[^"]+)"[^>]*>/g)) {
+        if (!existsSync(join(pub, m[1].split('?')[0]))) fail(`stay image missing: ${m[1]}`);
+      }
+    }
+  }
 }
 
 // Head uniqueness + compiled CSS coverage (Task 4)

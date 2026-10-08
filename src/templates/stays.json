@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Kasbah Hotel Amazir",
+    "area": "gorge-road",
+    "priceBand": "mid",
+    "blurb": "Mud-brick kasbah styling minutes from the gorge mouth, with a pool and terrace views over the oasis.",
+    "image": "images/kasbah-el-glaoui.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kasbah+Hotel+Amazir%2C+Tinghir",
+    "mapsQuery": "Kasbah Hotel Amazir, Todra Gorge, Tinghir, Morocco",
+    "verified": true
+  },
+  {
+    "name": "Hotel Tomboctou",
+    "area": "town",
+    "priceBand": "budget",
+    "blurb": "Long-running town hotel on the main avenue — simple rooms, easy walk to the souks and petit taxis.",
+    "image": "images/about-tineghir.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Tomboctou%2C+Tinghir",
+    "mapsQuery": "Hotel Tomboctou, Tinghir, Morocco",
+    "verified": true
+  },
+  {
+    "name": "Hotel Saghro",
+    "area": "town",
+    "priceBand": "budget",
+    "blurb": "Central budget base with a restaurant; handy for early starts toward the gorge and Dades Valley.",
+    "image": "images/medina-tineghir.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Saghro%2C+Tinghir",
+    "mapsQuery": "Hotel Saghro, Tinghir, Morocco",
+    "verified": true
+  },
+  {
+    "name": "Riad Azoul",
+    "area": "town",
+    "priceBand": "mid",
+    "blurb": "Family-run riad around a quiet courtyard — the personal welcome town guesthouses are known for.",
+    "image": "images/gallery-palms.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Riad+Azoul%2C+Tinghir",
+    "mapsQuery": "Riad Azoul, Tinghir, Morocco",
+    "verified": false
+  },
+  {
+    "name": "Dar Ayour",
+    "area": "gorge-road",
+    "priceBand": "splurge",
+    "blurb": "Guesthouse calm up the Todra Valley road, between river gardens and cliff paths.",
+    "image": "images/gallery-river.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Dar+Ayour%2C+Tinghir",
+    "mapsQuery": "Dar Ayour, Todra Valley, Tinghir, Morocco",
+    "verified": false
+  },
+  {
+    "name": "Auberge le Festival Todra Gorges",
+    "area": "gorge-road",
+    "priceBand": "budget",
+    "blurb": "Climber-friendly auberge near the gorge entrance — terrace tagines and route beta at breakfast.",
+    "image": "images/todra-gorge.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Auberge+le+Festival+Todra+Gorges%2C+Tinghir",
+    "mapsQuery": "Auberge le Festival, Todra Gorge, Tinghir, Morocco",
+    "verified": true
+  },
+  {
+    "name": "Ecolodge La Palmeraie",
+    "area": "palmeraie",
+    "priceBand": "mid",
+    "blurb": "Garden lodge inside the palm grove — sleep to frog song a short walk from the old ksour.",
+    "image": "images/tineghir-palm-grove.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ecolodge+La+Palmeraie%2C+Tinghir",
+    "mapsQuery": "Ecolodge La Palmeraie, Tinghir, Morocco",
+    "verified": false
+  }
+]
