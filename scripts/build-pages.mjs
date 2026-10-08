@@ -28,10 +28,12 @@ export function validateStays(stays, rootDir = root) {
     if (!PRICE_BANDS.has(s.priceBand)) fail(`stays.json: "${s.name}" has bad priceBand "${s.priceBand}"`);
     if (!s.bookingUrl.startsWith('https://www.booking.com/searchresults.html?ss=') || /\s/.test(s.bookingUrl))
       fail(`stays.json: "${s.name}" has bad bookingUrl`);
-    if (s.phone !== undefined && !/^\+\d{10,15}$/.test(s.phone))
+    if (s.phone !== undefined && !/^\+212\d{9}$/.test(s.phone))
       fail(`stays.json: "${s.name}" phone must be E.164 like +2126XXXXXXXX`);
-    if (s.whatsapp !== undefined && !/^\d{10,15}$/.test(s.whatsapp))
+    if (s.whatsapp !== undefined && !/^212\d{9}$/.test(s.whatsapp))
       fail(`stays.json: "${s.name}" whatsapp must be digits only like 2126XXXXXXXX`);
+    if (s.verified !== undefined && typeof s.verified !== 'boolean')
+      fail(`stays.json: "${s.name}" verified must be a boolean`);
     if (s.image !== undefined && !existsSync(join(rootDir, 'public', s.image)))
       fail(`stays.json: "${s.name}" image missing: ${s.image}`);
   }
