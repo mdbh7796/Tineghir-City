@@ -3,8 +3,10 @@
 //   { version, releaseUrl, sha256, bbox, minZoom, maxZoom, asset }
 // Downloads releaseUrl -> public/tiles/<basename(asset)>, verifies SHA256.
 // Exit codes: 0 = archive present and verified (or skipped, see below).
-//   Missing manifest (no release published yet) warns and exits 0 — the
-//   offline layer stays dormant until the tiles.json bump PR lands.
+//   Missing manifest with no --release flag (dev/CI bootstrap before the
+//   first tile release) warns and exits 0 — the offline layer stays dormant.
+//   --release (release builds) fails if the manifest OR the verified asset
+//   is missing: a release must never silently ship without offline maps.
 //   Any download or hash failure with a manifest present exits non-zero.
 import { createHash } from 'node:crypto';
 import { existsSync, mkdirSync, readFileSync, unlinkSync, writeFileSync } from 'node:fs';
@@ -14,6 +16,8 @@ import { fileURLToPath } from 'node:url';
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
 const publicDir = join(root, 'public');
 const manifestPath = join(publicDir, 'tiles.json');
+const isRelease = process.argv.includes('--release')
+  || process.env.RELEASE_BUILD === '1';
 
 const fail = (msg) => {
   console.error(`tiles:fetch: ${msg}`);
@@ -21,6 +25,7 @@ const fail = (msg) => {
 };
 
 if (!existsSync(manifestPath)) {
+  if (isRelease) fail('no public/tiles.json — release builds require the tile manifest.');
   console.log('tiles:fetch: no public/tiles.json (no tile release yet) — skipping, offline layer dormant.');
   process.exit(0);
 }
