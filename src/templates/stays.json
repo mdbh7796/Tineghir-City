@@ -6,6 +6,7 @@
     "blurb": "Mud-brick kasbah styling minutes from the gorge mouth, with a pool and terrace views over the oasis.",
     "image": "images/kasbah-el-glaoui.jpg",
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kasbah+Hotel+Amazir%2C+Tinghir",
+    "phone": "+212524895109",
     "mapsQuery": "Kasbah Hotel Amazir, Todra Gorge, Tinghir, Morocco",
     "verified": true
   },
@@ -16,6 +17,7 @@
     "blurb": "Long-running town hotel on the main avenue — simple rooms, easy walk to the souks and petit taxis.",
     "image": "images/about-tineghir.jpg",
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Tomboctou%2C+Tinghir",
+    "phone": "+212524834604",
     "mapsQuery": "Hotel Tomboctou, Tinghir, Morocco",
     "verified": true
   },
@@ -26,18 +28,20 @@
     "blurb": "Central budget base with a restaurant; handy for early starts toward the gorge and Dades Valley.",
     "image": "images/medina-tineghir.jpg",
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Saghro%2C+Tinghir",
+    "phone": "+212524834181",
     "mapsQuery": "Hotel Saghro, Tinghir, Morocco",
     "verified": true
   },
   {
-    "name": "Riad Azoul",
+    "name": "Hotel Restaurant La Kasbah",
     "area": "town",
     "priceBand": "mid",
-    "blurb": "Family-run riad around a quiet courtyard — the personal welcome town guesthouses are known for.",
+    "blurb": "Heart of the Todra Valley on Avenue Mohammed V — rooftop terrace with river views and a tour desk.",
     "image": "images/gallery-palms.jpg",
-    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Riad+Azoul%2C+Tinghir",
-    "mapsQuery": "Riad Azoul, Tinghir, Morocco",
-    "verified": false
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Restaurant+La+Kasbah%2C+Tinghir",
+    "phone": "+212524834471",
+    "mapsQuery": "Hotel Restaurant La Kasbah, Tinghir, Morocco",
+    "verified": true
   },
   {
     "name": "Dar Ayour",
@@ -46,8 +50,10 @@
     "blurb": "Guesthouse calm up the Todra Valley road, between river gardens and cliff paths.",
     "image": "images/gallery-river.jpg",
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Dar+Ayour%2C+Tinghir",
+    "phone": "+212672521251",
+    "whatsapp": "212672521251",
     "mapsQuery": "Dar Ayour, Todra Valley, Tinghir, Morocco",
-    "verified": false
+    "verified": true
   },
   {
     "name": "Auberge le Festival Todra Gorges",
@@ -56,17 +62,21 @@
     "blurb": "Climber-friendly auberge near the gorge entrance — terrace tagines and route beta at breakfast.",
     "image": "images/todra-gorge.jpg",
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Auberge+le+Festival+Todra+Gorges%2C+Tinghir",
+    "phone": "+212673454307",
+    "whatsapp": "212673454307",
     "mapsQuery": "Auberge le Festival, Todra Gorge, Tinghir, Morocco",
     "verified": true
   },
   {
-    "name": "Ecolodge La Palmeraie",
-    "area": "palmeraie",
-    "priceBand": "mid",
-    "blurb": "Garden lodge inside the palm grove — sleep to frog song a short walk from the old ksour.",
+    "name": "Auberge Bougafer",
+    "area": "gorge-road",
+    "priceBand": "budget",
+    "blurb": "Traditional Berber guesthouse in Tamtattouchte village — Atlas views, pool, and a cultural welcome.",
     "image": "images/tineghir-palm-grove.jpg",
-    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Ecolodge+La+Palmeraie%2C+Tinghir",
-    "mapsQuery": "Ecolodge La Palmeraie, Tinghir, Morocco",
-    "verified": false
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Auberge+Bougafer%2C+Tinghir",
+    "phone": "+212670223536",
+    "whatsapp": "212670223536",
+    "mapsQuery": "Auberge Bougafer, Tamtattouchte, Tinghir, Morocco",
+    "verified": true
   }
 ]
