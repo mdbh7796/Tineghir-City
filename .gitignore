@@ -3,6 +3,9 @@ node_modules
 tineghir.db
 public/uploads/*
 !public/uploads/.gitkeep
+# Offline map archive: fetched at build time from the GitHub release
+# (scripts/fetch-tiles.mjs). Never committed; tiles.json is the pointer.
+public/tiles/*.pmtiles
 
 # Android / Gradle (Capacitor) — keep android/ source, ignore build outputs
 android/.gradle/
