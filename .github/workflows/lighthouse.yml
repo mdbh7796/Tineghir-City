@@ -1,0 +1,31 @@
+# Warn-only: collects Lighthouse scores on every push and uploads the
+# report. No score gates yet — thresholds get set once we have baselines.
+name: Lighthouse (warn-only)
+
+on:
+  push:
+    branches: [main, 'feature/**']
+  workflow_dispatch:
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site CSS
+        run: npm run build
+
+      - name: Audit with Lighthouse CI
+        uses: treosh/lighthouse-ci-action@v12
+        with:
+          configPath: .lighthouserc.json
+          uploadArtifacts: true
