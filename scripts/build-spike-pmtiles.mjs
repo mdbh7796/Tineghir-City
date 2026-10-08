@@ -1,6 +1,8 @@
 // SPIKE ONLY (throwaway): builds a minimal structurally-valid PMTiles v3
-// archive with one empty tile, to prove Capacitor's Android server answers
-// HTTP Range requests. NOT for release. Run: npm run spike:tiles
+// archive with one empty tile, to prove static hosting answers HTTP Range
+// requests (plus a manual check inside the Capacitor webview: load this
+// page in the built APK and paste the log lines). NOT for release.
+// Run: npm run spike:tiles
 import { writeFileSync } from 'node:fs';
 import { gzipSync } from 'node:zlib';
 import { zxyToTileId } from 'pmtiles';
@@ -13,7 +15,10 @@ function varint(n) {
 }
 
 // One z14 tile over Tinghir center (31.5139, -5.5316). Payload is an empty
-// tile on purpose: header/directory/metadata/tile reads are what we prove.
+// tile on purpose: the pass criteria are the byte-range reads of
+// header/directory/metadata/tile data (Tests 1-2). Test 3's tileload is
+// informational only -- an empty payload is not parseable MVT, so expect
+// tileerror there until a real tile is embedded.
 const Z = 14;
 const n = 2 ** Z;
 const x = Math.floor(((-5.5316 + 180) / 360) * n);
@@ -62,6 +67,7 @@ const pos = (lng, lat) => {
 };
 pos(-5.6, 31.45); pos(-5.46, 31.58);   // min/max bounds
 header.writeUInt8(Z, 118);             // center zoom
+o = 119;
 pos(-5.5316, 31.5139);                 // center
 
 const archive = Buffer.concat([header, dir, metadata, tile]);

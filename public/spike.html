@@ -30,6 +30,10 @@
       const f = await fetch(URL);
       log(`full fetch -> status ${f.status}, length: ${(await f.arrayBuffer()).byteLength}`);
       // Test 3: protomaps-leaflet reads header + tiles end to end.
+      // Informational: the spike tile payload is empty (not valid MVT), so
+      // tileerror is expected here. Pass criteria are Tests 1-2 above:
+      //   range fetch -> status 206, content-range: bytes 0-1023/294
+      //   full fetch -> status 200, length: 294
       const map = L.map('map').setView([31.5139, -5.5316], 14);
       const layer = protomapsL.leafletLayer({ url: URL, flavor: 'light', lang: 'en' });
       layer.on('tileload', () => log('tileload: renderer drew a tile'));
