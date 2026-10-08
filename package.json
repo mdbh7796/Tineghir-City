@@ -4,7 +4,9 @@
   "description": "Static tourism website for Tineghir, Morocco",
   "type": "module",
   "scripts": {
-    "build": "tailwindcss -i ./src/input.css -o ./public/style.css",
+    "pages": "node scripts/build-pages.mjs",
+    "check:pages": "node scripts/check-pages.mjs",
+    "build": "npm run pages && tailwindcss -i ./src/input.css -o ./public/style.css",
     "images:optimize": "node scripts/optimize-images.mjs",
     "tiles:fetch": "node scripts/fetch-tiles.mjs",
     "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",

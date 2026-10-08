@@ -1,0 +1,74 @@
+{
+  "index": {
+    "title": "Tineghir - Gateway to Todra Gorge",
+    "description": "Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes.",
+    "canonical": "https://www.tineghir.ma/",
+    "showMap": true,
+    "leaflet": true,
+    "activeNav": "index",
+    "fragments": ["_hero.html", "_stats.html", "_teasers.html"]
+  },
+  "about": {
+    "title": "About Tineghir - Jewel of Southern Morocco",
+    "description": "Nestled at the foot of the High Atlas Mountains, Tineghir is an enchanting Berber oasis city on the Route of a Thousand Kasbahs.",
+    "canonical": "https://www.tineghir.ma/about.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "about",
+    "fragments": ["about.html"]
+  },
+  "attractions": {
+    "title": "Must-See Attractions in Tineghir",
+    "description": "From the dramatic Todra Gorge to ancient kasbahs and palm groves, explore the unforgettable attractions of Tineghir, Morocco.",
+    "canonical": "https://www.tineghir.ma/attractions.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "attractions",
+    "fragments": ["attractions.html"]
+  },
+  "gallery": {
+    "title": "Gallery - Beauty of Tineghir in Pictures",
+    "description": "Experience the stunning landscapes and cultural richness of Tineghir through canyon, oasis, and craft photography.",
+    "canonical": "https://www.tineghir.ma/gallery.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "gallery",
+    "fragments": ["gallery.html"]
+  },
+  "itineraries": {
+    "title": "Suggested Itineraries for Tineghir",
+    "description": "One perfect day or the ultimate three-day explorer: curated itineraries for the gorge, oasis, and valleys around Tineghir.",
+    "canonical": "https://www.tineghir.ma/itineraries.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "itineraries",
+    "fragments": ["itineraries.html"]
+  },
+  "guide": {
+    "title": "Travel Guide - Good To Know Before You Go",
+    "description": "Getting around, where to stay, food, money, language, and etiquette: everything you need to travel Tineghir with confidence.",
+    "canonical": "https://www.tineghir.ma/guide.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "guide",
+    "fragments": ["guide.html"]
+  },
+  "practical": {
+    "title": "Numbers & Prices - Tineghir On The Ground",
+    "description": "Emergency numbers, taxi fares, food and hotel prices in Tineghir. The figures travelers actually need, checked October 2026.",
+    "canonical": "https://www.tineghir.ma/practical.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "practical",
+    "fragments": ["practical.html"]
+  },
+  "visit": {
+    "title": "Visit Tineghir - Plan Your Trip",
+    "description": "Best seasons, getting there, where to stay, and local tips for visiting Tineghir and the Todra Gorge.",
+    "canonical": "https://www.tineghir.ma/visit.html",
+    "showMap": true,
+    "leaflet": true,
+    "activeNav": "visit",
+    "fragments": ["visit.html"]
+  }
+}

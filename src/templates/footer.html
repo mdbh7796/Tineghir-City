@@ -1,0 +1,63 @@
+    <!-- Footer -->
+    <footer class="bg-stone-900 py-16">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
+<!--IF:showMap-->
+           <!-- Column 1: Interactive Map (Span 9) -->
+          <div class="lg:col-span-9 reveal">
+            <div id="map" class="w-full h-full min-h-[250px] md:min-h-[400px] rounded-2xl shadow-xl border border-stone-700 z-0"></div>
+          </div>
+
+          <!-- Column 2: Brand & Socials (Span 3) -->
+          <div class="lg:col-span-3 space-y-6">
+<!--ENDIF-->
+<!--IFNOT:showMap-->
+          <!-- Brand (full width when no map) -->
+          <div class="lg:col-span-12 space-y-6 max-w-2xl">
+<!--ENDIF-->
+            <div class="flex items-center gap-2">
+              <svg
+                class="w-10 h-10 text-amber-500"
+                viewBox="0 0 40 40"
+                fill="currentColor"
+              >
+                <path
+                  d="M20 2L4 12v16l16 10 16-10V12L20 2zm0 4l12 7.5v11L20 32 8 24.5v-11L20 6z"
+                />
+                <path
+                  d="M20 10l-8 5v8l8 5 8-5v-8l-8-5zm0 3l5 3.125v5L20 24.25l-5-3.125v-5L20 13z"
+                />
+              </svg>
+              <span class="font-display text-2xl font-semibold text-amber-100">Tineghir</span>
+            </div>
+            <p id="footer-text" class="text-stone-400 max-w-sm leading-relaxed">
+              Discover the magic of Southern Morocco. Where ancient traditions
+              meet breathtaking natural beauty.
+            </p>
+
+            <div class="pt-4">
+              <h2 class="font-display text-lg font-semibold text-amber-100 mb-4">Explore</h2>
+              <ul class="space-y-2 text-stone-400">
+                <li><a href="./index.html" class="hover:text-amber-400 transition-colors">Home</a></li>
+                <li><a href="./about.html" class="hover:text-amber-400 transition-colors">About</a></li>
+                <li><a href="./attractions.html" class="hover:text-amber-400 transition-colors">Attractions</a></li>
+                <li><a href="./gallery.html" class="hover:text-amber-400 transition-colors">Gallery</a></li>
+                <li><a href="./itineraries.html" class="hover:text-amber-400 transition-colors">Itineraries</a></li>
+                <li><a href="./guide.html" class="hover:text-amber-400 transition-colors">Guide</a></li>
+                <li><a href="./practical.html" class="hover:text-amber-400 transition-colors">Practical</a></li>
+                <li><a href="./visit.html" class="hover:text-amber-400 transition-colors">Plan Your Visit</a></li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+        <div
+          class="border-t border-stone-800 pt-8 text-center text-stone-500 text-sm"
+        >
+          <p>
+            © 2026 Tineghir Tourism. All rights reserved. Made with ❤️ in
+            Morocco
+          </p>
+        </div>
+      </div>
+    </footer>

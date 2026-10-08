@@ -3,23 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Tineghir - Gateway to Todra Gorge</title>
+    <title>Visit Tineghir - Plan Your Trip</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Outfit:wght@300;400;500;600&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href="https://www.tineghir.ma/" />
+    <link rel="canonical" href="https://www.tineghir.ma/visit.html" />
     <meta name="theme-color" content="#1c1917" />
     <meta
       name="description"
-      content="Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes."
+      content="Best seasons, getting there, where to stay, and local tips for visiting Tineghir and the Todra Gorge."
     />
-    <meta property="og:title" content="Tineghir - Gateway to Todra Gorge" />
+    <meta property="og:title" content="Visit Tineghir - Plan Your Trip" />
     <meta
       property="og:description"
-      content="Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes."
+      content="Best seasons, getting there, where to stay, and local tips for visiting Tineghir and the Todra Gorge."
     />
     <meta
       property="og:image"
@@ -29,13 +29,13 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Todra Gorge canyon at sunset" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.tineghir.ma/" />
+    <meta property="og:url" content="https://www.tineghir.ma/visit.html" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Tineghir - Gateway to Todra Gorge" />
+    <meta name="twitter:title" content="Visit Tineghir - Plan Your Trip" />
     <meta
       name="twitter:description"
-      content="Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes."
+      content="Best seasons, getting there, where to stay, and local tips for visiting Tineghir and the Todra Gorge."
     />
     <meta
       name="twitter:image"
@@ -46,8 +46,8 @@
         "@context": "https://schema.org",
         "@type": "TouristDestination",
         "name": "Tineghir",
-        "description": "Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes.",
-        "url": "https://www.tineghir.ma/",
+        "description": "Best seasons, getting there, where to stay, and local tips for visiting Tineghir and the Todra Gorge.",
+        "url": "https://www.tineghir.ma/visit.html",
         "image": "https://www.tineghir.ma/images/og-image.jpg",
         "geo": {
           "@type": "GeoCoordinates",
@@ -67,7 +67,7 @@
 
   <body
     class="h-full font-body bg-stone-50 text-stone-800 overflow-auto scroll-smooth"
-    data-page="index"
+    data-page="visit"
   >
     <!-- Navigation (Task 2 fleshes out the drawer: animation, ARIA dialog, focus trap) -->
     <nav
@@ -168,215 +168,118 @@
     </nav>
 
     <main>
-    <!-- Hero Section -->
-    <section
-      id="home"
-      class="relative min-h-svh flex items-center justify-center overflow-hidden pattern-overlay"
-      style="
-        background: linear-gradient(
-          135deg,
-          #1c1917 0%,
-          #292524 50%,
-          #44403c 100%
-        );
-      "
-    >
-      <!-- Hero Background Image -->
-      <picture class="absolute inset-0 w-full h-full block">
-        <source type="image/webp" srcset="images/hero-tineghir-640.webp 640w, images/hero-tineghir-1024.webp 1024w, images/hero-tineghir-1920.webp 1920w" sizes="100vw">
-        <source type="image/jpeg" srcset="images/hero-tineghir-640.jpg 640w, images/hero-tineghir-1024.jpg 1024w, images/hero-tineghir-1920.jpg 1920w" sizes="100vw">
-        <img src="images/hero-tineghir-1920.jpg" alt="Tineghir Landscape" width="2288" height="1437" fetchpriority="high" decoding="async" class="w-full h-full object-cover blur-[2px] opacity-100 pointer-events-none">
-      </picture>
-      
-      <!-- Dark Overlay Layer for Contrast -->
-      <div class="absolute inset-0 bg-black/70 pointer-events-none"></div>
-
-      <!-- Decorative Elements -->
-      <div class="absolute inset-0 overflow-hidden">
-        <svg
-          class="absolute top-20 left-10 w-64 h-64 text-amber-600/10 animate-float"
-          viewBox="0 0 200 200"
-          fill="currentColor"
-        >
-          <polygon points="100,10 40,198 190,78 10,78 160,198" />
-        </svg>
-        <svg
-          class="absolute bottom-20 right-10 w-48 h-48 text-amber-500/10 animate-float"
-          style="animation-delay: 1s"
-          viewBox="0 0 200 200"
-          fill="currentColor"
-        >
-          <circle cx="100" cy="100" r="80" />
-        </svg>
-        <svg
-          class="absolute top-1/3 right-1/4 w-32 h-32 text-orange-600/10 animate-float"
-          style="animation-delay: 2s"
-          viewBox="0 0 100 100"
-          fill="currentColor"
-        >
-          <rect
-            x="20"
-            y="20"
-            width="60"
-            height="60"
-            transform="rotate(45 50 50)"
-          />
-        </svg>
-      </div>
-      <!-- Canyon/Mountain Silhouette -->
-      <div class="absolute bottom-0 left-0 right-0">
-        <svg
-          viewBox="0 0 1440 320"
-          class="w-full"
-          fill="#D4A574"
-          fill-opacity="0.15"
-        >
-          <path
-            d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-          />
-        </svg>
-      </div>
-      <div class="relative z-10 text-center px-4 max-w-5xl mx-auto pt-24 pb-20">
-        <div class="animate-fade-in">
-          <p
-            class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-4 drop-shadow-md"
-          >
-            Welcome to
-          </p>
-          <h1
-            id="hero-title"
-            class="font-display text-[clamp(3.5rem,14vw,8.5rem)] font-bold text-amber-50 mb-6 leading-none drop-shadow-2xl"
-          >
-            Tineghir
-          </h1>
-          <p
-            id="hero-subtitle"
-            class="font-display text-2xl md:text-3xl text-amber-300 font-semibold mb-8 italic drop-shadow-lg"
-          >
-            Gateway to the Majestic Todra Gorge
-          </p>
-          <p
-            class="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-medium drop-shadow-md"
-          >
-            Discover the heart of Morocco's Draa-Tafilalet region, where ancient
-            kasbahs meet towering canyon walls and palm-lined oases paint the
-            desert green.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="./attractions.html"
-              class="bg-amber-700 hover:bg-amber-600 text-white px-8 py-4 rounded-full font-medium text-lg transition-all transform hover:scale-105 shadow-lg shadow-amber-700/30"
-            >
-              Explore Attractions
-            </a>
-            <a
-              href="./about.html"
-              class="border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10 px-8 py-4 rounded-full font-medium text-lg transition-all"
-            >
-              Learn More
-            </a>
-          </div>
-        </div>
-      </div>
-      <!-- Scroll Indicator -->
-      <div
-        class="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce pointer-events-none"
-        aria-hidden="true"
-      >
-        <svg
-          class="w-6 h-10 text-amber-500/60"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 40"
-        >
-          <rect x="1" y="1" width="22" height="38" rx="11" stroke-width="2" />
-          <circle cx="12" cy="12" r="3" fill="currentColor" />
-        </svg>
-      </div>
-    </section>
-
-    <!-- Stats Bar -->
-    <section class="bg-amber-700 py-8">
+    <!-- Visit Section -->
+    <section id="visit" class="py-20 md:py-28 bg-amber-50 pattern-overlay">
       <div class="max-w-7xl mx-auto px-4">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-          <div>
-            <p class="text-4xl font-display font-bold text-white">300m</p>
-            <p class="text-amber-100 text-sm mt-1">Canyon Height</p>
+        <div class="bg-white rounded-3xl shadow-2xl overflow-hidden reveal">
+          <div class="grid lg:grid-cols-2">
+            <div class="p-8 lg:p-12">
+              <p
+                class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4"
+              >
+                Plan Your Trip
+              </p>
+              <h2
+                class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
+              >
+                Visit Tineghir
+              </h2>
+              <p class="text-stone-600 text-lg mb-8">
+                The best time to visit is during spring (March-May) or autumn
+                (September-November) when temperatures are pleasant for
+                exploring.
+              </p>
+              <div class="space-y-6">
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-2xl">✈️</span>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-stone-800 text-lg">
+                      Getting There
+                    </h4>
+                    <p class="text-stone-600">
+                      Fly to Ouarzazate or Errachidia airports, then drive
+                      through scenic routes to Tineghir.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-2xl">🏨</span>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-stone-800 text-lg">
+                      Where to Stay
+                    </h4>
+                    <p class="text-stone-600">
+                      Choose from traditional riads, kasbah hotels, or modern
+                      accommodations with stunning views.
+                    </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4">
+                  <div
+                    class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center flex-shrink-0"
+                  >
+                    <span class="text-2xl">🗣️</span>
+                  </div>
+                  <div>
+                    <h3 class="font-semibold text-stone-800 text-lg">
+                      Local Tips
+                    </h4>
+                    <p class="text-stone-600">
+                      Learn a few Berber phrases, dress modestly, and always
+                      negotiate prices in the souks!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div
+              class="bg-gradient-to-br from-amber-700 to-orange-800 p-8 lg:p-12 flex flex-col justify-center"
+            >
+              <div class="bg-white/10 backdrop-blur rounded-2xl p-6 mb-6">
+                <h3 class="font-display text-2xl font-bold text-white mb-4">
+                  Quick Facts
+                </h3>
+                <div class="space-y-3 text-amber-100">
+                  <p>
+                    <strong class="text-white">Region:</strong> Draa-Tafilalet
+                  </p>
+                  <p>
+                    <strong class="text-white">Language:</strong> Berber,
+                    Arabic, French
+                  </p>
+                  <p>
+                    <strong class="text-white">Currency:</strong> Moroccan
+                    Dirham (MAD)
+                  </p>
+                  <p>
+                    <strong class="text-white">Climate:</strong> Semi-arid, hot
+                    summers
+                  </p>
+                  <p>
+                    <strong class="text-white">Best Season:</strong> Spring
+                    &amp; Autumn
+                  </p>
+                </div>
+              </div>
+              <div class="text-center">
+                <p class="text-amber-200 mb-4">Ready to explore?</p>
+                <a
+                  href="mailto:info@tineghir.ma?subject=Trip%20Planning%20Inquiry"
+                  class="inline-block bg-white text-amber-700 px-8 py-4 rounded-full font-semibold text-lg hover:bg-amber-50 transition-all transform hover:scale-105 shadow-lg"
+                >
+                  Start Planning →
+                </a>
+              </div>
+            </div>
           </div>
-          <div>
-            <p class="text-4xl font-display font-bold text-white">42,000+</p>
-            <p class="text-amber-100 text-sm mt-1">Population</p>
-          </div>
-          <div>
-            <p class="text-4xl font-display font-bold text-white">1,400m</p>
-            <p class="text-amber-100 text-sm mt-1">Altitude</p>
-          </div>
-          <div>
-            <p class="text-4xl font-display font-bold text-white">1000+</p>
-            <p class="text-amber-100 text-sm mt-1">Years of History</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Explore teasers -->
-    <section class="py-20 md:py-28 bg-stone-50">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="text-center mb-14">
-          <p
-            class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4"
-          >
-            Explore
-          </p>
-          <h2
-            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
-          >
-            Discover Tineghir
-          </h2>
-          <p class="text-stone-600 text-lg max-w-2xl mx-auto">
-            Ancient kasbahs, towering gorges, and palm-lined oases — start
-            wherever your curiosity leads.
-          </p>
-        </div>
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <a href="./about.html" class="card-hover bg-white rounded-2xl p-8 shadow-lg reveal">
-            <span class="text-3xl">🏛️</span>
-            <h3 class="font-display text-xl font-bold text-stone-800 mt-3 mb-2">About</h3>
-            <p class="text-stone-600">The jewel of southern Morocco and its living history.</p>
-          </a>
-          <a href="./attractions.html" class="card-hover bg-white rounded-2xl p-8 shadow-lg reveal delay-100">
-            <span class="text-3xl">🏔️</span>
-            <h3 class="font-display text-xl font-bold text-stone-800 mt-3 mb-2">Attractions</h3>
-            <p class="text-stone-600">Todra Gorge, palm groves, kasbahs, souks, and day trips.</p>
-          </a>
-          <a href="./gallery.html" class="card-hover bg-white rounded-2xl p-8 shadow-lg reveal delay-200">
-            <span class="text-3xl">📸</span>
-            <h3 class="font-display text-xl font-bold text-stone-800 mt-3 mb-2">Gallery</h3>
-            <p class="text-stone-600">Canyons, oases, and crafts in pictures.</p>
-          </a>
-          <a href="./itineraries.html" class="card-hover bg-white rounded-2xl p-8 shadow-lg reveal">
-            <span class="text-3xl">🗺️</span>
-            <h3 class="font-display text-xl font-bold text-stone-800 mt-3 mb-2">Itineraries</h3>
-            <p class="text-stone-600">One perfect day or the ultimate three-day explorer.</p>
-          </a>
-          <a href="./guide.html" class="card-hover bg-white rounded-2xl p-8 shadow-lg reveal delay-100">
-            <span class="text-3xl">🧭</span>
-            <h3 class="font-display text-xl font-bold text-stone-800 mt-3 mb-2">Travel Guide</h3>
-            <p class="text-stone-600">Getting around, food, money, language, and etiquette.</p>
-          </a>
-          <a href="./practical.html" class="card-hover bg-white rounded-2xl p-8 shadow-lg reveal delay-200">
-            <span class="text-3xl">📞</span>
-            <h3 class="font-display text-xl font-bold text-stone-800 mt-3 mb-2">Numbers &amp; Prices</h3>
-            <p class="text-stone-600">Emergency lines, fares, and going rates.</p>
-          </a>
-        </div>
-        <div class="text-center mt-12">
-          <a
-            href="./visit.html"
-            class="inline-block bg-amber-700 hover:bg-amber-600 text-white px-8 py-4 rounded-full font-medium text-lg transition-all shadow-lg shadow-amber-700/30"
-          >
-            Plan Your Visit →
-          </a>
         </div>
       </div>
     </section>

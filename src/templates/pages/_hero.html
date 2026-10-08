@@ -1,0 +1,126 @@
+    <!-- Hero Section -->
+    <section
+      id="home"
+      class="relative min-h-svh flex items-center justify-center overflow-hidden pattern-overlay"
+      style="
+        background: linear-gradient(
+          135deg,
+          #1c1917 0%,
+          #292524 50%,
+          #44403c 100%
+        );
+      "
+    >
+      <!-- Hero Background Image -->
+      <picture class="absolute inset-0 w-full h-full block">
+        <source type="image/webp" srcset="images/hero-tineghir-640.webp 640w, images/hero-tineghir-1024.webp 1024w, images/hero-tineghir-1920.webp 1920w" sizes="100vw">
+        <source type="image/jpeg" srcset="images/hero-tineghir-640.jpg 640w, images/hero-tineghir-1024.jpg 1024w, images/hero-tineghir-1920.jpg 1920w" sizes="100vw">
+        <img src="images/hero-tineghir-1920.jpg" alt="Tineghir Landscape" width="2288" height="1437" fetchpriority="high" decoding="async" class="w-full h-full object-cover blur-[2px] opacity-100 pointer-events-none">
+      </picture>
+      
+      <!-- Dark Overlay Layer for Contrast -->
+      <div class="absolute inset-0 bg-black/70 pointer-events-none"></div>
+
+      <!-- Decorative Elements -->
+      <div class="absolute inset-0 overflow-hidden">
+        <svg
+          class="absolute top-20 left-10 w-64 h-64 text-amber-600/10 animate-float"
+          viewBox="0 0 200 200"
+          fill="currentColor"
+        >
+          <polygon points="100,10 40,198 190,78 10,78 160,198" />
+        </svg>
+        <svg
+          class="absolute bottom-20 right-10 w-48 h-48 text-amber-500/10 animate-float"
+          style="animation-delay: 1s"
+          viewBox="0 0 200 200"
+          fill="currentColor"
+        >
+          <circle cx="100" cy="100" r="80" />
+        </svg>
+        <svg
+          class="absolute top-1/3 right-1/4 w-32 h-32 text-orange-600/10 animate-float"
+          style="animation-delay: 2s"
+          viewBox="0 0 100 100"
+          fill="currentColor"
+        >
+          <rect
+            x="20"
+            y="20"
+            width="60"
+            height="60"
+            transform="rotate(45 50 50)"
+          />
+        </svg>
+      </div>
+      <!-- Canyon/Mountain Silhouette -->
+      <div class="absolute bottom-0 left-0 right-0">
+        <svg
+          viewBox="0 0 1440 320"
+          class="w-full"
+          fill="#D4A574"
+          fill-opacity="0.15"
+        >
+          <path
+            d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          />
+        </svg>
+      </div>
+      <div class="relative z-10 text-center px-4 max-w-5xl mx-auto pt-24 pb-20">
+        <div class="animate-fade-in">
+          <p
+            class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-4 drop-shadow-md"
+          >
+            Welcome to
+          </p>
+          <h1
+            id="hero-title"
+            class="font-display text-[clamp(3.5rem,14vw,8.5rem)] font-bold text-amber-50 mb-6 leading-none drop-shadow-2xl"
+          >
+            Tineghir
+          </h1>
+          <p
+            id="hero-subtitle"
+            class="font-display text-2xl md:text-3xl text-amber-300 font-semibold mb-8 italic drop-shadow-lg"
+          >
+            Gateway to the Majestic Todra Gorge
+          </p>
+          <p
+            class="text-white text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-medium drop-shadow-md"
+          >
+            Discover the heart of Morocco's Draa-Tafilalet region, where ancient
+            kasbahs meet towering canyon walls and palm-lined oases paint the
+            desert green.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="./attractions.html"
+              class="bg-amber-700 hover:bg-amber-600 text-white px-8 py-4 rounded-full font-medium text-lg transition-all transform hover:scale-105 shadow-lg shadow-amber-700/30"
+            >
+              Explore Attractions
+            </a>
+            <a
+              href="./about.html"
+              class="border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10 px-8 py-4 rounded-full font-medium text-lg transition-all"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Scroll Indicator -->
+      <div
+        class="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce pointer-events-none"
+        aria-hidden="true"
+      >
+        <svg
+          class="w-6 h-10 text-amber-500/60"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 40"
+        >
+          <rect x="1" y="1" width="22" height="38" rx="11" stroke-width="2" />
+          <circle cx="12" cy="12" r="3" fill="currentColor" />
+        </svg>
+      </div>
+    </section>
