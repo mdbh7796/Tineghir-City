@@ -82,5 +82,14 @@
     "leaflet": false,
     "activeNav": "stay",
     "staySource": "stays.json"
+  },
+  "contact": {
+    "title": "Contacts & Numbers - Call Tineghir",
+    "description": "One-tap calls for transport, health, guides, and stays in Tineghir, Morocco.",
+    "canonical": "https://www.tineghir.ma/contact.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "contact",
+    "contactSource": "contacts.json"
   }
 }

@@ -1,0 +1,28 @@
+[
+  {
+    "name": "Petit taxis",
+    "category": "transport",
+    "note": "Fixed short routes around town for a few dirhams (~5 MAD base). Agree the fare before longer rides."
+  },
+  {
+    "name": "Grand taxi day hire",
+    "category": "transport",
+    "note": "For the gorge, Dades Valley, and villages. Agree the full-day rate before departure; splitting with other travelers is normal."
+  },
+  {
+    "name": "CTM / Supratours station",
+    "category": "transport",
+    "note": "Intercity buses leave from the town station. Book a day ahead in spring and autumn."
+  },
+  {
+    "name": "Pharmacies",
+    "category": "health",
+    "note": "Day pharmacies open roughly 09–21h on Avenue Mohammed V; nights are on call — ask your hotel or any pharmacy door sign."
+  },
+  {
+    "name": "Todra Gorge travel info",
+    "category": "services",
+    "phone": "+212649359121",
+    "note": "Local team for accommodation and travel arrangements around the gorge (published contact)."
+  }
+]

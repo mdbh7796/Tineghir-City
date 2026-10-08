@@ -11,8 +11,9 @@ const checkLightbox = scopes.has('all') || scopes.has('lightbox');
 const checkSitemap = scopes.has('all') || scopes.has('sitemap');
 const checkScript = scopes.has('all') || scopes.has('script');
 const checkStay = scopes.has('all') || scopes.has('stay');
+const checkContact = scopes.has('all') || scopes.has('contact');
 // Default page-structure assertions always run.
-const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay'];
+const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact'];
 const failures = [];
 const fail = (m) => failures.push(m);
 
@@ -42,6 +43,7 @@ for (const p of pages) {
   const desc = (html.match(/<meta\s+name="description"\s+content="([^"]+)"\s*\/>/) || [])[1];
   if (!desc) fail(`${p}.html missing meta description`);
   if (!html.includes('href="./stay.html"')) fail(`${p}.html missing Stay cross-link (drawer/footer)`);
+  if (!html.includes('href="./contact.html"')) fail(`${p}.html missing Contact cross-link (drawer/footer)`);
   if (!html.includes('https://www.paypal.com/ncp/payment/J3LGU3527J9FU')) fail(`${p}.html missing tip-jar link`);
 }
 
@@ -86,7 +88,33 @@ if (checkStay) {
   }
 }
 
-// Head uniqueness + compiled CSS coverage (Task 4)
+// Contact directory vs contacts.json + stays.json reuse (call directory)
+if (checkContact) {
+  const dataPath = join(root, 'src', 'templates', 'contacts.json');
+  if (!existsSync(dataPath)) fail('missing src/templates/contacts.json');
+  else {
+    const contacts = JSON.parse(readFileSync(dataPath, 'utf8'));
+    const contactFile = join(pub, 'contact.html');
+    if (!existsSync(contactFile)) fail('missing public/contact.html');
+    else {
+      const html = readFileSync(contactFile, 'utf8');
+      const cards = html.split('data-contact="').slice(1);
+      if (cards.length < contacts.length) fail(`contact.html has ${cards.length} cards for ${contacts.length} contacts`);
+      for (const c of contacts) {
+        const chunk = cards.find((x) => x.startsWith(`${c.name}"`));
+        if (!chunk) { fail(`contact.html missing card for "${c.name}"`); continue; }
+        const body = chunk.slice(0, chunk.indexOf('data-contact="') < 0 ? chunk.length : chunk.indexOf('data-contact="'));
+        if (c.phone && !body.includes(`tel:${c.phone}`)) fail(`contact "${c.name}" missing tel: link`);
+      }
+      // Stays numbers are reused from stays.json — every stay with a phone appears.
+      const stays = JSON.parse(readFileSync(join(root, 'src', 'templates', 'stays.json'), 'utf8'));
+      for (const s of stays.filter((x) => x.phone)) {
+        if (!html.includes(`tel:${s.phone}`)) fail(`contact.html missing reused stay number for "${s.name}"`);
+      }
+      if (!html.includes('./practical.html')) fail('contact.html missing emergency link to practical.html');
+    }
+  }
+}
 {
   const titles = new Set();
   for (const p of pages) {

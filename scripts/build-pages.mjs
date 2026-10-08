@@ -17,6 +17,57 @@ const fail = (msg) => {
 
 const AREAS = { 'gorge-road': 'Gorge road', town: 'In town', palmeraie: 'Palmeraie' };
 const PRICE_BANDS = new Set(['budget', 'mid', 'splurge']);
+const CONTACT_CATS = { transport: 'Transport', health: 'Health', services: 'Guides & services' };
+
+export function validateContacts(contacts) {
+  if (!Array.isArray(contacts) || !contacts.length) fail('contacts.json must be a non-empty array');
+  for (const c of contacts) {
+    if (!c.name || typeof c.name !== 'string') fail('contacts.json: entry missing "name"');
+    if (!CONTACT_CATS[c.category]) fail(`contacts.json: "${c.name}" has bad category "${c.category}"`);
+    if (!c.note || typeof c.note !== 'string') fail(`contacts.json: "${c.name}" missing "note"`);
+    if (c.phone !== undefined && !/^\+212\d{9}$/.test(c.phone))
+      fail(`contacts.json: "${c.name}" phone must be E.164 like +2126XXXXXXXX`);
+    if (c.whatsapp !== undefined && !/^212\d{9}$/.test(c.whatsapp))
+      fail(`contacts.json: "${c.name}" whatsapp must be digits only like 2126XXXXXXXX`);
+  }
+  return contacts;
+}
+
+export function renderContactCard(name, note, phone, whatsapp) {
+  const btn = 'inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px]';
+  const waText = encodeURIComponent(`Hello ${name}, I found you via the Tineghir guide.`);
+  const actions = [
+    ...(phone ? [`<a href="tel:${phone}" aria-label="Call ${esc(name)}" class="${btn} bg-amber-700 hover:bg-amber-600 text-white">Call ${esc(phone)}</a>`] : []),
+    ...(whatsapp ? [`<a href="https://wa.me/${whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>`] : []),
+  ].join('\n              ');
+  return `          <div data-contact="${esc(name)}" class="bg-white rounded-2xl p-6 shadow-lg reveal">
+            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">${esc(name)}</h3>
+            <p class="text-stone-600 mb-4">${esc(note)}</p>${actions ? `\n            <div class="flex flex-wrap gap-3">\n              ${actions}\n            </div>` : ''}
+          </div>`;
+}
+
+export function renderContactSection(contacts, stays) {
+  const groups = Object.keys(CONTACT_CATS).map((cat) => {
+    const cards = contacts.filter((c) => c.category === cat)
+      .map((c) => renderContactCard(c.name, c.note, c.phone, c.whatsapp)).join('\n');
+    if (!cards) return '';
+    return `    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">${CONTACT_CATS[cat]}</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+${cards}
+    </div>`;
+  }).filter(Boolean).join('\n');
+  const stayCards = stays.filter((s) => s.phone)
+    .map((s) => renderContactCard(s.name, `${s.area} · ${s.priceBand}`, s.phone, s.whatsapp)).join('\n');
+  const stayGroup = stayCards ? `    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Stays</h2>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+${stayCards}
+    </div>` : '';
+  return `${groups}\n${stayGroup}
+    <div class="mt-12 bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
+      <p class="font-semibold text-red-800">Emergency? Police 19 · Fire/Ambulance 150 · Gendarmerie 177</p>
+      <a href="./practical.html" class="inline-block mt-2 text-red-700 hover:text-red-600 font-medium">All emergency numbers →</a>
+    </div>`;
+}
 
 export function validateStays(stays, rootDir = root) {
   if (!Array.isArray(stays) || !stays.length) fail('stays.json must be a non-empty array');
@@ -111,7 +162,28 @@ export function buildPages(rootDir = root) {
       if (!m[key]) fail(`pages.meta.json: "${page}" missing "${key}"`);
     }
     let content;
-    if (m.staySource) {
+    if (m.contactSource) {
+      const contacts = validateContacts(JSON.parse(readFileSync(join(dir, m.contactSource), 'utf8')));
+      const stays = JSON.parse(readFileSync(join(dir, 'stays.json'), 'utf8'));
+      content = `    <!-- Contact intro -->
+    <section class="py-20 md:py-28 bg-stone-100">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-14">
+          <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
+            Call
+          </p>
+          <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6">
+            Contacts &amp; Numbers
+          </h1>
+          <p class="text-stone-600 text-lg max-w-2xl mx-auto">
+            One-tap calls for transport, health, guides, and stays. Works
+            offline — numbers are on your phone, not on a server.
+          </p>
+        </div>
+${renderContactSection(contacts, stays)}
+      </div>
+    </section>`;
+    } else if (m.staySource) {
       const stays = validateStays(JSON.parse(readFileSync(join(dir, m.staySource), 'utf8')), rootDir);
       const intro = `    <!-- Stay intro -->
     <section class="py-20 md:py-28 bg-stone-100">
