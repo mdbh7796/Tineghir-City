@@ -10,6 +10,8 @@
       rel="stylesheet"
     />
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="canonical" href="https://www.tineghir.ma/" />
+    <meta name="theme-color" content="#1c1917" />
     <meta
       name="description"
       content="Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes."
@@ -21,11 +23,39 @@
     />
     <meta
       property="og:image"
-      content="images/todra-gorge.jpg"
+      content="https://www.tineghir.ma/images/og-image.jpg"
     />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Todra Gorge canyon at sunset" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.tineghir.ma" />
     <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tineghir - Gateway to Todra Gorge" />
+    <meta
+      name="twitter:description"
+      content="Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes."
+    />
+    <meta
+      name="twitter:image"
+      content="https://www.tineghir.ma/images/og-image.jpg"
+    />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "TouristDestination",
+        "name": "Tineghir",
+        "description": "Discover Tineghir, the gateway to the majestic Todra Gorge in Morocco. Explore ancient kasbahs, lush palm groves, and breathtaking desert landscapes.",
+        "url": "https://www.tineghir.ma/",
+        "image": "https://www.tineghir.ma/images/og-image.jpg",
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": 31.5139,
+          "longitude": -5.5316
+        }
+      }
+    </script>
     <link rel="stylesheet" href="style.css" />
     <!-- Leaflet Map CSS & JS -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
@@ -159,7 +189,11 @@
       "
     >
       <!-- Hero Background Image -->
-      <img src="images/hero-tineghir.jpg" alt="Tineghir Landscape" class="absolute inset-0 w-full h-full object-cover blur-[2px] opacity-100 pointer-events-none">
+      <picture class="absolute inset-0 w-full h-full block">
+        <source type="image/webp" srcset="images/hero-tineghir-640.webp 640w, images/hero-tineghir-1024.webp 1024w, images/hero-tineghir-1920.webp 1920w" sizes="100vw">
+        <source type="image/jpeg" srcset="images/hero-tineghir-640.jpg 640w, images/hero-tineghir-1024.jpg 1024w, images/hero-tineghir-1920.jpg 1920w" sizes="100vw">
+        <img src="images/hero-tineghir-1920.jpg" alt="Tineghir Landscape" width="2288" height="1437" fetchpriority="high" decoding="async" class="w-full h-full object-cover blur-[2px] opacity-100 pointer-events-none">
+      </picture>
       
       <!-- Dark Overlay Layer for Contrast -->
       <div class="absolute inset-0 bg-black/70 pointer-events-none"></div>
@@ -273,19 +307,19 @@
         <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
           <div>
             <p class="text-4xl font-display font-bold text-white">300m</p>
-            <p class="text-amber-200 text-sm mt-1">Canyon Height</p>
+            <p class="text-amber-100 text-sm mt-1">Canyon Height</p>
           </div>
           <div>
             <p class="text-4xl font-display font-bold text-white">42,000+</p>
-            <p class="text-amber-200 text-sm mt-1">Population</p>
+            <p class="text-amber-100 text-sm mt-1">Population</p>
           </div>
           <div>
             <p class="text-4xl font-display font-bold text-white">1,400m</p>
-            <p class="text-amber-200 text-sm mt-1">Altitude</p>
+            <p class="text-amber-100 text-sm mt-1">Altitude</p>
           </div>
           <div>
             <p class="text-4xl font-display font-bold text-white">1000+</p>
-            <p class="text-amber-200 text-sm mt-1">Years of History</p>
+            <p class="text-amber-100 text-sm mt-1">Years of History</p>
           </div>
         </div>
       </div>
@@ -392,11 +426,18 @@
               <div
                 class="relative h-[400px] rounded-2xl overflow-hidden shadow-xl"
               >
-                <img
-                  src="images/about-tineghir.jpg"
-                  alt="Tineghir City View"
-                  class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
-                />
+                <picture class="w-full h-full block">
+                  <source type="image/webp" srcset="images/about-tineghir-640.webp 640w, images/about-tineghir-1024.webp 1024w" sizes="(max-width: 1023px) 100vw, 50vw">
+                  <source type="image/jpeg" srcset="images/about-tineghir-640.jpg 640w, images/about-tineghir-1024.jpg 1024w" sizes="(max-width: 1023px) 100vw, 50vw">
+                  <img
+                    src="images/about-tineghir-1024.jpg"
+                    alt="Tineghir City View"
+                    width="1024"
+                    height="768"
+                    loading="lazy"
+                    class="w-full h-full object-cover transform hover:scale-105 transition-transform duration-700"
+                  />
+                </picture>
               </div>
             </div>
           </div>
@@ -457,7 +498,11 @@
           <!-- Todra Gorge -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/todra-gorge.jpg" alt="Todra Gorge" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <picture class="w-full h-full block">
+                <source type="image/webp" srcset="images/todra-gorge-640.webp 640w, images/todra-gorge-1024.webp 1024w, images/todra-gorge-1920.webp 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <source type="image/jpeg" srcset="images/todra-gorge-640.jpg 640w, images/todra-gorge-1024.jpg 1024w, images/todra-gorge-1920.jpg 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <img src="images/todra-gorge-1920.jpg" alt="Todra Gorge" width="2048" height="1360" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Must See</span>
             </div>
@@ -476,7 +521,11 @@
           <!-- Palm Grove -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-100">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/tineghir-palm-grove.jpg" alt="Palm Grove" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <picture class="w-full h-full block">
+                <source type="image/webp" srcset="images/tineghir-palm-grove-640.webp 640w, images/tineghir-palm-grove-1024.webp 1024w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <source type="image/jpeg" srcset="images/tineghir-palm-grove-640.jpg 640w, images/tineghir-palm-grove-1024.jpg 1024w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <img src="images/tineghir-palm-grove-1024.jpg" alt="Palm Grove" width="1800" height="1222" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Nature</span>
             </div>
@@ -495,7 +544,11 @@
           <!-- Kasbah El Glaoui -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-100">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/kasbah-el-glaoui.jpg" alt="Kasbah El Glaoui" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <picture class="w-full h-full block">
+                <source type="image/webp" srcset="images/kasbah-el-glaoui-640.webp 640w, images/kasbah-el-glaoui-1024.webp 1024w, images/kasbah-el-glaoui-1920.webp 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <source type="image/jpeg" srcset="images/kasbah-el-glaoui-640.jpg 640w, images/kasbah-el-glaoui-1024.jpg 1024w, images/kasbah-el-glaoui-1920.jpg 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <img src="images/kasbah-el-glaoui-1920.jpg" alt="Kasbah El Glaoui" width="2048" height="1360" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Heritage</span>
             </div>
@@ -514,7 +567,11 @@
           <!-- Traditional Souks -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-200">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/gallery-crafts.jpg" alt="Traditional Souks" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <picture class="w-full h-full block">
+                <source type="image/webp" srcset="images/gallery-crafts-640.webp 640w, images/gallery-crafts-1024.webp 1024w, images/gallery-crafts-1920.webp 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <source type="image/jpeg" srcset="images/gallery-crafts-640.jpg 640w, images/gallery-crafts-1024.jpg 1024w, images/gallery-crafts-1920.jpg 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <img src="images/gallery-crafts-1920.jpg" alt="Traditional Souks" width="2000" height="1616" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Shopping</span>
             </div>
@@ -533,7 +590,7 @@
           <!-- Medina of Tineghir -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/medina-tineghir.jpg" alt="Medina of Tineghir" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <img src="images/medina-tineghir.jpg" alt="Medina of Tineghir" width="1280" height="960" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Culture</span>
             </div>
@@ -552,7 +609,11 @@
           <!-- Dades Valley Day Trip -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/gallery-trek.jpg" alt="Dades Valley road" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <picture class="w-full h-full block">
+                <source type="image/webp" srcset="images/gallery-trek-640.webp 640w, images/gallery-trek-1024.webp 1024w, images/gallery-trek-1920.webp 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <source type="image/jpeg" srcset="images/gallery-trek-640.jpg 640w, images/gallery-trek-1024.jpg 1024w, images/gallery-trek-1920.jpg 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <img src="images/gallery-trek-1920.jpg" alt="Dades Valley road" width="2560" height="1440" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Day Trip</span>
             </div>
@@ -571,7 +632,11 @@
           <!-- Todra Valley Villages -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-100">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/gallery-palms.jpg" alt="Todra Valley village" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <picture class="w-full h-full block">
+                <source type="image/webp" srcset="images/gallery-palms-640.webp 640w, images/gallery-palms-1024.webp 1024w, images/gallery-palms-1920.webp 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <source type="image/jpeg" srcset="images/gallery-palms-640.jpg 640w, images/gallery-palms-1024.jpg 1024w, images/gallery-palms-1920.jpg 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <img src="images/gallery-palms-1920.jpg" alt="Todra Valley village" width="2576" height="1932" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Villages</span>
             </div>
@@ -590,7 +655,11 @@
           <!-- Jebel Saghro -->
           <div class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg group reveal delay-200">
             <div class="h-48 bg-stone-200 relative overflow-hidden flex items-center justify-center">
-              <img src="images/todra-gorge-hike.jpg" alt="Hiking in the Saghro mountains" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              <picture class="w-full h-full block">
+                <source type="image/webp" srcset="images/todra-gorge-hike-640.webp 640w, images/todra-gorge-hike-1024.webp 1024w, images/todra-gorge-hike-1920.webp 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <source type="image/jpeg" srcset="images/todra-gorge-hike-640.jpg 640w, images/todra-gorge-hike-1024.jpg 1024w, images/todra-gorge-hike-1920.jpg 1920w" sizes="(max-width: 767px) 100vw, (max-width: 1023px) 50vw, 33vw">
+                <img src="images/todra-gorge-hike-1920.jpg" alt="Hiking in the Saghro mountains" width="3670" height="5586" class="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700" loading="lazy">
+              </picture>
               <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
               <span class="absolute top-4 right-4 bg-amber-500 text-white text-xs font-bold px-3 py-1 rounded-full">Trekking</span>
             </div>
@@ -634,7 +703,11 @@
             class="sm:col-span-2 sm:row-span-2 rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger"
              data-lightbox-src="images/todra-gorge.jpg"
           >
-            <img src="images/todra-gorge.jpg" alt="Todra Gorge Canyon" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <picture class="absolute inset-0 w-full h-full block">
+              <source type="image/webp" srcset="images/todra-gorge-640.webp 640w, images/todra-gorge-1024.webp 1024w, images/todra-gorge-1920.webp 1920w" sizes="(max-width: 639px) 100vw, 50vw">
+              <source type="image/jpeg" srcset="images/todra-gorge-640.jpg 640w, images/todra-gorge-1024.jpg 1024w, images/todra-gorge-1920.jpg 1920w" sizes="(max-width: 639px) 100vw, 50vw">
+              <img src="images/todra-gorge-1920.jpg" alt="Todra Gorge Canyon" width="2048" height="1360" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-0 left-0 right-0 p-8 z-10">
               <span class="text-amber-200 text-sm">📍 Todra Gorge</span>
@@ -647,7 +720,11 @@
             class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
             data-lightbox-src="images/gallery-palms.jpg"
           >
-            <img src="images/gallery-palms.jpg" alt="Palm Valley" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <picture class="absolute inset-0 w-full h-full block">
+              <source type="image/webp" srcset="images/gallery-palms-640.webp 640w, images/gallery-palms-1024.webp 1024w, images/gallery-palms-1920.webp 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <source type="image/jpeg" srcset="images/gallery-palms-640.jpg 640w, images/gallery-palms-1024.jpg 1024w, images/gallery-palms-1920.jpg 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <img src="images/gallery-palms-1920.jpg" alt="Palm Valley" width="2576" height="1932" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
               <div>
                 <span class="text-emerald-200 text-xs">🌴 Oasis</span>
@@ -661,7 +738,11 @@
             class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
             data-lightbox-src="images/gallery-crafts.jpg"
           >
-            <img src="images/gallery-crafts.jpg" alt="Local Crafts" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <picture class="absolute inset-0 w-full h-full block">
+              <source type="image/webp" srcset="images/gallery-crafts-640.webp 640w, images/gallery-crafts-1024.webp 1024w, images/gallery-crafts-1920.webp 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <source type="image/jpeg" srcset="images/gallery-crafts-640.jpg 640w, images/gallery-crafts-1024.jpg 1024w, images/gallery-crafts-1920.jpg 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <img src="images/gallery-crafts-1920.jpg" alt="Local Crafts" width="2000" height="1616" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
               <div>
                 <span class="text-rose-200 text-xs">🏺 Culture</span>
@@ -675,7 +756,11 @@
             class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
             data-lightbox-src="images/gallery-river.jpg"
           >
-            <img src="images/gallery-river.jpg" alt="Todra Waters" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <picture class="absolute inset-0 w-full h-full block">
+              <source type="image/webp" srcset="images/gallery-river-640.webp 640w, images/gallery-river-1024.webp 1024w, images/gallery-river-1920.webp 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <source type="image/jpeg" srcset="images/gallery-river-640.jpg 640w, images/gallery-river-1024.jpg 1024w, images/gallery-river-1920.jpg 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <img src="images/gallery-river-1920.jpg" alt="Todra Waters" width="5184" height="3456" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
               <div>
                 <span class="text-sky-200 text-xs">💧 River</span>
@@ -689,7 +774,11 @@
             class="rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger h-64"
             data-lightbox-src="images/gallery-trek.jpg"
           >
-            <img src="images/gallery-trek.jpg" alt="Desert Trek" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <picture class="absolute inset-0 w-full h-full block">
+              <source type="image/webp" srcset="images/gallery-trek-640.webp 640w, images/gallery-trek-1024.webp 1024w, images/gallery-trek-1920.webp 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <source type="image/jpeg" srcset="images/gallery-trek-640.jpg 640w, images/gallery-trek-1024.jpg 1024w, images/gallery-trek-1920.jpg 1920w" sizes="(max-width: 639px) 100vw, 25vw">
+              <img src="images/gallery-trek-1920.jpg" alt="Desert Trek" width="2560" height="1440" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex items-end p-4">
               <div>
                 <span class="text-yellow-200 text-xs">🐪 Adventure</span>
@@ -703,7 +792,11 @@
             class="sm:col-span-2 rounded-2xl overflow-hidden relative group cursor-pointer lightbox-trigger"
              data-lightbox-src="images/kasbah-el-glaoui.jpg"
           >
-            <img src="images/kasbah-el-glaoui.jpg" alt="Tineghir Kasbah" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+            <picture class="absolute inset-0 w-full h-full block">
+              <source type="image/webp" srcset="images/kasbah-el-glaoui-640.webp 640w, images/kasbah-el-glaoui-1024.webp 1024w, images/kasbah-el-glaoui-1920.webp 1920w" sizes="(max-width: 639px) 100vw, 50vw">
+              <source type="image/jpeg" srcset="images/kasbah-el-glaoui-640.jpg 640w, images/kasbah-el-glaoui-1024.jpg 1024w, images/kasbah-el-glaoui-1920.jpg 1920w" sizes="(max-width: 639px) 100vw, 50vw">
+              <img src="images/kasbah-el-glaoui-1920.jpg" alt="Tineghir Kasbah" width="2048" height="1360" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" loading="lazy">
+            </picture>
             <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
             <div class="absolute bottom-0 left-0 right-0 p-6 z-10">
               <span class="text-stone-300 text-sm">🏰 Heritage</span>
@@ -757,7 +850,11 @@
           </div>
           <div class="reveal delay-200 relative">
              <div class="absolute -inset-4 bg-gradient-to-r from-amber-600 to-orange-600 rounded-2xl opacity-20 blur-xl"></div>
-             <img src="images/todra-gorge-hike.jpg" alt="Hiker in Gorge" class="relative rounded-2xl shadow-2xl w-full h-auto border border-stone-700 bg-stone-800">
+             <picture class="relative block w-full">
+               <source type="image/webp" srcset="images/todra-gorge-hike-640.webp 640w, images/todra-gorge-hike-1024.webp 1024w, images/todra-gorge-hike-1920.webp 1920w" sizes="(max-width: 1023px) 100vw, 50vw">
+               <source type="image/jpeg" srcset="images/todra-gorge-hike-640.jpg 640w, images/todra-gorge-hike-1024.jpg 1024w, images/todra-gorge-hike-1920.jpg 1920w" sizes="(max-width: 1023px) 100vw, 50vw">
+               <img src="images/todra-gorge-hike-1920.jpg" alt="Hiker in Gorge" width="3670" height="5586" loading="lazy" class="relative rounded-2xl shadow-2xl w-full h-auto border border-stone-700 bg-stone-800">
+             </picture>
              <!-- Floating Badge -->
              <div class="absolute -bottom-6 -left-6 bg-stone-800 border border-stone-700 p-4 rounded-xl shadow-xl flex items-center gap-3">
                <span class="text-3xl">🥾</span>

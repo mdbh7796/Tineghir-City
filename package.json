@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "build": "tailwindcss -i ./src/input.css -o ./public/style.css",
+    "images:optimize": "node scripts/optimize-images.mjs",
     "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",
     "cap:sync": "npm run build && npx cap sync android",
     "android:sync": "npm run build && npx cap sync android",

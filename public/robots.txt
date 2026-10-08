@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /admin.html
 Disallow: /api/
-Sitemap: https://tineghir.ma/sitemap.xml
+Sitemap: https://www.tineghir.ma/sitemap.xml
