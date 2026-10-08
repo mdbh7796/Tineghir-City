@@ -3,23 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>Contacts & Numbers - Call Tineghir</title>
+    <title>Trip Tools - Packing & Planner</title>
 
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Outfit:wght@300;400;500;600&amp;display=swap"
       rel="stylesheet"
     />
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
-    <link rel="canonical" href="https://www.tineghir.ma/contact.html" />
+    <link rel="canonical" href="https://www.tineghir.ma/tools.html" />
     <meta name="theme-color" content="#1c1917" />
     <meta
       name="description"
-      content="One-tap calls for transport, health, guides, and stays in Tineghir, Morocco."
+      content="Offline packing checklist and saved-places planner for your Tineghir trip."
     />
-    <meta property="og:title" content="Contacts & Numbers - Call Tineghir" />
+    <meta property="og:title" content="Trip Tools - Packing & Planner" />
     <meta
       property="og:description"
-      content="One-tap calls for transport, health, guides, and stays in Tineghir, Morocco."
+      content="Offline packing checklist and saved-places planner for your Tineghir trip."
     />
     <meta
       property="og:image"
@@ -29,13 +29,13 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Todra Gorge canyon at sunset" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://www.tineghir.ma/contact.html" />
+    <meta property="og:url" content="https://www.tineghir.ma/tools.html" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Contacts & Numbers - Call Tineghir" />
+    <meta name="twitter:title" content="Trip Tools - Packing & Planner" />
     <meta
       name="twitter:description"
-      content="One-tap calls for transport, health, guides, and stays in Tineghir, Morocco."
+      content="Offline packing checklist and saved-places planner for your Tineghir trip."
     />
     <meta
       name="twitter:image"
@@ -46,8 +46,8 @@
         "@context": "https://schema.org",
         "@type": "TouristDestination",
         "name": "Tineghir",
-        "description": "One-tap calls for transport, health, guides, and stays in Tineghir, Morocco.",
-        "url": "https://www.tineghir.ma/contact.html",
+        "description": "Offline packing checklist and saved-places planner for your Tineghir trip.",
+        "url": "https://www.tineghir.ma/tools.html",
         "image": "https://www.tineghir.ma/images/og-image.jpg",
         "geo": {
           "@type": "GeoCoordinates",
@@ -62,7 +62,7 @@
 
   <body
     class="h-full font-body bg-stone-50 text-stone-800 overflow-auto scroll-smooth"
-    data-page="contact"
+    data-page="tools"
   >
     <!-- Navigation -->
     <nav
@@ -167,114 +167,60 @@
     </aside>
 
     <main>
-    <!-- Contact intro -->
+    <!-- Tools intro -->
     <section class="py-20 md:py-28 bg-stone-100">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
-          <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
-            Call
+          <p
+            class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4"
+          >
+            Trip Tools
           </p>
-          <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6">
-            Contacts &amp; Numbers
+          <h1
+            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
+          >
+            Packing &amp; Planner
           </h1>
           <p class="text-stone-600 text-lg max-w-2xl mx-auto">
-            One-tap calls for transport, health, guides, and stays. Works
-            offline — numbers are on your phone, not on a server.
+            Everything saved on your device — no account, no connection
+            needed after the first visit.
           </p>
         </div>
-    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Transport</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div data-contact="Petit taxis" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Petit taxis</h3>
-            <p class="text-stone-600 mb-4">Fixed short routes around town for a few dirhams (~5 MAD base). Agree the fare before longer rides.</p>
+        <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Packing checklist</h2>
+        <p id="pack-progress" role="status" class="text-stone-600 mb-4">0/12 packed</p>
+        <p id="pack-notice" hidden class="bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 mb-4 text-amber-800 text-sm">Saving is unavailable on this device — your ticks won't be kept.</p>
+        <div id="pack-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">☀️ Desert sun</h3>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sun-hat" class="w-5 h-5 accent-amber-700"> Wide-brim hat</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunscreen" class="w-5 h-5 accent-amber-700"> Sunscreen SPF 50</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunglasses" class="w-5 h-5 accent-amber-700"> Sunglasses</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="water-bottle" class="w-5 h-5 accent-amber-700"> Refillable water bottle</label>
           </div>
-          <div data-contact="Grand taxi day hire" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Grand taxi day hire</h3>
-            <p class="text-stone-600 mb-4">For the gorge, Dades Valley, and villages. Agree the full-day rate before departure; splitting with other travelers is normal.</p>
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">🥾 Gorge walking</h3>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="gorge-shoes" class="w-5 h-5 accent-amber-700"> Grippy walking shoes</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="daypack" class="w-5 h-5 accent-amber-700"> Small daypack</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="warm-layer" class="w-5 h-5 accent-amber-700"> Warm layer (cold nights)</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="swimwear" class="w-5 h-5 accent-amber-700"> Swimwear for the river</label>
           </div>
-          <div data-contact="CTM / Supratours station" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">CTM / Supratours station</h3>
-            <p class="text-stone-600 mb-4">Intercity buses leave from the town station. Book a day ahead in spring and autumn.</p>
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">🎒 Essentials</h3>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="passport-copy" class="w-5 h-5 accent-amber-700"> Passport + a copy</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="cash-dirhams" class="w-5 h-5 accent-amber-700"> Cash in dirhams</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="power-bank" class="w-5 h-5 accent-amber-700"> Power bank</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="first-aid" class="w-5 h-5 accent-amber-700"> Basic first-aid kit</label>
           </div>
-    </div>
-    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Health</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div data-contact="Pharmacies" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Pharmacies</h3>
-            <p class="text-stone-600 mb-4">Day pharmacies open roughly 09–21h on Avenue Mohammed V; nights are on call — ask your hotel or any pharmacy door sign.</p>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">My plan</h2>
+        <div id="plan-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <p class="text-stone-600">Nothing saved yet. Star places on the <a href="./attractions.html" class="text-amber-700 hover:text-amber-600 font-medium">attractions page</a> and they will appear here.</p>
           </div>
-    </div>
-    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Guides & services</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div data-contact="Todra Gorge travel info" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Todra Gorge travel info</h3>
-            <p class="text-stone-600 mb-4">Local team for accommodation and travel arrangements around the gorge (published contact).</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212649359121" aria-label="Call Todra Gorge travel info" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212649359121</a>
-            </div>
-          </div>
-    </div>
-    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Stays</h2>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div data-contact="Kasbah Hotel Amazir" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Kasbah Hotel Amazir</h3>
-            <p class="text-stone-600 mb-4">gorge-road · mid</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212524895109" aria-label="Call Kasbah Hotel Amazir" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212524895109</a>
-            </div>
-          </div>
-          <div data-contact="Hotel Tomboctou" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Hotel Tomboctou</h3>
-            <p class="text-stone-600 mb-4">town · budget</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212524834604" aria-label="Call Hotel Tomboctou" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212524834604</a>
-            </div>
-          </div>
-          <div data-contact="Hotel Saghro" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Hotel Saghro</h3>
-            <p class="text-stone-600 mb-4">town · budget</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212524834181" aria-label="Call Hotel Saghro" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212524834181</a>
-            </div>
-          </div>
-          <div data-contact="Hotel Restaurant La Kasbah" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Hotel Restaurant La Kasbah</h3>
-            <p class="text-stone-600 mb-4">town · mid</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212524834471" aria-label="Call Hotel Restaurant La Kasbah" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212524834471</a>
-            </div>
-          </div>
-          <div data-contact="Dar Ayour" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Dar Ayour</h3>
-            <p class="text-stone-600 mb-4">gorge-road · splurge</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212672521251" aria-label="Call Dar Ayour" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212672521251</a>
-              <a href="https://wa.me/212672521251?text=Hello%20Dar%20Ayour%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Dar Ayour on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
-            </div>
-          </div>
-          <div data-contact="Auberge le Festival Todra Gorges" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Auberge le Festival Todra Gorges</h3>
-            <p class="text-stone-600 mb-4">gorge-road · budget</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212673454307" aria-label="Call Auberge le Festival Todra Gorges" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212673454307</a>
-              <a href="https://wa.me/212673454307?text=Hello%20Auberge%20le%20Festival%20Todra%20Gorges%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Auberge le Festival Todra Gorges on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
-            </div>
-          </div>
-          <div data-contact="Auberge Bougafer" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">Auberge Bougafer</h3>
-            <p class="text-stone-600 mb-4">gorge-road · budget</p>
-            <div class="flex flex-wrap gap-3">
-              <a href="tel:+212670223536" aria-label="Call Auberge Bougafer" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212670223536</a>
-              <a href="https://wa.me/212670223536?text=Hello%20Auberge%20Bougafer%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Auberge Bougafer on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
-            </div>
-          </div>
-    </div>
-    <div class="mt-12 bg-red-50 border border-red-200 rounded-2xl p-6 text-center">
-      <p class="font-semibold text-red-800">Emergency? Police 19 · Fire/Ambulance 150 · Gendarmerie 177</p>
-      <a href="./practical.html" class="inline-block mt-2 text-red-700 hover:text-red-600 font-medium">All emergency numbers →</a>
-    </div>
+        </div>
       </div>
     </section>
+
     </main>
     <!-- Footer -->
     <footer class="bg-stone-900 py-16">

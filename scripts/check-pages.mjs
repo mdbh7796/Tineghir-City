@@ -13,8 +13,9 @@ const checkScript = scopes.has('all') || scopes.has('script');
 const checkStay = scopes.has('all') || scopes.has('stay');
 const checkContact = scopes.has('all') || scopes.has('contact');
 const checkTransport = scopes.has('all') || scopes.has('transport');
+const checkTools = scopes.has('all') || scopes.has('tools');
 // Default page-structure assertions always run.
-const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport'];
+const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport', 'tools'];
 const failures = [];
 const fail = (m) => failures.push(m);
 
@@ -114,6 +115,18 @@ if (checkContact) {
         if (!html.includes(`tel:${s.phone}`)) fail(`contact.html missing reused stay number for "${s.name}"`);
       }
       if (!html.includes('./practical.html')) fail('contact.html missing emergency link to practical.html');
+    }
+  }
+}
+
+// Trip tools page sections (trip tools plan, Task 1)
+if (checkTools) {
+  const f = join(pub, 'tools.html');
+  if (!existsSync(f)) fail('missing public/tools.html');
+  else {
+    const html = readFileSync(f, 'utf8');
+    for (const needle of ['id="pack-list"', 'id="plan-list"', 'id="pack-progress"', 'js/tools.js']) {
+      if (!html.includes(needle)) fail(`tools.html missing "${needle}"`);
     }
   }
 }

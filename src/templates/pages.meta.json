@@ -100,5 +100,14 @@
     "leaflet": false,
     "activeNav": "transport",
     "fragments": ["transport.html"]
+  },
+  "tools": {
+    "title": "Trip Tools - Packing & Planner",
+    "description": "Offline packing checklist and saved-places planner for your Tineghir trip.",
+    "canonical": "https://www.tineghir.ma/tools.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "tools",
+    "fragments": ["tools.html"]
   }
 }

@@ -1,0 +1,53 @@
+    <!-- Tools intro -->
+    <section class="py-20 md:py-28 bg-stone-100">
+      <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-14">
+          <p
+            class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4"
+          >
+            Trip Tools
+          </p>
+          <h1
+            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
+          >
+            Packing &amp; Planner
+          </h1>
+          <p class="text-stone-600 text-lg max-w-2xl mx-auto">
+            Everything saved on your device — no account, no connection
+            needed after the first visit.
+          </p>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Packing checklist</h2>
+        <p id="pack-progress" role="status" class="text-stone-600 mb-4">0/12 packed</p>
+        <p id="pack-notice" hidden class="bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 mb-4 text-amber-800 text-sm">Saving is unavailable on this device — your ticks won't be kept.</p>
+        <div id="pack-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">☀️ Desert sun</h3>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sun-hat" class="w-5 h-5 accent-amber-700"> Wide-brim hat</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunscreen" class="w-5 h-5 accent-amber-700"> Sunscreen SPF 50</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunglasses" class="w-5 h-5 accent-amber-700"> Sunglasses</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="water-bottle" class="w-5 h-5 accent-amber-700"> Refillable water bottle</label>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">🥾 Gorge walking</h3>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="gorge-shoes" class="w-5 h-5 accent-amber-700"> Grippy walking shoes</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="daypack" class="w-5 h-5 accent-amber-700"> Small daypack</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="warm-layer" class="w-5 h-5 accent-amber-700"> Warm layer (cold nights)</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="swimwear" class="w-5 h-5 accent-amber-700"> Swimwear for the river</label>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">🎒 Essentials</h3>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="passport-copy" class="w-5 h-5 accent-amber-700"> Passport + a copy</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="cash-dirhams" class="w-5 h-5 accent-amber-700"> Cash in dirhams</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="power-bank" class="w-5 h-5 accent-amber-700"> Power bank</label>
+            <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="first-aid" class="w-5 h-5 accent-amber-700"> Basic first-aid kit</label>
+          </div>
+        </div>
+        <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">My plan</h2>
+        <div id="plan-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-6 shadow-lg">
+            <p class="text-stone-600">Nothing saved yet. Star places on the <a href="./attractions.html" class="text-amber-700 hover:text-amber-600 font-medium">attractions page</a> and they will appear here.</p>
+          </div>
+        </div>
+      </div>
+    </section>
