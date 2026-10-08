@@ -12,7 +12,7 @@ const checkSitemap = scopes.has('all') || scopes.has('sitemap');
 const checkScript = scopes.has('all') || scopes.has('script');
 const checkStay = scopes.has('all') || scopes.has('stay');
 // Default page-structure assertions always run.
-const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit'];
+const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay'];
 const failures = [];
 const fail = (m) => failures.push(m);
 
@@ -41,6 +41,7 @@ for (const p of pages) {
   if (ogUrl !== canon) fail(`${p}.html og:url does not match canonical`);
   const desc = (html.match(/<meta\s+name="description"\s+content="([^"]+)"\s*\/>/) || [])[1];
   if (!desc) fail(`${p}.html missing meta description`);
+  if (!html.includes('href="./stay.html"')) fail(`${p}.html missing Stay cross-link (drawer/footer)`);
 }
 
 // Stay page vs stays.json data (stay plan, Task 1)
@@ -156,4 +157,4 @@ if (failures.length) {
   for (const f of failures) console.error(` - ${f}`);
   process.exit(1);
 }
-console.log('check:pages PASS (8 pages, drawer, map scope, lightbox scope, sitemap)');
+console.log(`check:pages PASS (${pages.length} pages, drawer, map scope, lightbox scope, sitemap)`);

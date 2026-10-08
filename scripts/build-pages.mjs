@@ -158,6 +158,17 @@ ${renderStaySection(stays)}
   }
 
   console.log(`pages:build: wrote ${written.join(', ')}`);
+
+  // Sitemap is generated from meta canonicals so new pages can't drift.
+  const sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
+  for (const [page, m] of Object.entries(meta)) {
+    const priority = page === 'index' ? '1.0' : (m.priority || '0.8');
+    const changefreq = page === 'index' ? 'weekly' : 'monthly';
+    sm.push('  <url>', `    <loc>${m.canonical}</loc>`, '    <lastmod>2026-10-08</lastmod>', `    <changefreq>${changefreq}</changefreq>`, `    <priority>${priority}</priority>`, '  </url>');
+  }
+  sm.push('</urlset>');
+  writeFileSync(join(outDir, 'sitemap.xml'), sm.join('\n') + '\n');
+  console.log('pages:build: wrote sitemap.xml');
   return written;
 }
 
