@@ -680,6 +680,9 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
   }
+  .border-amber-300 {
+    border-color: var(--color-amber-300);
+  }
   .border-amber-400 {
     border-color: var(--color-amber-400);
   }
@@ -697,6 +700,9 @@
   }
   .border-red-200 {
     border-color: var(--color-red-200);
+  }
+  .border-stone-300 {
+    border-color: var(--color-stone-300);
   }
   .border-stone-700 {
     border-color: var(--color-stone-700);
@@ -1062,6 +1068,9 @@
   .italic {
     font-style: italic;
   }
+  .accent-amber-700 {
+    accent-color: var(--color-amber-700);
+  }
   .opacity-0 {
     opacity: 0%;
   }
@@ -1280,6 +1289,20 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-red-600);
+      }
+    }
+  }
+  .hover\:text-red-700 {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-red-700);
+      }
+    }
+  }
+  .hover\:text-white {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-white);
       }
     }
   }
