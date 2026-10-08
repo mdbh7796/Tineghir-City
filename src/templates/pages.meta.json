@@ -91,5 +91,14 @@
     "leaflet": false,
     "activeNav": "contact",
     "contactSource": "contacts.json"
+  },
+  "transport": {
+    "title": "Flights & Transport - Getting to Tineghir",
+    "description": "Fly to Ouarzazate or Errachidia, ride CTM buses, and hire grand taxis — every way in and around Tineghir.",
+    "canonical": "https://www.tineghir.ma/transport.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "transport",
+    "fragments": ["transport.html"]
   }
 }

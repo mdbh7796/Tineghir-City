@@ -12,8 +12,9 @@ const checkSitemap = scopes.has('all') || scopes.has('sitemap');
 const checkScript = scopes.has('all') || scopes.has('script');
 const checkStay = scopes.has('all') || scopes.has('stay');
 const checkContact = scopes.has('all') || scopes.has('contact');
+const checkTransport = scopes.has('all') || scopes.has('transport');
 // Default page-structure assertions always run.
-const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact'];
+const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport'];
 const failures = [];
 const fail = (m) => failures.push(m);
 
@@ -44,6 +45,7 @@ for (const p of pages) {
   if (!desc) fail(`${p}.html missing meta description`);
   if (!html.includes('href="./stay.html"')) fail(`${p}.html missing Stay cross-link (drawer/footer)`);
   if (!html.includes('href="./contact.html"')) fail(`${p}.html missing Contact cross-link (drawer/footer)`);
+  if (!html.includes('href="./transport.html"')) fail(`${p}.html missing Transport cross-link (drawer/footer)`);
   if (!html.includes('https://www.paypal.com/ncp/payment/J3LGU3527J9FU')) fail(`${p}.html missing tip-jar link`);
 }
 
@@ -112,6 +114,22 @@ if (checkContact) {
         if (!html.includes(`tel:${s.phone}`)) fail(`contact.html missing reused stay number for "${s.name}"`);
       }
       if (!html.includes('./practical.html')) fail('contact.html missing emergency link to practical.html');
+    }
+  }
+}
+
+// Transport page outbound links (flights & transport)
+if (checkTransport) {
+  const f = join(pub, 'transport.html');
+  if (!existsSync(f)) fail('missing public/transport.html');
+  else {
+    const html = readFileSync(f, 'utf8');
+    for (const m of html.matchAll(/href="(https?:\/\/[^"]+)"/g)) {
+      if (!m[1].startsWith('https://')) fail(`transport.html has non-https link "${m[1]}"`);
+    }
+    if (!html.includes('rel="noopener"')) fail('transport.html outbound links missing rel=noopener');
+    for (const needle of ['Ouarzazate', 'Errachidia', 'CTM', 'contact.html']) {
+      if (!html.includes(needle)) fail(`transport.html missing "${needle}"`);
     }
   }
 }
