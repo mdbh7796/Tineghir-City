@@ -116,25 +116,54 @@ function initLightbox() {
   });
 }
 
+// Pins must be checked in Google Maps before release.
+const ATTRACTIONS = {
+  'tineghir-center': { name: 'Tineghir City Center', lat: 31.5139, lng: -5.5316, kind: 'point', verified: true,
+    desc: 'Gateway to Todra Gorge', imgUrl: 'images/hero-tineghir.jpg' },
+  'todra-gorge': { name: 'Todra Gorge', lat: 31.58395, lng: -5.59161, kind: 'point', verified: false,
+    desc: 'Towering 300m canyon walls, hiking & climbing', imgUrl: 'images/todra-gorge.jpg' },
+  'palm-grove': { name: 'Palm Grove', lat: 31.5200, lng: -5.5300, kind: 'point', verified: false,
+    desc: 'Lush oasis with date palms along the Todra River', imgUrl: 'images/tineghir-palm-grove.jpg' },
+  'souks': { name: 'Traditional Souks', lat: 31.5100, lng: -5.5310, kind: 'point', verified: false,
+    desc: 'Handicrafts, carpets, silver jewelry & spices', imgUrl: 'images/gallery-crafts.jpg' },
+  'kasbah-el-glaoui': { name: 'Kasbah El Glaoui', lat: 31.5110, lng: -5.5300, kind: 'point', verified: false,
+    desc: 'Historic mud-brick kasbah in the city center', imgUrl: 'images/about-tineghir.jpg' },
+  'medina': { name: 'Medina of Tineghir', lat: 31.5120, lng: -5.5320, kind: 'point', verified: false,
+    desc: 'Old medina with Berber architecture & narrow alleys', imgUrl: 'images/gallery-palms.jpg' },
+  'dades-valley': { name: 'Dades Valley', lat: null, lng: null, kind: 'area', verified: false,
+    desc: 'Hairpin roads and kasbah-dotted valleys', imgUrl: 'images/gallery-trek.jpg' },
+  'todra-villages': { name: 'Todra Valley Villages', lat: null, lng: null, kind: 'area', verified: false,
+    desc: 'Berber villages and terraced plots up the valley', imgUrl: 'images/gallery-palms.jpg' },
+  'jebel-saghro': { name: 'Jebel Saghro', lat: null, lng: null, kind: 'area', verified: false,
+    desc: 'Volcanic massif and nomad trails', imgUrl: 'images/todra-gorge-hike.jpg' },
+};
+
+// Card headings as written in index.html -> table keys.
+const CARD_TITLES = {
+  'Todra Gorge': 'todra-gorge',
+  'Palm Grove (Palmerie)': 'palm-grove',
+  'Kasbah El Glaoui': 'kasbah-el-glaoui',
+  'Traditional Souks': 'souks',
+  'Medina of Tineghir': 'medina',
+  'Dades Valley': 'dades-valley',
+  'Todra Valley Villages': 'todra-villages',
+  'Jebel Saghro': 'jebel-saghro',
+};
+
+function cardAttractionId(card) {
+  if (card.dataset.attraction) return card.dataset.attraction;
+  const h3 = card.querySelector('h3');
+  const id = h3 ? CARD_TITLES[h3.textContent.trim()] : undefined;
+  if (id) card.dataset.attraction = id;
+  return id;
+}
+
 // 3. Initialize Leaflet Map
 function initMap() {
   const mapElement = document.getElementById('map');
   if (!mapElement) return;
 
-  const attractions = [
-    { name: 'Tineghir City Center', lat: 31.5139, lng: -5.5316,
-      desc: 'Gateway to Todra Gorge', imgUrl: 'images/hero-tineghir.jpg' },
-    { name: 'Todra Gorge', lat: 31.58395, lng: -5.59161,
-      desc: 'Towering 300m canyon walls, hiking & climbing', imgUrl: 'images/todra-gorge.jpg' },
-    { name: 'Palm Grove', lat: 31.5200, lng: -5.5300,
-      desc: 'Lush oasis with date palms along the Todra River', imgUrl: 'images/tineghir-palm-grove.jpg' },
-    { name: 'Traditional Souks', lat: 31.5100, lng: -5.5310,
-      desc: 'Handicrafts, carpets, silver jewelry & spices', imgUrl: 'images/gallery-crafts.jpg' },
-    { name: 'Kasbah El Glaoui', lat: 31.5110, lng: -5.5300,
-      desc: 'Historic mud-brick kasbah in the city center', imgUrl: 'images/about-tineghir.jpg' },
-    { name: 'Medina of Tineghir', lat: 31.5120, lng: -5.5320,
-      desc: 'Old medina with Berber architecture & narrow alleys', imgUrl: 'images/gallery-palms.jpg' },
-  ];
+  const attractions = Object.values(ATTRACTIONS).filter(a => a.lat != null && a.lng != null);
 
   const map = L.map('map').setView([31.5139, -5.5316], 13);
 
@@ -205,7 +234,28 @@ async function getPosition() {
   });
 }
 
-// 4. Share buttons on attraction cards (native sheet via Capacitor, Web Share API, clipboard fallback)
+// 5. Directions buttons (Google Maps universal link; hidden unless verified)
+function initNavigateButtons() {
+  document.querySelectorAll('#attractions-grid > div').forEach(card => {
+    const id = cardAttractionId(card);
+    const a = id ? ATTRACTIONS[id] : undefined;
+    if (!a || a.lat == null || a.lng == null || !a.verified) return;
+    const link = document.createElement('a');
+    link.className = 'directions-btn';
+    link.textContent = 'Directions 🧭';
+    link.href = `https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lng}`;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.setAttribute('aria-label', `Directions to ${a.name}`);
+    link.style.cssText = 'margin-left:16px;font-size:14px;font-weight:500;color:#B45309;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:12px 0;';
+    const shareBtn = card.querySelector('.share-btn');
+    const container = card.querySelector('.p-6');
+    if (shareBtn) shareBtn.after(link);
+    else if (container) container.appendChild(link);
+  });
+}
+
+// 6. Share buttons on attraction cards (native sheet via Capacitor, Web Share API, clipboard fallback)
 function initShareButtons() {
   const cards = document.querySelectorAll('#attractions-grid > div');
   cards.forEach(card => {
@@ -251,7 +301,8 @@ async function shareAttraction(btn, name, desc) {
   }
 }
 
-// 5. Scrollspy: highlight the nav link for the section in view
+
+// 8. Scrollspy: highlight the nav link for the section in view
 function initScrollspy() {
   const links = document.querySelectorAll('nav a[href^="#"]');
   if (!links.length || !('IntersectionObserver' in window)) return;
@@ -274,7 +325,7 @@ function initScrollspy() {
   });
 }
 
-// 6. Android back button: lightbox -> menu -> in-page history -> exit.
+// 9. Android back button: lightbox -> menu -> in-page history -> exit.
 // Native only (the event fires solely in the Capacitor app); in a desktop
 // browser the default back behavior is untouched.
 function initBackButton() {
@@ -317,6 +368,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initMap();
   initShareButtons();
+  initNavigateButtons();
   initScrollspy();
   initBackButton();
 });
