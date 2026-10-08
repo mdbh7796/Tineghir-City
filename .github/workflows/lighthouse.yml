@@ -1,10 +1,9 @@
-# Warn-only: collects Lighthouse scores on every push and uploads the
-# report. No score gates yet — thresholds get set once we have baselines.
+# Warn-only: collects Lighthouse scores on every pull request and uploads
+# the report. No score gates yet — thresholds get set once we have baselines.
 name: Lighthouse (warn-only)
 
 on:
-  push:
-    branches: [main, 'feature/**']
+  pull_request:
   workflow_dispatch:
 
 jobs:
