@@ -54,13 +54,13 @@ jobs:
         run: ./gradlew bundleRelease
 
       - name: Upload debug APK
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
       - name: Upload release AAB
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: app-release
           path: android/app/build/outputs/bundle/release/app-release.aab
