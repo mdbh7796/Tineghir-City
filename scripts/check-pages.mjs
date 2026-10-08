@@ -75,6 +75,9 @@ if (checkStay) {
         if (!m[1].startsWith('https://www.booking.com/searchresults.html?ss=') || /\s/.test(m[1]))
           fail(`bad booking link "${m[1]}"`);
       }
+      for (const m of html.matchAll(/<a[^>]*href="https:\/\/www\.booking\.com[^"]*"[^>]*>/g)) {
+        if (!/aria-label="Book [^"]+ on Booking\.com"/.test(m[0])) fail('booking link missing accessible name');
+      }
       for (const m of html.matchAll(/<img[^>]+src="(images\/[^"]+)"[^>]*>/g)) {
         if (!existsSync(join(pub, m[1].split('?')[0]))) fail(`stay image missing: ${m[1]}`);
       }

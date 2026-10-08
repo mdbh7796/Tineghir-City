@@ -46,13 +46,13 @@ export function renderStayEntry(s) {
   const waText = encodeURIComponent(`Hello ${s.name}, I'd like to inquire about availability.`);
   const btn = 'inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px]';
   const actions = [
-    `<a href="${s.bookingUrl}" target="_blank" rel="noopener" class="${btn} bg-amber-700 hover:bg-amber-600 text-white">Book</a>`,
+    `<a href="${esc(s.bookingUrl)}" target="_blank" rel="noopener" aria-label="Book ${esc(s.name)} on Booking.com" class="${btn} bg-amber-700 hover:bg-amber-600 text-white">Book</a>`,
     ...(s.phone ? [`<a href="tel:${s.phone}" aria-label="Call ${esc(s.name)}" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>`] : []),
     ...(s.whatsapp ? [`<a href="https://wa.me/${s.whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(s.name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>`] : []),
     ...(s.verified === false ? [] : [`<a href="https://www.google.com/maps/dir/?api=1&amp;destination=${encodeURIComponent(s.mapsQuery)}" target="_blank" rel="noopener" class="${btn} text-amber-700 hover:text-amber-600">Directions 🧭</a>`]),
   ].join('\n              ');
   const photo = s.image
-    ? `<img src="${s.image}" alt="${esc(s.name)}" loading="lazy" class="w-full h-48 object-cover">`
+    ? `<img src="${esc(s.image)}" alt="${esc(s.name)}" loading="lazy" class="w-full h-48 object-cover">`
     : `<div class="w-full h-48 bg-stone-200 flex items-center justify-center text-4xl" aria-hidden="true">🏨</div>`;
   return `          <div data-stay="${esc(s.name)}" class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg reveal">
             ${photo}
