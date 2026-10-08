@@ -13,8 +13,8 @@
     "android:open": "npm run android:sync && npx cap open android",
     "android:build-debug": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && ./gradlew assembleDebug",
     "android:build-debug-win": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
-    "android:build-release": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && ./gradlew bundleRelease",
-    "android:build-release-win": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && gradlew.bat bundleRelease"
+    "android:build-release": "npm run tiles:fetch -- --release && npm run build && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "android:build-release-win": "npm run tiles:fetch -- --release && npm run build && npx cap sync android && cd android && gradlew.bat bundleRelease"
   },
   "keywords": [
     "tineghir",

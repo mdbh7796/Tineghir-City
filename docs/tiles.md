@@ -30,7 +30,10 @@ only); the in-app Range test gates this feature (§6).
   maxZoom, asset}`. Bbox `[-6.10, 31.05, -5.40, 31.70]`, zooms 9–16.
 - `scripts/fetch-tiles.mjs` downloads the release asset into
   `public/tiles/`, verifies SHA256, exits non-zero on any failure once a
-  manifest exists. No manifest yet → warns, exits 0 (dormant).
+  manifest exists. No manifest yet → warns, exits 0 (dormant), EXCEPT with
+  `--release` (wired into the `android:build-release*` chains): release
+  builds fail without the manifest or the verified asset, so a release can
+  never silently ship without offline maps.
 - `*.pmtiles` gitignored. `cap sync` mirrors `public/tiles/` into the APK
   assets — never write `android/.../assets` directly, and never run bare
   `cap sync` (stale tiles); always use the `android:*` npm chains, which
@@ -69,7 +72,7 @@ credit. Swapped in the same `removeLayer`/`addLayer` call.
 | Content-Type / Content-Range in-app | UNPROVEN |
 | Capacitor version at test | 8.5.3 (repo) |
 | androidScheme at test | default (https), no override |
-| Floor device | minSdk 24 (Android 7.0); perf-gate run on Android 10 / 3GB |
+| Floor device | minSdk 24 (Android 7.0) is the true floor. Perf gate runs on an API 24 device if one can be sourced; if not, Android 10 / 3GB is the stated practical floor, labeled as chosen (exception branch, not the default) |
 | Cold-start | on-device measured number (not a CI gate) |
 
 On-device matrix (all still to run): airplane mode, corridor edges,
