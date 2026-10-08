@@ -121,6 +121,11 @@ const CARD_TITLES = {
   'Jebel Saghro': 'jebel-saghro',
 };
 
+// Planner (tools page) reads names through this handle instead of a copy.
+if (typeof window !== 'undefined') {
+  window.__attractions = ATTRACTIONS;
+}
+
 function cardAttractionId(card) {
   if (card.dataset.attraction) return card.dataset.attraction;
   const h3 = card.querySelector('h3');
@@ -491,6 +496,38 @@ async function shareAttraction(btn, name, desc) {
   }
 }
 
+// 6b. Star buttons on attraction cards (saved-places planner, tools page)
+function initSaveButtons() {
+  const grid = document.getElementById('attractions-grid');
+  const tools = window.__tools;
+  if (!grid || !tools) return;
+  const saved = new Set(tools.readList('tineghir-plan'));
+  document.querySelectorAll('#attractions-grid > div').forEach(card => {
+    const id = cardAttractionId(card);
+    if (!id) return;
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'save-btn';
+    btn.style.cssText = 'margin-top:4px;margin-left:16px;font-size:14px;font-weight:500;color:#B45309;background:none;border:none;cursor:pointer;padding:12px 0;min-height:44px;';
+    const paint = () => {
+      const on = saved.has(id);
+      btn.setAttribute('aria-pressed', String(on));
+      const name = (ATTRACTIONS[id] && ATTRACTIONS[id].name) || 'place';
+      btn.setAttribute('aria-label', on ? `Remove ${name} from trip plan` : `Save ${name} to trip plan`);
+      btn.textContent = on ? '★ Saved' : '☆ Save';
+    };
+    paint();
+    btn.addEventListener('click', () => {
+      if (saved.has(id)) saved.delete(id);
+      else saved.add(id);
+      tools.writeList('tineghir-plan', [...saved]);
+      paint();
+    });
+    const container = card.querySelector('.p-6');
+    if (container) container.appendChild(btn);
+  });
+}
+
 // 7. Sort attractions by distance (verified pins only, in-place reorder)
 let cachedPosition = null;
 let sortOriginalOrder = null;
@@ -634,6 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLightbox();
   initMap();
   initShareButtons();
+  initSaveButtons();
   initNavigateButtons();
   initSortControl();
   initBackButton();
