@@ -274,6 +274,43 @@ function initScrollspy() {
   });
 }
 
+// 6. Android back button: lightbox -> menu -> in-page history -> exit.
+// Native only (the event fires solely in the Capacitor app); in a desktop
+// browser the default back behavior is untouched.
+function initBackButton() {
+  const App = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+  if (!App || typeof App.addListener !== 'function') return;
+
+  // In-page nav links push hash entries; count them deliberately so back
+  // walks the section history instead of exiting the app early.
+  let hashEntries = 0;
+  let skipNextHash = false;
+  window.addEventListener('hashchange', () => {
+    if (skipNextHash) { skipNextHash = false; return; }
+    hashEntries++;
+  });
+
+  App.addListener('backButton', () => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && !lightbox.classList.contains('hidden')) {
+      document.getElementById('lightbox-close').click();
+      return;
+    }
+    const menu = document.getElementById('mobile-menu');
+    if (menu && menu.classList.contains('active')) {
+      closeMobileMenu(true);
+      return;
+    }
+    if (hashEntries > 0) {
+      hashEntries--;
+      skipNextHash = true;
+      window.history.back();
+      return;
+    }
+    if (typeof App.exitApp === 'function') App.exitApp();
+  });
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
@@ -281,4 +318,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initMap();
   initShareButtons();
   initScrollspy();
+  initBackButton();
 });
