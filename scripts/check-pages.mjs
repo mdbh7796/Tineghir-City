@@ -9,6 +9,7 @@ const pub = join(root, 'public');
 const scopes = new Set((process.argv.find((a) => a.startsWith('--scope='))?.split('=')[1] ?? 'all').split(','));
 const checkLightbox = scopes.has('all') || scopes.has('lightbox');
 const checkSitemap = scopes.has('all') || scopes.has('sitemap');
+const checkScript = scopes.has('all') || scopes.has('script');
 // Default page-structure assertions always run.
 const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit'];
 const failures = [];
@@ -63,7 +64,17 @@ if (checkLightbox) for (const p of pages) {
   if (p !== 'gallery' && hasLb) fail(`${p}.html should not contain #lightbox`);
 }
 
-// Sitemap lists all 8 pages (Task 4)
+// Per-page script guards + back-button flow (Task 3)
+if (checkScript) {
+  const sj = readFileSync(join(pub, 'script.js'), 'utf8');
+  if (sj.includes('hashEntries')) fail('public/script.js still counts hash history entries');
+  if (sj.includes('initScrollspy')) fail('public/script.js still contains anchor scrollspy');
+  if (sj.includes("getElementById('mobile-menu')")) fail('public/script.js still references removed #mobile-menu');
+  for (const needle of ['.lightbox-trigger', '#attractions-grid']) {
+    if (!sj.includes(needle)) fail(`public/script.js missing mount guard for "${needle}"`);
+  }
+  if (!sj.includes('exitApp')) fail('public/script.js missing Capacitor exitApp fallback');
+}
 if (checkSitemap) {
 const smPath = join(pub, 'sitemap.xml');
 if (!existsSync(smPath)) fail('missing public/sitemap.xml');

@@ -1,39 +1,7 @@
 
-// Mobile menu toggle
-document.getElementById('mobile-menu-btn').addEventListener('click', () => {
-  const menu = document.getElementById('mobile-menu');
-  const btn = document.getElementById('mobile-menu-btn');
-  menu.classList.toggle('active');
-  const open = menu.classList.contains('active');
-  btn.setAttribute('aria-expanded', String(open));
-  btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
-  if (open) {
-    const firstLink = menu.querySelector('a');
-    if (firstLink) firstLink.focus();
-  }
-});
-
-function closeMobileMenu(refocus = false) {
-  const menu = document.getElementById('mobile-menu');
-  const btn = document.getElementById('mobile-menu-btn');
-  if (!menu.classList.contains('active')) return;
-  menu.classList.remove('active');
-  btn.setAttribute('aria-expanded', 'false');
-  btn.setAttribute('aria-label', 'Open menu');
-  if (refocus) btn.focus();
-}
-
-// Escape closes the mobile menu (lightbox has its own handler)
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') closeMobileMenu(true);
-});
-
-// Close mobile menu when clicking a link
-document.querySelectorAll('#mobile-menu a').forEach(link => {
-  link.addEventListener('click', () => {
-    closeMobileMenu(false);
-  });
-});
+// Mobile menu is owned by js/drawer.js (slide-in drawer). This file keeps
+// only per-page widgets; every init below is guarded by its mount element
+// so pages without that section are safe no-ops.
 
 // --- NEW FEATURES ---
 
@@ -60,8 +28,11 @@ function initScrollAnimations() {
 // 2. Gallery Lightbox
 function initLightbox() {
   const lightbox = document.getElementById('lightbox');
+  // Gallery-only widget: no triggers and no modal on other pages.
+  if (!lightbox || !document.querySelector('.lightbox-trigger')) return;
   const lightboxImg = document.getElementById('lightbox-img');
   const closeBtn = document.getElementById('lightbox-close');
+  if (!lightboxImg || !closeBtn) return;
   
   // Select all elements that should trigger lightbox
   const galleryItems = document.querySelectorAll('.lightbox-trigger');
@@ -453,6 +424,7 @@ async function getPosition() {
 
 // 5. Directions buttons (Google Maps universal link; hidden unless verified)
 function initNavigateButtons() {
+  if (!document.getElementById('attractions-grid')) return;
   document.querySelectorAll('#attractions-grid > div').forEach(card => {
     const id = cardAttractionId(card);
     const a = id ? ATTRACTIONS[id] : undefined;
@@ -474,6 +446,7 @@ function initNavigateButtons() {
 
 // 6. Share buttons on attraction cards (native sheet via Capacitor, Web Share API, clipboard fallback)
 function initShareButtons() {
+  if (!document.getElementById('attractions-grid')) return;
   const cards = document.querySelectorAll('#attractions-grid > div');
   cards.forEach(card => {
     const nameEl = card.querySelector('h3');
@@ -626,44 +599,15 @@ async function onSortToggle() {
   setSortMessage('Places sorted by straight-line distance, closest first.');
 }
 
-// 8. Scrollspy: highlight the nav link for the section in view
-function initScrollspy() {
-  const links = document.querySelectorAll('nav a[href^="#"]');
-  if (!links.length || !('IntersectionObserver' in window)) return;
-  const byId = {};
-  links.forEach(link => {
-    const id = link.getAttribute('href').slice(1);
-    if (!byId[id]) byId[id] = [];
-    byId[id].push(link);
-  });
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      links.forEach(link => link.classList.remove('nav-active'));
-      (byId[entry.target.id] || []).forEach(link => link.classList.add('nav-active'));
-    });
-  }, { rootMargin: '-40% 0px -55% 0px' });
-  Object.keys(byId).forEach(id => {
-    const section = document.getElementById(id);
-    if (section) observer.observe(section);
-  });
-}
+// 8. Active nav link is set by js/drawer.js from location.pathname
+// (the old anchor scrollspy has no sections to observe on split pages).
 
-// 9. Android back button: lightbox -> menu -> in-page history -> exit.
+// 9. Android back button: drawer -> page history -> exit.
 // Native only (the event fires solely in the Capacitor app); in a desktop
 // browser the default back behavior is untouched.
 function initBackButton() {
   const App = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
   if (!App || typeof App.addListener !== 'function') return;
-
-  // In-page nav links push hash entries; count them deliberately so back
-  // walks the section history instead of exiting the app early.
-  let hashEntries = 0;
-  let skipNextHash = false;
-  window.addEventListener('hashchange', () => {
-    if (skipNextHash) { skipNextHash = false; return; }
-    hashEntries++;
-  });
 
   App.addListener('backButton', () => {
     const lightbox = document.getElementById('lightbox');
@@ -671,14 +615,12 @@ function initBackButton() {
       document.getElementById('lightbox-close').click();
       return;
     }
-    const menu = document.getElementById('mobile-menu');
-    if (menu && menu.classList.contains('active')) {
-      closeMobileMenu(true);
+    const drawerApi = window.__drawer;
+    if (drawerApi && drawerApi.isDrawerOpen()) {
+      drawerApi.closeDrawer(true);
       return;
     }
-    if (hashEntries > 0) {
-      hashEntries--;
-      skipNextHash = true;
+    if (window.history.length > 1) {
       window.history.back();
       return;
     }
@@ -694,6 +636,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initShareButtons();
   initNavigateButtons();
   initSortControl();
-  initScrollspy();
   initBackButton();
 });
