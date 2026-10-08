@@ -7,6 +7,16 @@ on:
   workflow_dispatch:
 
 jobs:
+  spike-guard:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fail if spike artifacts present
+        run: |
+          test ! -e public/spike.html
+          test ! -e public/spike-tiles
+          test ! -e scripts/build-spike-pmtiles.mjs
+
   build:
     runs-on: ubuntu-latest
     steps:
