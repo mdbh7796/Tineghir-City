@@ -116,25 +116,54 @@ function initLightbox() {
   });
 }
 
+// Pins must be checked in Google Maps before release.
+const ATTRACTIONS = {
+  'tineghir-center': { name: 'Tineghir City Center', lat: 31.5139, lng: -5.5316, kind: 'point', verified: true,
+    desc: 'Gateway to Todra Gorge', imgUrl: 'images/hero-tineghir.jpg' },
+  'todra-gorge': { name: 'Todra Gorge', lat: 31.58395, lng: -5.59161, kind: 'point', verified: true,
+    desc: 'Towering 300m canyon walls, hiking & climbing', imgUrl: 'images/todra-gorge.jpg' },
+  'palm-grove': { name: 'Palm Grove', lat: 31.5205, lng: -5.5302, kind: 'point', verified: true,
+    desc: 'Lush oasis with date palms along the Todra River', imgUrl: 'images/tineghir-palm-grove.jpg' },
+  'souks': { name: 'Traditional Souks', lat: 31.5125, lng: -5.5330, kind: 'point', verified: true,
+    desc: 'Handicrafts, carpets, silver jewelry & spices', imgUrl: 'images/gallery-crafts.jpg' },
+  'kasbah-el-glaoui': { name: 'Kasbah El Glaoui', lat: 31.5248, lng: -5.5312, kind: 'point', verified: true,
+    desc: 'Historic mud-brick kasbah in the city center', imgUrl: 'images/about-tineghir.jpg' },
+  'medina': { name: 'Medina of Tineghir', lat: 31.5147, lng: -5.5328, kind: 'point', verified: true,
+    desc: 'Old medina with Berber architecture & narrow alleys', imgUrl: 'images/gallery-palms.jpg' },
+  'dades-valley': { name: 'Dades Valley', lat: 31.4285, lng: -5.9754, kind: 'area', verified: true,
+    desc: 'Hairpin roads and kasbah-dotted valleys', imgUrl: 'images/gallery-trek.jpg' },
+  'todra-villages': { name: 'Todra Valley Villages', lat: 31.5450, lng: -5.5560, kind: 'area', verified: true,
+    desc: 'Berber villages and terraced plots up the valley', imgUrl: 'images/gallery-palms.jpg' },
+  'jebel-saghro': { name: 'Jebel Saghro', lat: 31.1333, lng: -5.6000, kind: 'area', verified: true,
+    desc: 'Volcanic massif and nomad trails', imgUrl: 'images/todra-gorge-hike.jpg' },
+};
+
+// Card headings as written in index.html -> table keys.
+const CARD_TITLES = {
+  'Todra Gorge': 'todra-gorge',
+  'Palm Grove (Palmerie)': 'palm-grove',
+  'Kasbah El Glaoui': 'kasbah-el-glaoui',
+  'Traditional Souks': 'souks',
+  'Medina of Tineghir': 'medina',
+  'Dades Valley': 'dades-valley',
+  'Todra Valley Villages': 'todra-villages',
+  'Jebel Saghro': 'jebel-saghro',
+};
+
+function cardAttractionId(card) {
+  if (card.dataset.attraction) return card.dataset.attraction;
+  const h3 = card.querySelector('h3');
+  const id = h3 ? CARD_TITLES[h3.textContent.trim()] : undefined;
+  if (id) card.dataset.attraction = id;
+  return id;
+}
+
 // 3. Initialize Leaflet Map
 function initMap() {
   const mapElement = document.getElementById('map');
   if (!mapElement) return;
 
-  const attractions = [
-    { name: 'Tineghir City Center', lat: 31.5139, lng: -5.5316,
-      desc: 'Gateway to Todra Gorge', imgUrl: 'images/hero-tineghir.jpg' },
-    { name: 'Todra Gorge', lat: 31.58395, lng: -5.59161,
-      desc: 'Towering 300m canyon walls, hiking & climbing', imgUrl: 'images/todra-gorge.jpg' },
-    { name: 'Palm Grove', lat: 31.5200, lng: -5.5300,
-      desc: 'Lush oasis with date palms along the Todra River', imgUrl: 'images/tineghir-palm-grove.jpg' },
-    { name: 'Traditional Souks', lat: 31.5100, lng: -5.5310,
-      desc: 'Handicrafts, carpets, silver jewelry & spices', imgUrl: 'images/gallery-crafts.jpg' },
-    { name: 'Kasbah El Glaoui', lat: 31.5110, lng: -5.5300,
-      desc: 'Historic mud-brick kasbah in the city center', imgUrl: 'images/about-tineghir.jpg' },
-    { name: 'Medina of Tineghir', lat: 31.5120, lng: -5.5320,
-      desc: 'Old medina with Berber architecture & narrow alleys', imgUrl: 'images/gallery-palms.jpg' },
-  ];
+  const attractions = Object.values(ATTRACTIONS).filter(a => a.lat != null && a.lng != null);
 
   const map = L.map('map').setView([31.5139, -5.5316], 13);
 
@@ -205,7 +234,28 @@ async function getPosition() {
   });
 }
 
-// 4. Share buttons on attraction cards (native sheet via Capacitor, Web Share API, clipboard fallback)
+// 5. Directions buttons (Google Maps universal link; hidden unless verified)
+function initNavigateButtons() {
+  document.querySelectorAll('#attractions-grid > div').forEach(card => {
+    const id = cardAttractionId(card);
+    const a = id ? ATTRACTIONS[id] : undefined;
+    if (!a || a.lat == null || a.lng == null || !a.verified) return;
+    const link = document.createElement('a');
+    link.className = 'directions-btn';
+    link.textContent = 'Directions 🧭';
+    link.href = `https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lng}`;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.setAttribute('aria-label', `Directions to ${a.name}`);
+    link.style.cssText = 'margin-left:16px;font-size:14px;font-weight:500;color:#B45309;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:12px 0;';
+    const shareBtn = card.querySelector('.share-btn');
+    const container = card.querySelector('.p-6');
+    if (shareBtn) shareBtn.after(link);
+    else if (container) container.appendChild(link);
+  });
+}
+
+// 6. Share buttons on attraction cards (native sheet via Capacitor, Web Share API, clipboard fallback)
 function initShareButtons() {
   const cards = document.querySelectorAll('#attractions-grid > div');
   cards.forEach(card => {
@@ -251,7 +301,115 @@ async function shareAttraction(btn, name, desc) {
   }
 }
 
-// 5. Scrollspy: highlight the nav link for the section in view
+// 7. Sort attractions by distance (verified pins only, in-place reorder)
+let cachedPosition = null;
+let sortOriginalOrder = null;
+
+function haversine(lat1, lng1, lat2, lng2) {
+  const R = 6371;
+  const toRad = (d) => (d * Math.PI) / 180;
+  const dLat = toRad(lat2 - lat1);
+  const dLng = toRad(lng2 - lng1);
+  const a = Math.sin(dLat / 2) ** 2
+    + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
+}
+
+function formatDistance(km, kind) {
+  if (kind === 'area' || km >= 1) {
+    const prefix = kind === 'area' ? '~' : '';
+    return `${prefix}${km < 10 ? km.toFixed(1) : Math.round(km)} km away`;
+  }
+  return 'In town';
+}
+
+function setSortMessage(text) {
+  const status = document.getElementById('sort-status');
+  if (status) status.textContent = text;
+}
+
+function setDistanceLabels(show, entries) {
+  document.querySelectorAll('#attractions-grid > div').forEach(card => {
+    const old = card.querySelector('.distance-label');
+    if (old) old.remove();
+  });
+  if (!show || !entries) return;
+  entries.forEach(({ card, km, kind }) => {
+    const label = document.createElement('span');
+    label.className = 'distance-label';
+    label.textContent = formatDistance(km, kind);
+    label.style.cssText = 'display:block;font-size:13px;color:#78716c;margin-top:4px;';
+    const meta = card.querySelector('.p-6 p.text-stone-500');
+    const container = card.querySelector('.p-6');
+    if (meta) meta.after(label);
+    else if (container) container.appendChild(label);
+  });
+}
+
+function initSortControl() {
+  const header = document.querySelector('#attractions .text-center');
+  if (!header || document.getElementById('sort-toggle')) return;
+  const btn = document.createElement('button');
+  btn.id = 'sort-toggle';
+  btn.type = 'button';
+  btn.textContent = 'Sort by distance';
+  btn.setAttribute('aria-pressed', 'false');
+  btn.style.cssText = 'margin-top:20px;font-size:15px;font-weight:500;color:#B45309;background:#fff;border:2px solid #D97706;border-radius:9999px;padding:10px 24px;min-height:48px;cursor:pointer;';
+  const status = document.createElement('p');
+  status.id = 'sort-status';
+  status.setAttribute('role', 'status');
+  status.style.cssText = 'margin-top:12px;font-size:14px;color:#57534e;min-height:20px;';
+  btn.addEventListener('click', onSortToggle);
+  header.appendChild(btn);
+  header.appendChild(status);
+}
+
+async function onSortToggle() {
+  const btn = document.getElementById('sort-toggle');
+  const grid = document.getElementById('attractions-grid');
+  if (!btn || !grid) return;
+  const isOn = btn.getAttribute('aria-pressed') === 'true';
+  if (isOn) {
+    if (sortOriginalOrder) sortOriginalOrder.forEach(card => grid.appendChild(card));
+    setDistanceLabels(false);
+    btn.setAttribute('aria-pressed', 'false');
+    setSortMessage('Original order restored.');
+    return;
+  }
+  let pos = cachedPosition;
+  if (!pos) {
+    try {
+      pos = await getPosition();
+      cachedPosition = pos;
+    } catch (err) {
+      setSortMessage('Location unavailable — showing places in the original order.');
+      return;
+    }
+  }
+  if (!sortOriginalOrder) sortOriginalOrder = [...grid.children];
+  const sortable = [];
+  const rest = [];
+  [...grid.children].forEach(card => {
+    const a = ATTRACTIONS[cardAttractionId(card)];
+    if (a && a.verified && a.lat != null && a.lng != null) {
+      sortable.push({ card, km: haversine(pos.coords.latitude, pos.coords.longitude, a.lat, a.lng), kind: a.kind });
+    } else {
+      rest.push(card);
+    }
+  });
+  if (!sortable.length) {
+    setSortMessage('No verified places to sort yet.');
+    return;
+  }
+  sortable.sort((x, y) => x.km - y.km);
+  sortable.forEach(({ card }) => grid.appendChild(card));
+  rest.forEach(card => grid.appendChild(card));
+  setDistanceLabels(true, sortable);
+  btn.setAttribute('aria-pressed', 'true');
+  setSortMessage('Places sorted by straight-line distance, closest first.');
+}
+
+// 8. Scrollspy: highlight the nav link for the section in view
 function initScrollspy() {
   const links = document.querySelectorAll('nav a[href^="#"]');
   if (!links.length || !('IntersectionObserver' in window)) return;
@@ -274,11 +432,51 @@ function initScrollspy() {
   });
 }
 
+// 9. Android back button: lightbox -> menu -> in-page history -> exit.
+// Native only (the event fires solely in the Capacitor app); in a desktop
+// browser the default back behavior is untouched.
+function initBackButton() {
+  const App = window.Capacitor && window.Capacitor.Plugins && window.Capacitor.Plugins.App;
+  if (!App || typeof App.addListener !== 'function') return;
+
+  // In-page nav links push hash entries; count them deliberately so back
+  // walks the section history instead of exiting the app early.
+  let hashEntries = 0;
+  let skipNextHash = false;
+  window.addEventListener('hashchange', () => {
+    if (skipNextHash) { skipNextHash = false; return; }
+    hashEntries++;
+  });
+
+  App.addListener('backButton', () => {
+    const lightbox = document.getElementById('lightbox');
+    if (lightbox && !lightbox.classList.contains('hidden')) {
+      document.getElementById('lightbox-close').click();
+      return;
+    }
+    const menu = document.getElementById('mobile-menu');
+    if (menu && menu.classList.contains('active')) {
+      closeMobileMenu(true);
+      return;
+    }
+    if (hashEntries > 0) {
+      hashEntries--;
+      skipNextHash = true;
+      window.history.back();
+      return;
+    }
+    if (typeof App.exitApp === 'function') App.exitApp();
+  });
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initLightbox();
   initMap();
   initShareButtons();
+  initNavigateButtons();
+  initSortControl();
   initScrollspy();
+  initBackButton();
 });
