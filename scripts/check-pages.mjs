@@ -42,6 +42,7 @@ for (const p of pages) {
   const desc = (html.match(/<meta\s+name="description"\s+content="([^"]+)"\s*\/>/) || [])[1];
   if (!desc) fail(`${p}.html missing meta description`);
   if (!html.includes('href="./stay.html"')) fail(`${p}.html missing Stay cross-link (drawer/footer)`);
+  if (!html.includes('https://www.paypal.com/ncp/payment/J3LGU3527J9FU')) fail(`${p}.html missing tip-jar link`);
 }
 
 // Stay page vs stays.json data (stay plan, Task 1)

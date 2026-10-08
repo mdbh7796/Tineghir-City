@@ -86,6 +86,12 @@ export function buildPages(rootDir = root) {
   const pDir = join(dir, 'pages');
   const outDir = join(rootDir, 'public');
   const meta = JSON.parse(readFileSync(join(dir, 'pages.meta.json'), 'utf8'));
+  const site = meta._site || {};
+  if (!site.tipUrl || !site.tipUrl.startsWith('https://www.paypal.com/'))
+    fail('pages.meta.json: _site.tipUrl must be a PayPal URL');
+  for (const key of Object.keys(meta)) {
+    if (key.startsWith('_')) delete meta[key];
+  }
   const base = readFileSync(join(dir, 'base.html'), 'utf8');
   const nav = readFileSync(join(dir, 'nav.html'), 'utf8');
   const footer = readFileSync(join(dir, 'footer.html'), 'utf8');
@@ -142,7 +148,8 @@ ${renderStaySection(stays)}
       .replaceAll('{{ACTIVE_NAV}}', m.activeNav)
       .replace('{{NAV}}', nav)
       .replace('{{CONTENT}}', content)
-      .replace('{{FOOTER}}', footer);
+      .replace('{{FOOTER}}', footer)
+      .replaceAll('{{TIP_URL}}', site.tipUrl);
     html = applyCond(html, { showMap: !!m.showMap, leaflet: !!m.leaflet });
     if (/\{\{|\}\}|IF:(showMap|leaflet)|IFNOT:/.test(html)) fail(`${page}.html has unreplaced template markers`);
     mkdirSync(outDir, { recursive: true });
