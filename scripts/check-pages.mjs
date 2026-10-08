@@ -23,12 +23,34 @@ for (const p of pages) {
   if (html.match(/href="#(home|about|attractions|gallery|guide|practical|visit)"/))
     fail(`${p}.html contains legacy cross-section anchor`);
   if (!html.includes('id="site-drawer"')) fail(`${p}.html missing #site-drawer`);
+  const tagWith = (id) => (html.match(new RegExp(`<[^>]*\\bid="${id}"[^>]*>`)) || [''])[0];
   if (!html.includes('id="mobile-menu-btn"')) fail(`${p}.html missing #mobile-menu-btn`);
+  if (!tagWith('mobile-menu-btn').includes('aria-controls="site-drawer"')) fail(`${p}.html button missing aria-controls="site-drawer"`);
+  if (!tagWith('site-drawer').includes('role="dialog"')) fail(`${p}.html drawer missing role="dialog"`);
+  if (!tagWith('site-drawer').includes('aria-modal="true"')) fail(`${p}.html drawer missing aria-modal="true"`);
   if (!html.includes('id="drawer-backdrop"')) fail(`${p}.html missing #drawer-backdrop`);
   const hasMap = html.includes('id="map"');
   if ((p === 'index' || p === 'visit') && !hasMap) fail(`${p}.html should contain #map`);
   if (!(p === 'index' || p === 'visit') && hasMap) fail(`${p}.html should not contain #map`);
   if (!html.match(/<title>[^<]+<\/title>/)) fail(`${p}.html missing <title>`);
+}
+
+// Drawer behavior assets (Task 2): shared drawer.js + styles
+{
+  const dj = join(pub, 'js', 'drawer.js');
+  if (!existsSync(dj)) fail('missing public/js/drawer.js');
+  else {
+    const js = readFileSync(dj, 'utf8');
+    for (const needle of ['openDrawer', 'closeDrawer', 'location.pathname', 'aria-expanded']) {
+      if (!js.includes(needle)) fail(`public/js/drawer.js missing "${needle}"`);
+    }
+    if (!js.includes('Tab') && !js.toLowerCase().includes('focustrap') && !js.includes('focusable'))
+      fail('public/js/drawer.js missing focus-trap handling');
+  }
+  const css = readFileSync(join(root, 'src', 'input.css'), 'utf8');
+  for (const needle of ['site-drawer', 'drawer-open', 'drawer-backdrop']) {
+    if (!css.includes(needle)) fail(`src/input.css missing "${needle}"`);
+  }
 }
 
 // Lightbox lives on gallery only (Task 3)

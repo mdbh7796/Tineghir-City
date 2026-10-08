@@ -127,17 +127,79 @@ body {
   navigation: auto;
 }
 
-/* Mobile Menu Animation */
-#mobile-menu {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+/* Slide-in drawer (mobile menu) */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  background: rgba(0, 0, 0, 0.55);
   opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+.drawer-backdrop[hidden] {
+  display: none;
+}
+body.drawer-open .drawer-backdrop {
+  opacity: 1;
+}
+.site-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 70;
+  width: min(20rem, 85vw);
+  background: #1c1917;
+  border-left: 1px solid rgba(180, 83, 9, 0.3);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.35);
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+  overflow-y: auto;
+  visibility: hidden;
+}
+body.drawer-open {
+  overflow: hidden;
+}
+body.drawer-open .site-drawer {
+  transform: none;
+  visibility: visible;
 }
 
-#mobile-menu.active {
-  max-height: 500px; /* Large enough to fit menu content */
-  opacity: 1;
+/* Hamburger button bars animate to an X while open */
+.drawer-btn .drawer-bars {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  position: relative;
+}
+.drawer-btn .drawer-bars > span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: currentColor;
+  border-radius: 2px;
+  transition: transform 0.3s ease-in-out, opacity 0.2s ease-in-out;
+}
+.drawer-btn .drawer-bars > span:nth-child(1) { top: 4px; }
+.drawer-btn .drawer-bars > span:nth-child(2) { top: 11px; }
+.drawer-btn .drawer-bars > span:nth-child(3) { top: 18px; }
+.drawer-btn[aria-expanded="true"] .drawer-bars > span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.drawer-btn[aria-expanded="true"] .drawer-bars > span:nth-child(2) {
+  opacity: 0;
+}
+.drawer-btn[aria-expanded="true"] .drawer-bars > span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drawer-backdrop,
+  .site-drawer,
+  .drawer-btn .drawer-bars > span {
+    transition: none;
+  }
 }
 
 /* Scroll Animation Classes */
