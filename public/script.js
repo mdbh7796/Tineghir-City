@@ -7,12 +7,31 @@ document.getElementById('mobile-menu-btn').addEventListener('click', () => {
   const open = menu.classList.contains('active');
   btn.setAttribute('aria-expanded', String(open));
   btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  if (open) {
+    const firstLink = menu.querySelector('a');
+    if (firstLink) firstLink.focus();
+  }
+});
+
+function closeMobileMenu(refocus = false) {
+  const menu = document.getElementById('mobile-menu');
+  const btn = document.getElementById('mobile-menu-btn');
+  if (!menu.classList.contains('active')) return;
+  menu.classList.remove('active');
+  btn.setAttribute('aria-expanded', 'false');
+  btn.setAttribute('aria-label', 'Open menu');
+  if (refocus) btn.focus();
+}
+
+// Escape closes the mobile menu (lightbox has its own handler)
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closeMobileMenu(true);
 });
 
 // Close mobile menu when clicking a link
 document.querySelectorAll('#mobile-menu a').forEach(link => {
   link.addEventListener('click', () => {
-    document.getElementById('mobile-menu').classList.remove('active');
+    closeMobileMenu(false);
   });
 });
 
