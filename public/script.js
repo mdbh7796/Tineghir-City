@@ -503,6 +503,7 @@ function initSaveButtons() {
   if (!grid || !tools) return;
   const saved = new Set(tools.readList('tineghir-plan'));
   document.querySelectorAll('#attractions-grid > div').forEach(card => {
+    if (card.querySelector('.save-btn')) return;
     const id = cardAttractionId(card);
     if (!id) return;
     const btn = document.createElement('button');

@@ -34,12 +34,27 @@ if (typeof window !== 'undefined') {
   window.__tools = { readList, writeList, renderPlanner, sharePlan, clearPlan };
 }
 
-function initChecklist() {  const list = document.getElementById('pack-list');
+function storageOK() {
+  try {
+    const s = store();
+    if (!s) return false;
+    s.setItem('tineghir-probe', '1');
+    s.removeItem('tineghir-probe');
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function initChecklist() {
+  const list = document.getElementById('pack-list');
   if (!list) return;
   const boxes = [...list.querySelectorAll('input[type="checkbox"][data-pack]')];
   const progress = document.getElementById('pack-progress');
   const notice = document.getElementById('pack-notice');
   const saved = new Set(readList('tineghir-pack'));
+  const canSave = storageOK();
+  if (notice) notice.hidden = canSave;
   const paint = () => {
     const checked = boxes.filter((b) => b.checked).map((b) => b.dataset.pack);
     if (progress) progress.textContent = `${checked.length}/${boxes.length} packed`;
@@ -113,7 +128,13 @@ async function sharePlan() {
   if (!ids.length) return;
   const text = 'My Tineghir plan:\n' + ids.map((id) => `- ${data[id].name}`).join('\n');
   const payload = { title: 'My Tineghir plan', text };
+  const capShare = typeof window !== 'undefined' && window.Capacitor
+    && window.Capacitor.Plugins && window.Capacitor.Plugins.Share;
   try {
+    if (capShare && typeof capShare.share === 'function') {
+      await capShare.share(payload);
+      return;
+    }
     if (typeof navigator !== 'undefined' && navigator.share) {
       await navigator.share(payload);
       return;
@@ -121,8 +142,12 @@ async function sharePlan() {
     throw new Error('no-share');
   } catch (err) {
     if (err && (err.name === 'AbortError' || /cancel/i.test(err.message || ''))) return;
+    if (typeof window !== 'undefined' && window.location) {
+      window.location.href = `mailto:?subject=${encodeURIComponent(payload.title)}&body=${encodeURIComponent(text)}`;
+      return;
+    }
     try {
-      await navigator.clipboard.writeText(`${payload.title}\n${payload.text}`);
+      await navigator.clipboard.writeText(`${payload.title}\n${text}`);
     } catch (_) {
       const notice = document.getElementById('plan-notice');
       if (notice) { notice.hidden = false; notice.textContent = 'Sharing is unavailable on this device.'; }
