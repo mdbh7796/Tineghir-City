@@ -1,5 +1,46 @@
 @import "tailwindcss";
 
+/* Anchor jumps clear the fixed nav */
+html {
+  scroll-padding-top: 4.5rem;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid #f59e0b;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Active nav link (set by scrollspy in script.js) */
+.nav-active {
+  color: #fbbf24 !important;
+}
+
+/* FAQ accordions: custom marker */
+details summary {
+  list-style: none;
+  position: relative;
+  padding-right: 2rem;
+}
+details summary::-webkit-details-marker {
+  display: none;
+}
+details summary::after {
+  content: "+";
+  position: absolute;
+  right: 0.25rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #d97706;
+  font-weight: 300;
+}
+details[open] summary::after {
+  content: "–";
+}
+
 /* Custom Styles */
 body {
   box-sizing: border-box;

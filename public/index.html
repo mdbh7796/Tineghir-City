@@ -89,7 +89,7 @@
               >Plan Your Visit</a
             >
           </div>
-          <button id="mobile-menu-btn" class="md:hidden text-amber-200 p-2">
+          <button id="mobile-menu-btn" class="md:hidden text-amber-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu">
             <svg
               class="w-6 h-6"
               fill="none"
@@ -114,27 +114,27 @@
         <div class="px-4 py-4 space-y-3">
           <a
             href="#home"
-            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            class="block text-amber-200/80 hover:text-amber-400 py-3"
             >Home</a
           >
           <a
             href="#about"
-            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            class="block text-amber-200/80 hover:text-amber-400 py-3"
             >About</a
           >
           <a
             href="#attractions"
-            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            class="block text-amber-200/80 hover:text-amber-400 py-3"
             >Attractions</a
           >
           <a
             href="#gallery"
-            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            class="block text-amber-200/80 hover:text-amber-400 py-3"
             >Gallery</a
           >
           <a
             href="#guide"
-            class="block text-amber-200/80 hover:text-amber-400 py-2"
+            class="block text-amber-200/80 hover:text-amber-400 py-3"
             >Guide</a
           >
           <a
@@ -148,7 +148,7 @@
     <!-- Hero Section -->
     <section
       id="home"
-      class="relative min-h-screen flex items-center justify-center overflow-hidden pattern-overlay"
+      class="relative min-h-svh flex items-center justify-center overflow-hidden pattern-overlay"
       style="
         background: linear-gradient(
           135deg,
@@ -209,7 +209,7 @@
           />
         </svg>
       </div>
-      <div class="relative z-10 text-center px-4 max-w-5xl mx-auto">
+      <div class="relative z-10 text-center px-4 max-w-5xl mx-auto pt-24 pb-20">
         <div class="animate-fade-in">
           <p
             class="text-amber-500 font-bold tracking-widest uppercase text-sm mb-4 drop-shadow-md"
@@ -218,7 +218,7 @@
           </p>
           <h1
             id="hero-title"
-            class="font-display text-6xl md:text-8xl lg:text-9xl font-bold text-amber-50 mb-6 leading-none drop-shadow-2xl"
+            class="font-display text-[clamp(3.5rem,14vw,8.5rem)] font-bold text-amber-50 mb-6 leading-none drop-shadow-2xl"
           >
             Tineghir
           </h1>
@@ -250,20 +250,21 @@
             </a>
           </div>
         </div>
-        <!-- Scroll Indicator -->
-        <div
-          class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce"
+      </div>
+      <!-- Scroll Indicator -->
+      <div
+        class="absolute bottom-5 left-1/2 transform -translate-x-1/2 animate-bounce pointer-events-none"
+        aria-hidden="true"
+      >
+        <svg
+          class="w-6 h-10 text-amber-500/60"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 40"
         >
-          <svg
-            class="w-6 h-10 text-amber-500/60"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 40"
-          >
-            <rect x="1" y="1" width="22" height="38" rx="11" stroke-width="2" />
-            <circle cx="12" cy="12" r="3" fill="currentColor" />
-          </svg>
-        </div>
+          <rect x="1" y="1" width="22" height="38" rx="11" stroke-width="2" />
+          <circle cx="12" cy="12" r="3" fill="currentColor" />
+        </svg>
       </div>
     </section>
     <!-- Stats Bar -->
@@ -290,7 +291,7 @@
       </div>
     </section>
     <!-- About Section -->
-    <section id="about" class="py-16 md:py-24 bg-stone-50">
+    <section id="about" class="py-20 md:py-28 bg-stone-50">
       <div class="max-w-7xl mx-auto px-4">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div class="order-2 lg:order-1 reveal">
@@ -301,7 +302,7 @@
             </p>
             <h2
               id="about-title"
-              class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6"
+              class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
             >
               The Jewel of Southern Morocco
             </h2>
@@ -403,7 +404,7 @@
       </div>
     </section>
     <!-- Heritage Story Band -->
-    <section class="py-16 md:py-20 bg-stone-900 border-t border-stone-800">
+    <section class="py-20 md:py-28 bg-stone-900 border-t border-stone-800">
       <div class="max-w-4xl mx-auto px-4 text-center reveal">
         <p
           class="text-amber-500 font-medium tracking-widest uppercase text-sm mb-4"
@@ -433,7 +434,7 @@
       </div>
     </section>
     <!-- Attractions Section -->
-    <section id="attractions" class="py-16 md:py-24 bg-stone-100">
+    <section id="attractions" class="py-20 md:py-28 bg-stone-100">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
           <p
@@ -443,7 +444,7 @@
           </p>
           <h2
             id="attractions-title"
-            class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6"
+            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
           >
             Must-See Attractions
           </h2>
@@ -462,7 +463,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Todra Gorge</h3>
-              <p class="text-stone-600 mb-4">A spectacular canyon with 300-meter high walls, perfect for hiking and rock climbing adventures.</p>
+              <p class="text-stone-600 mb-2">A spectacular canyon with 300-meter high walls, perfect for hiking and rock climbing adventures.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 Todra Valley · 15 km from town</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -480,7 +482,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Palm Grove (Palmerie)</h3>
-              <p class="text-stone-600 mb-4">A lush oasis stretching along the Todra River with thousands of date palms and traditional villages.</p>
+              <p class="text-stone-600 mb-2">A lush oasis stretching along the Todra River with thousands of date palms and traditional villages.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 Todra River · in town</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -498,7 +501,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Kasbah El Glaoui</h3>
-              <p class="text-stone-600 mb-4">A historic mud-brick kasbah in the heart of Tineghir, showcasing traditional Berber architecture and panoramic city views.</p>
+              <p class="text-stone-600 mb-2">A historic mud-brick kasbah in the heart of Tineghir, showcasing traditional Berber architecture and panoramic city views.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 City center</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -516,7 +520,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Traditional Souks</h3>
-              <p class="text-stone-600 mb-4">Browse vibrant markets filled with handcrafted carpets, silver jewelry, and spices.</p>
+              <p class="text-stone-600 mb-2">Browse vibrant markets filled with handcrafted carpets, silver jewelry, and spices.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 Medina quarter · in town</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -534,7 +539,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Medina of Tineghir</h3>
-              <p class="text-stone-600 mb-4">Wander through the old medina with its narrow alleys, traditional Berber architecture, and lively local atmosphere.</p>
+              <p class="text-stone-600 mb-2">Wander through the old medina with its narrow alleys, traditional Berber architecture, and lively local atmosphere.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 Old town</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -552,7 +558,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Dades Valley</h3>
-              <p class="text-stone-600 mb-4">An hour west: hairpin roads, the Monkey Fingers rock formations, and kasbah-dotted valleys made for slow driving.</p>
+              <p class="text-stone-600 mb-2">An hour west: hairpin roads, the Monkey Fingers rock formations, and kasbah-dotted valleys made for slow driving.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 1 hr west · day trip</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -570,7 +577,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Todra Valley Villages</h3>
-              <p class="text-stone-600 mb-4">Tamtattouchte, Aït Hani and hillside ksour where Berber families farm terraced plots between river and cliff.</p>
+              <p class="text-stone-600 mb-2">Tamtattouchte, Aït Hani and hillside ksour where Berber families farm terraced plots between river and cliff.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 Todra Valley · half-day</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -588,7 +596,8 @@
             </div>
             <div class="p-6">
               <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">Jebel Saghro</h3>
-              <p class="text-stone-600 mb-4">South of the city, a volcanic massif of black peaks and nomad trails — Morocco's great winter trekking ground.</p>
+              <p class="text-stone-600 mb-2">South of the city, a volcanic massif of black peaks and nomad trails — Morocco's great winter trekking ground.</p>
+              <p class="text-stone-500 text-sm mb-3">📍 South · 2–3 days</p>
               <div class="flex items-center text-amber-600 font-medium group-hover:gap-3 transition-all">
                 <span>Explore</span>
                 <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -602,7 +611,7 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery" class="py-24 bg-stone-900">
+    <section id="gallery" class="py-20 md:py-28 bg-stone-900">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-16">
           <p
@@ -611,7 +620,7 @@
             Visual Journey
           </p>
           <h2
-            class="font-display text-4xl md:text-5xl font-bold text-stone-100 mb-6"
+            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-100 mb-6"
           >
             Capture the Beauty
           </h2>
@@ -707,14 +716,14 @@
       </div>
     </section>
     <!-- Itineraries Section -->
-    <section class="py-16 md:py-24 bg-stone-900 text-stone-100 border-t border-stone-800">
+    <section class="py-20 md:py-28 bg-stone-900 text-stone-100 border-t border-stone-800">
       <div class="max-w-7xl mx-auto px-4">
         <div class="grid lg:grid-cols-2 gap-16 items-center">
           <div class="reveal">
             <p class="text-amber-500 font-medium tracking-widest uppercase text-sm mb-4">
               Curated Trips
             </p>
-            <h2 class="font-display text-4xl md:text-5xl font-bold mb-6">
+            <h2 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold mb-6">
               Suggested Itineraries
             </h2>
             <p class="text-stone-400 text-lg mb-8">
@@ -762,7 +771,7 @@
       </div>
     </section>
     <!-- Practical Guide Section -->
-    <section id="guide" class="py-16 md:py-24 bg-stone-100">
+    <section id="guide" class="py-20 md:py-28 bg-stone-100">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
           <p
@@ -771,7 +780,7 @@
             Good To Know
           </p>
           <h2
-            class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6"
+            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
           >
             Travel Practicalities
           </h2>
@@ -834,7 +843,7 @@
       </div>
     </section>
     <!-- Visit Section -->
-    <section id="visit" class="py-16 md:py-24 bg-amber-50 pattern-overlay">
+    <section id="visit" class="py-20 md:py-28 bg-amber-50 pattern-overlay">
       <div class="max-w-7xl mx-auto px-4">
         <div class="bg-white rounded-3xl shadow-2xl overflow-hidden reveal">
           <div class="grid lg:grid-cols-2">
@@ -845,7 +854,7 @@
                 Plan Your Trip
               </p>
               <h2
-                class="font-display text-4xl md:text-5xl font-bold text-stone-800 mb-6"
+                class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
               >
                 Visit Tineghir
               </h2>
@@ -1009,7 +1018,8 @@
     >
       <button
         id="lightbox-close"
-        class="absolute top-4 right-4 text-white hover:text-amber-500 transition-colors"
+        aria-label="Close image viewer"
+        class="absolute top-4 right-4 text-white hover:text-amber-500 transition-colors p-2 min-w-[44px] min-h-[44px]"
       >
         <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path

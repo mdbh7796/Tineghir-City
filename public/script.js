@@ -2,7 +2,11 @@
 // Mobile menu toggle
 document.getElementById('mobile-menu-btn').addEventListener('click', () => {
   const menu = document.getElementById('mobile-menu');
+  const btn = document.getElementById('mobile-menu-btn');
   menu.classList.toggle('active');
+  const open = menu.classList.contains('active');
+  btn.setAttribute('aria-expanded', String(open));
+  btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
 });
 
 // Close mobile menu when clicking a link
@@ -134,8 +138,9 @@ function initMap() {
     const btn = L.DomUtil.create('button', 'leaflet-locate-btn');
     btn.type = 'button';
     btn.title = 'Show my location';
+    btn.setAttribute('aria-label', 'Show my location');
     btn.textContent = '📍';
-    btn.style.cssText = 'width:34px;height:34px;background:#fff;border:2px solid rgba(0,0,0,0.2);border-radius:4px;cursor:pointer;font-size:18px;line-height:30px;';
+    btn.style.cssText = 'width:44px;height:44px;background:#fff;border:2px solid rgba(0,0,0,0.2);border-radius:4px;cursor:pointer;font-size:20px;line-height:40px;';
     L.DomEvent.on(btn, 'click', async (e) => {
       L.DomEvent.stopPropagation(e);
       btn.textContent = '…';
@@ -193,7 +198,7 @@ function initShareButtons() {
     btn.type = 'button';
     btn.className = 'share-btn';
     btn.textContent = 'Share ⤴';
-    btn.style.cssText = 'margin-top:12px;font-size:14px;font-weight:500;color:#B45309;background:none;border:none;cursor:pointer;padding:0;';
+    btn.style.cssText = 'margin-top:4px;font-size:14px;font-weight:500;color:#B45309;background:none;border:none;cursor:pointer;padding:12px 0;min-height:44px;';
     btn.addEventListener('click', () => shareAttraction(btn, name, desc));
     const container = card.querySelector('.p-6');
     if (container) container.appendChild(btn);
@@ -227,10 +232,34 @@ async function shareAttraction(btn, name, desc) {
   }
 }
 
+// 5. Scrollspy: highlight the nav link for the section in view
+function initScrollspy() {
+  const links = document.querySelectorAll('nav a[href^="#"]');
+  if (!links.length || !('IntersectionObserver' in window)) return;
+  const byId = {};
+  links.forEach(link => {
+    const id = link.getAttribute('href').slice(1);
+    if (!byId[id]) byId[id] = [];
+    byId[id].push(link);
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      links.forEach(link => link.classList.remove('nav-active'));
+      (byId[entry.target.id] || []).forEach(link => link.classList.add('nav-active'));
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  Object.keys(byId).forEach(id => {
+    const section = document.getElementById(id);
+    if (section) observer.observe(section);
+  });
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
   initLightbox();
   initMap();
   initShareButtons();
+  initScrollspy();
 });
