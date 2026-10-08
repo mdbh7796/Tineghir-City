@@ -34,6 +34,31 @@ for (const p of pages) {
   if ((p === 'index' || p === 'visit') && !hasMap) fail(`${p}.html should contain #map`);
   if (!(p === 'index' || p === 'visit') && hasMap) fail(`${p}.html should not contain #map`);
   if (!html.match(/<title>[^<]+<\/title>/)) fail(`${p}.html missing <title>`);
+  const canon = (html.match(/<link rel="canonical" href="([^"]+)" \/>/) || [])[1];
+  const ogUrl = (html.match(/<meta property="og:url" content="([^"]+)" \/>/) || [])[1];
+  if (!canon) fail(`${p}.html missing canonical`);
+  if (ogUrl !== canon) fail(`${p}.html og:url does not match canonical`);
+  const desc = (html.match(/<meta\s+name="description"\s+content="([^"]+)"\s*\/>/) || [])[1];
+  if (!desc) fail(`${p}.html missing meta description`);
+}
+
+// Head uniqueness + compiled CSS coverage (Task 4)
+{
+  const titles = new Set();
+  for (const p of pages) {
+    const f = join(pub, `${p}.html`);
+    if (!existsSync(f)) continue;
+    const html = readFileSync(f, 'utf8');
+    const t = (html.match(/<title>([^<]+)<\/title>/) || [])[1];
+    if (t) {
+      if (titles.has(t)) fail(`duplicate <title>: ${t}`);
+      titles.add(t);
+    }
+  }
+  const css = readFileSync(join(pub, 'style.css'), 'utf8');
+  for (const needle of ['.site-drawer', '.nav-active']) {
+    if (!css.includes(needle)) fail(`public/style.css missing "${needle}"`);
+  }
 }
 
 // Drawer behavior assets (Task 2): shared drawer.js + styles
