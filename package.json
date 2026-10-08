@@ -6,14 +6,15 @@
   "scripts": {
     "build": "tailwindcss -i ./src/input.css -o ./public/style.css",
     "images:optimize": "node scripts/optimize-images.mjs",
+    "tiles:fetch": "node scripts/fetch-tiles.mjs",
     "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",
-    "cap:sync": "npm run build && npx cap sync android",
-    "android:sync": "npm run build && npx cap sync android",
+    "cap:sync": "npm run tiles:fetch && npm run build && npx cap sync android",
+    "android:sync": "npm run tiles:fetch && npm run build && npx cap sync android",
     "android:open": "npm run android:sync && npx cap open android",
-    "android:build-debug": "npm run build && npx cap sync android && cd android && ./gradlew assembleDebug",
-    "android:build-debug-win": "npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
-    "android:build-release": "npm run build && npx cap sync android && cd android && ./gradlew bundleRelease",
-    "android:build-release-win": "npm run build && npx cap sync android && cd android && gradlew.bat bundleRelease"
+    "android:build-debug": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && ./gradlew assembleDebug",
+    "android:build-debug-win": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && gradlew.bat assembleDebug",
+    "android:build-release": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && ./gradlew bundleRelease",
+    "android:build-release-win": "npm run tiles:fetch && npm run build && npx cap sync android && cd android && gradlew.bat bundleRelease"
   },
   "keywords": [
     "tineghir",
@@ -35,6 +36,8 @@
     "@capacitor/cli": "^8.5.3",
     "@capacitor/core": "^8.5.3",
     "@capacitor/geolocation": "^8.2.3",
-    "@capacitor/share": "^8.0.3"
+    "@capacitor/share": "^8.0.3",
+    "leaflet": "^1.9.4",
+    "protomaps-leaflet": "^5.1.0"
   }
 }
