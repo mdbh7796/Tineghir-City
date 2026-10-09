@@ -10,8 +10,29 @@
       rel="stylesheet"
     />
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="images/icon-192.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <link rel="canonical" href="{{CANONICAL}}" />
     <meta name="theme-color" content="#1c1917" />
+    <meta name="color-scheme" content="light dark" />
+    <script>
+      // FOUC-free theme: stored tineghir-theme wins, else prefers-color-scheme.
+      try {
+        var t = localStorage.getItem('tineghir-theme');
+        if (!t) t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        document.documentElement.dataset.theme = t;
+      } catch (e) { document.documentElement.dataset.theme = 'light'; }
+      window.__theme = {
+        toggle: function () {
+          var next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = next;
+          try { localStorage.setItem('tineghir-theme', next); } catch (e) {}
+          var b = document.getElementById('theme-toggle');
+          if (b) { b.setAttribute('aria-pressed', String(next === 'dark')); b.textContent = next === 'dark' ? '☀️' : '🌙'; }
+          return next;
+        }
+      };
+    </script>
     <meta
       name="description"
       content="{{DESCRIPTION}}"
@@ -66,7 +87,7 @@
   </head>
 
   <body
-    class="h-full font-body bg-stone-50 text-stone-800 overflow-auto scroll-smooth"
+    class="h-full font-body bg-stone-50 dark:bg-stone-900 text-stone-800 dark:text-stone-200 overflow-auto scroll-smooth"
     data-page="{{ACTIVE_NAV}}"
   >
 {{NAV}}
@@ -76,6 +97,20 @@
 {{FOOTER}}
     <script src="js/drawer.js" defer></script>
     <script src="js/tools.js" defer></script>
+    <script src="js/consent.js" defer></script>
     <script src="script.js" defer></script>
+    <script>
+      if ('serviceWorker' in navigator && !window.Capacitor) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+      }
+      (function () {
+        var b = document.getElementById('theme-toggle');
+        if (b) {
+          var dark = document.documentElement.dataset.theme === 'dark';
+          b.setAttribute('aria-pressed', String(dark));
+          b.textContent = dark ? '☀️' : '🌙';
+        }
+      })();
+    </script>
   </body>
 </html>

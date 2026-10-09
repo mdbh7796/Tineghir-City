@@ -10,9 +10,10 @@ const OUT = 'public/images';
 const MAX_W = 1920;
 const JPEG_Q = 78;
 const WEBP_Q = 75;
+const AVIF_Q = 60;
 const WIDTHS = [640, 1024, 1920];
 
-// Hero + every original over ~1 MB get <picture> treatment (WebP + srcset).
+// Hero + every original over ~1 MB get <picture> treatment (WebP + AVIF + srcset).
 // Anything listed here must have a matching <picture> block in index.html.
 const RESPONSIVE = new Set([
   'hero-tineghir.jpg',
@@ -52,12 +53,13 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.jpg'))) {
   if (RESPONSIVE.has(file)) {
     for (const w of WIDTHS) {
       if ((meta.width || 0) < w) {
-        rows.push(`  ! ${name}-${w}.jpg/.webp skipped (original ${meta.width}px, no upscale)`);
+        rows.push(`  ! ${name}-${w}.jpg/.webp/.avif skipped (original ${meta.width}px, no upscale)`);
         continue;
       }
       const variants = [
         [`${name}-${w}.jpg`, sharp(src).resize({ width: w }).jpeg({ quality: JPEG_Q, progressive: true })],
         [`${name}-${w}.webp`, sharp(src).resize({ width: w }).webp({ quality: WEBP_Q })],
+        [`${name}-${w}.avif`, sharp(src).resize({ width: w }).avif({ quality: AVIF_Q })],
       ];
       for (const [outName, pipeline] of variants) {
         const buf = await pipeline.toBuffer();
@@ -65,7 +67,7 @@ for (const file of readdirSync(SRC).filter((f) => f.endsWith('.jpg'))) {
         totalAfter += buf.length;
       }
     }
-    rows.push(`  + ${name}-{640,1024,1920}.jpg/.webp variants`);
+    rows.push(`  + ${name}-{640,1024,1920}.jpg/.webp/.avif variants`);
   }
 }
 

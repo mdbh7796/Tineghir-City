@@ -215,6 +215,13 @@ for (const p of pages) {
 }
 }
 
+// Responsive images must ship AVIF + WebP alongside JPEG (perf plan).
+{
+  const opt = readFileSync(join(root, 'scripts', 'optimize-images.mjs'), 'utf8');
+  if (!/\.avif\(/.test(opt)) fail('scripts/optimize-images.mjs missing .avif() variant');
+  if (!/AVIF_Q/.test(opt)) fail('scripts/optimize-images.mjs missing AVIF_Q');
+}
+
 if (failures.length) {
   console.error('check:pages FAIL');
   for (const f of failures) console.error(` - ${f}`);

@@ -154,7 +154,22 @@ function initMap() {
       `);
   });
 
+  // Deep-link: ?place=todra-gorge centers + opens popup. Share buttons can link here.
+  try {
+    const placeId = new URLSearchParams(window.location.search).get('place');
+    const target = placeId ? (ATTRACTIONS[placeId] || ATTRACTIONS[CARD_TITLES[placeId]]) : null;
+    if (target && target.lat != null) {
+      map.setView([target.lat, target.lng], 14);
+      L.marker([target.lat, target.lng]).addTo(map).bindPopup(`<b>${target.name}</b><br>${target.desc || ''}`).openPopup();
+    }
+  } catch {}
+
   // 'Locate me' control (native GPS via Capacitor, browser fallback)
+  const mapStatus = document.createElement('div');
+  mapStatus.setAttribute('role', 'status');
+  mapStatus.setAttribute('aria-live', 'polite');
+  mapStatus.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);';
+  map.getContainer().appendChild(mapStatus);
   const locateBtn = L.control({ position: 'topright' });
   locateBtn.onAdd = () => {
     const btn = L.DomUtil.create('button', 'leaflet-locate-btn');
@@ -162,21 +177,26 @@ function initMap() {
     btn.title = 'Show my location';
     btn.setAttribute('aria-label', 'Show my location');
     btn.textContent = '📍';
-    btn.style.cssText = 'width:44px;height:44px;background:#fff;border:2px solid rgba(0,0,0,0.2);border-radius:4px;cursor:pointer;font-size:20px;line-height:40px;';
     L.DomEvent.on(btn, 'click', async (e) => {
       L.DomEvent.stopPropagation(e);
       btn.textContent = '…';
+      btn.setAttribute('aria-busy', 'true');
+      mapStatus.textContent = 'Locating…';
       try {
         const pos = await getPosition();
         const { latitude, longitude } = pos.coords;
         map.setView([latitude, longitude], 14);
         L.marker([latitude, longitude]).addTo(map).bindPopup('You are here').openPopup();
         btn.textContent = '📍';
+        mapStatus.textContent = 'Location found.';
       } catch (err) {
         btn.textContent = '📍';
         btn.title = err && err.message === 'denied'
           ? 'Location permission denied — enable it in system settings'
           : 'Could not get your location';
+        mapStatus.textContent = btn.title;
+      } finally {
+        btn.removeAttribute('aria-busy');
       }
     });
     return btn;
@@ -207,7 +227,8 @@ const TILES = {
 
 async function resolveTilesManifest() {
   try {
-    const res = await fetch(TILES.manifestUrl, { cache: 'force-cache' });
+    // Manifest is tiny and version-critical: never serve stale (else points at deleted .pmtiles).
+    const res = await fetch(TILES.manifestUrl, { cache: 'reload' });
     if (!res.ok) return null;
     const m = await res.json();
     if (!m || typeof m.asset !== 'string' || !m.asset) return null;
@@ -328,16 +349,13 @@ function initBaseLayers(map) {
     if (state.banner) return state.banner;
     const el = document.createElement('div');
     el.setAttribute('role', 'alert');
-    el.style.cssText = 'position:absolute;left:12px;right:12px;bottom:12px;z-index:1200;display:none;'
-      + 'background:#1c1917;color:#fff;border-radius:12px;padding:12px 14px;'
-      + 'font-size:14px;box-shadow:0 8px 24px rgba(0,0,0,.35);';
+    el.className = 'tiles-banner';
+    el.style.display = 'none';
     const msg = document.createElement('span');
     msg.className = 'tiles-banner-msg';
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.textContent = 'Retry';
-    btn.style.cssText = 'margin-left:12px;min-height:44px;min-width:44px;padding:8px 16px;'
-      + 'background:#B45309;color:#fff;border:none;border-radius:8px;font-weight:600;cursor:pointer;';
     btn.addEventListener('click', () => void retrySelection());
     el.append(msg, btn);
     map.getContainer().style.position = 'relative';

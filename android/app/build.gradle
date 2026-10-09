@@ -16,10 +16,23 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        release {
+            storeFile file(System.getenv('TINEGHIR_KEYSTORE_PATH') ?: 'tineghir-release.keystore')
+            storePassword System.getenv('TINEGHIR_KEYSTORE_PASSWORD')
+            keyAlias System.getenv('TINEGHIR_KEY_ALIAS')
+            keyPassword System.getenv('TINEGHIR_KEY_PASSWORD')
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // Signing via env: TINEGHIR_KEYSTORE_PATH/PASSWORD/KEY_ALIAS/KEY_PASSWORD.
+            // Unsigned by default so debug/CI stays green; set env in Play Console lane.
+            if (System.getenv('TINEGHIR_KEYSTORE_PATH')) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 }
