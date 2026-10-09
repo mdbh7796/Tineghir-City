@@ -10,6 +10,8 @@
       rel="stylesheet"
     />
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="images/icon-192.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
     <link rel="canonical" href="{{CANONICAL}}" />
     <meta name="theme-color" content="#1c1917" />
     <meta
@@ -77,5 +79,10 @@
     <script src="js/drawer.js" defer></script>
     <script src="js/tools.js" defer></script>
     <script src="script.js" defer></script>
+    <script>
+      if ('serviceWorker' in navigator && !window.Capacitor) {
+        window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+      }
+    </script>
   </body>
 </html>
