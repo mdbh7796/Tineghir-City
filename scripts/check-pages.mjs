@@ -15,7 +15,7 @@ const checkContact = scopes.has('all') || scopes.has('contact');
 const checkTransport = scopes.has('all') || scopes.has('transport');
 const checkTools = scopes.has('all') || scopes.has('tools');
 // Default page-structure assertions always run.
-const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport', 'tools'];
+const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport', 'tools', 'privacy'];
 const failures = [];
 const fail = (m) => failures.push(m);
 
