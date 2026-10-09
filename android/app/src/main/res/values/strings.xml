@@ -4,4 +4,6 @@
     <string name="title_activity_main">Tineghir City</string>
     <string name="package_name">com.tineghir.city</string>
     <string name="custom_url_scheme">com.tineghir.city</string>
+    <string name="location_rationale_title">Show nearby places?</string>
+    <string name="location_rationale_text">Tineghir City uses your location only on-device to center the map and sort nearby places. Nothing is uploaded or shared. The app works fully without it.</string>
 </resources>
