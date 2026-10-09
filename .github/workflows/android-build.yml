@@ -19,6 +19,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      ALLOW_UNSIGNED_RELEASE: "1"
     steps:
       - uses: actions/checkout@v5
 
@@ -52,9 +54,16 @@ jobs:
         working-directory: android
         run: ./gradlew assembleDebug
 
-      - name: Build release AAB (unsigned)
+      - name: Build release AAB (unsigned, CI only)
         working-directory: android
         run: ./gradlew bundleRelease
+
+      - name: Inspect release AAB signature (informational, CI only)
+        working-directory: android
+        run: |
+          AAB=app/build/outputs/bundle/release/app-release.aab
+          test -f "$AAB"
+          jarsigner -verify "$AAB" || echo "unsigned AAB as expected without signing secrets"
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v6
@@ -62,8 +71,64 @@ jobs:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
 
-      - name: Upload release AAB
+      - name: Upload unsigned release AAB (do NOT upload to Play)
         uses: actions/upload-artifact@v6
         with:
-          name: app-release
+          name: app-release-unsigned
+          path: android/app/build/outputs/bundle/release/app-release.aab
+
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate pages + unit tests
+        run: npm run check
+
+      - name: Decode upload keystore
+        run: |
+          test -n "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" || (echo "missing TINEGHIR_KEYSTORE_BASE64 secret" && exit 1)
+          echo "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" | base64 -d > android/app/tineghir-upload.keystore
+
+      - name: Build signed release AAB (strict, with offline maps)
+        env:
+          TINEGHIR_KEYSTORE_PATH: tineghir-upload.keystore
+          TINEGHIR_KEYSTORE_PASSWORD: ${{ secrets.TINEGHIR_KEYSTORE_PASSWORD }}
+          TINEGHIR_KEY_ALIAS: ${{ secrets.TINEGHIR_KEY_ALIAS }}
+          TINEGHIR_KEY_PASSWORD: ${{ secrets.TINEGHIR_KEY_PASSWORD }}
+        run: |
+          npm run tiles:fetch -- --release
+          npm run build
+          node scripts/release-version.mjs --apply
+          npx cap sync android
+          cd android && ./gradlew bundleRelease
+
+      - name: Verify AAB signature (must pass)
+        working-directory: android
+        run: |
+          AAB=app/build/outputs/bundle/release/app-release.aab
+          test -f "$AAB"
+          jarsigner -verify "$AAB"
+
+      - name: Upload versioned AAB
+        uses: actions/upload-artifact@v6
+        with:
+          name: tineghir-release-${{ github.ref_name }}
           path: android/app/build/outputs/bundle/release/app-release.aab

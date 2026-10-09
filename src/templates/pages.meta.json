@@ -1,6 +1,7 @@
 {
   "_site": {
-    "tipUrl": "https://www.paypal.com/ncp/payment/J3LGU3527J9FU"
+    "tipUrl": "https://www.paypal.com/ncp/payment/J3LGU3527J9FU",
+    "contactEmail": "support@tineghir.ma"
   },
   "index": {
     "title": "Tineghir - Gateway to Todra Gorge",
@@ -109,5 +110,14 @@
     "leaflet": false,
     "activeNav": "tools",
     "fragments": ["tools.html"]
+  },
+  "privacy": {
+    "title": "Privacy Policy - Tineghir City",
+    "description": "How the Tineghir City app handles location, storage, and consent: nothing collected, everything on-device.",
+    "canonical": "https://www.tineghir.ma/privacy.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "tools",
+    "fragments": ["privacy.html"]
   }
 }
