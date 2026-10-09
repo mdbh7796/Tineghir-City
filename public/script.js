@@ -227,7 +227,8 @@ const TILES = {
 
 async function resolveTilesManifest() {
   try {
-    const res = await fetch(TILES.manifestUrl, { cache: 'force-cache' });
+    // Manifest is tiny and version-critical: never serve stale (else points at deleted .pmtiles).
+    const res = await fetch(TILES.manifestUrl, { cache: 'reload' });
     if (!res.ok) return null;
     const m = await res.json();
     if (!m || typeof m.asset !== 'string' || !m.asset) return null;
