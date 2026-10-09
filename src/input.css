@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Dark theme surface overrides (Tailwind dark: utilities + this fallback) */
+[data-theme="dark"] body {
+  background-color: #1c1917;
+  color: #e7e5e4;
+}
+
 /* Anchor jumps clear the fixed nav */
 html {
   scroll-padding-top: 4.5rem;

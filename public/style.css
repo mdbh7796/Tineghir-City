@@ -1439,6 +1439,23 @@
       padding-inline: calc(var(--spacing) * 8);
     }
   }
+  .dark\:bg-stone-900 {
+    &:where([data-theme="dark"], [data-theme="dark"] *) {
+      background-color: var(--color-stone-900);
+    }
+  }
+  .dark\:text-stone-200 {
+    &:where([data-theme="dark"], [data-theme="dark"] *) {
+      color: var(--color-stone-200);
+    }
+  }
+}
+:root {
+  color-scheme: light dark;
+}
+[data-theme="dark"] body {
+  background-color: #1c1917;
+  color: #e7e5e4;
 }
 html {
   scroll-padding-top: 4.5rem;
