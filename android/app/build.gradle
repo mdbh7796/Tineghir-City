@@ -28,10 +28,17 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            // Signing via env: TINEGHIR_KEYSTORE_PATH/PASSWORD/KEY_ALIAS/KEY_PASSWORD.
-            // Unsigned by default so debug/CI stays green; set env in Play Console lane.
-            if (System.getenv('TINEGHIR_KEYSTORE_PATH')) {
+            // Fail-closed release signing: all four TINEGHIR_KEYSTORE_* env vars required.
+            // CI generic builds set ALLOW_UNSIGNED_RELEASE=1 to keep debug green;
+            // the Play release lane (Task 6) never sets it, so an unsigned AAB can't ship.
+            def hasSigning = System.getenv('TINEGHIR_KEYSTORE_PATH')
+                && System.getenv('TINEGHIR_KEYSTORE_PASSWORD')
+                && System.getenv('TINEGHIR_KEY_ALIAS')
+                && System.getenv('TINEGHIR_KEY_PASSWORD')
+            if (hasSigning) {
                 signingConfig signingConfigs.release
+            } else if (System.getenv('ALLOW_UNSIGNED_RELEASE') != '1') {
+                throw new GradleException('Release signing env incomplete: set TINEGHIR_KEYSTORE_PATH/PASSWORD/KEY_ALIAS/KEY_PASSWORD or ALLOW_UNSIGNED_RELEASE=1 (CI only). See docs/RELEASE-SIGNING.md.')
             }
         }
     }

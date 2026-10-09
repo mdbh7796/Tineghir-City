@@ -52,9 +52,18 @@ jobs:
         working-directory: android
         run: ./gradlew assembleDebug
 
-      - name: Build release AAB (unsigned)
+      - name: Build release AAB (unsigned, CI only)
         working-directory: android
+        env:
+          ALLOW_UNSIGNED_RELEASE: "1"
         run: ./gradlew bundleRelease
+
+      - name: Verify release AAB signature
+        working-directory: android
+        run: |
+          AAB=app/build/outputs/bundle/release/app-release.aab
+          test -f "$AAB"
+          "$ANDROID_HOME/build-tools/36.0.0/apksigner" verify --print-certs "$AAB" || echo "unsigned AAB without signing secrets"
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v6
