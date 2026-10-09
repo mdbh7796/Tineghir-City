@@ -5,7 +5,11 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { execSync } from 'node:child_process';
 
 export function versionCodeFor(tags) {
-  if (process.env.VERSION_CODE) return parseInt(process.env.VERSION_CODE, 10);
+  if (process.env.VERSION_CODE) {
+    const n = parseInt(process.env.VERSION_CODE, 10);
+    if (!Number.isInteger(n) || n < 1) throw new Error(`VERSION_CODE must be a positive integer, got "${process.env.VERSION_CODE}"`);
+    return n;
+  }
   return 1 + tags.filter((t) => /^v\d/.test(t)).length;
 }
 

@@ -15,5 +15,5 @@ test('play compliance docs answer data safety and rating', () => {
   assert.ok(existsSync('docs/PLAY-CONTENT-RATING.md'));
   const ds = readFileSync('docs/PLAY-DATA-SAFETY.md', 'utf8');
   assert.match(ds, /ACCESS_FINE_LOCATION|precise location/i);
-  assert.match(ds, /never shared|not shared|no sharing/i);
+  assert.match(ds, /No collection|never transmitted/i);
 });

@@ -7,7 +7,7 @@ test('release build fails closed without complete signing env', () => {
   assert.match(g, /GradleException|throw new|fail\(/);
 });
 
-test('CI verifies AAB signature with apksigner', () => {
+test('CI verifies AAB signature with jarsigner', () => {
   const w = readFileSync('.github/workflows/android-build.yml', 'utf8');
-  assert.match(w, /apksigner/);
+  assert.match(w, /jarsigner/);
 });

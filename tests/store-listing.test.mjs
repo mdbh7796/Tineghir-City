@@ -12,8 +12,8 @@ test('store graphics meet Play dimensions', async () => {
   const feat = await sharp('store/feature-graphic-1024x500.png').metadata();
   assert.equal(feat.width, 1024);
   assert.equal(feat.height, 500);
-  assert.ok(existsSync('store/screenshots/phone-1.png'));
-  const ph = await sharp('store/screenshots/phone-1.png').metadata();
+  assert.ok(existsSync('store/screenshots/phone-1-draft.png'), 'draft screenshots renamed?');
+  const ph = await sharp('store/screenshots/phone-1-draft.png').metadata();
   assert.ok(ph.width >= 1080, `phone screenshot width ${ph.width} < 1080`);
 });
 

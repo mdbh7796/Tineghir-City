@@ -6,13 +6,12 @@ dangerous permissions. No ads SDK, no analytics SDK, no Firebase.
 
 | Question | Answer |
 |---|---|
-| Does the app collect or share user data? | **Yes — location only**: approximate + precise location |
-| Purpose | App functionality (center map, sort nearby places) |
-| On-device vs transmitted | Processed **on-device only**; never transmitted off the device, never shared with third parties, never sold |
-| Ephemeral? | Yes — used for the live session, not stored server-side (nothing stored anywhere off-device) |
-| Required or optional? | Optional — app works fully with permission denied (markers, offline maps, lists) |
+| Does the app collect or share user data? | **No collection.** Location (approximate + precise) is processed **on-device only** for map centering and nearby sorting — never transmitted to us or any third party, never stored off-device by the app |
+| Platform-level exceptions (disclosed in privacy policy) | Loading online map tiles makes standard network requests (IP visible to tile server); Android auto-backup may copy on-device storage to the user’s own Google account if enabled |
 | Other data types (contacts, photos, identifiers, browsing)? | None collected |
 | Ads / analytics / data brokers? | None |
+| Required or optional? | Optional — markers, offline maps, lists, planner all work with permission denied |
+| In-app disclosure | `strings.xml` `location_rationale_*` reserves the native prompt context; web flow explains on-device use in the permission-denied hint and this privacy page |
 
 Keep this file in sync with the manifest: adding any permission or SDK
 requires updating this table BEFORE the next release.
