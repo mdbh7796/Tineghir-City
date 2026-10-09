@@ -19,6 +19,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      ALLOW_UNSIGNED_RELEASE: "1"
     steps:
       - uses: actions/checkout@v5
 
@@ -54,8 +56,6 @@ jobs:
 
       - name: Build release AAB (unsigned, CI only)
         working-directory: android
-        env:
-          ALLOW_UNSIGNED_RELEASE: "1"
         run: ./gradlew bundleRelease
 
       - name: Inspect release AAB signature (informational, CI only)
