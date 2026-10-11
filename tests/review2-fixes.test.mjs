@@ -51,9 +51,12 @@ test('draft screenshots are suffixed so they cannot ship silently', () => {
   assert.ok(!existsSync('store/screenshots/phone-1.png'));
 });
 
-test('FR listing is an explicit TODO stub', () => {
+test('FR listing is complete and mirrors EN structure', () => {
   const f = readFileSync('store/listing-fr.md', 'utf8');
-  assert.match(f, /TODO/i);
+  assert.doesNotMatch(f, /TODO/i);
+  for (const needle of ['Tineghir City', 'privacy.html', 'support@tineghir.ma', 'Description courte', 'Description complète']) {
+    assert.ok(f.includes(needle), `listing-fr.md missing "${needle}"`);
+  }
 });
 
 test('listing privacy URL equals meta canonical', () => {
