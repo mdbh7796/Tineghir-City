@@ -16,7 +16,7 @@ test('privacy doc does not overclaim analytics loader', () => {
   assert.ok(!claimsLoader || hasLoader, 'doc claims a loader that does not exist');
 });
 
-test('signingConfigs defined before buildTypes', () => {
+test('release buildType is plain (no keystore signing)', () => {
   const g = readFileSync('android/app/build.gradle', 'utf8');
-  assert.ok(g.indexOf('signingConfigs') < g.indexOf('buildTypes'), 'signingConfigs must precede buildTypes');
+  assert.doesNotMatch(g, /signingConfig/);
 });

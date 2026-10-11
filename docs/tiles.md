@@ -31,9 +31,8 @@ only); the in-app Range test gates this feature (§6).
 - `scripts/fetch-tiles.mjs` downloads the release asset into
   `public/tiles/`, verifies SHA256, exits non-zero on any failure once a
   manifest exists. No manifest yet → warns, exits 0 (dormant), EXCEPT with
-  `--release` (wired into the `android:build-release*` chains): release
-  builds fail without the manifest or the verified asset, so a release can
-  never silently ship without offline maps.
+  `--release`: builds fail without the manifest or the verified asset, so an
+  offline-maps build can never silently ship without map data.
 - `*.pmtiles` gitignored. `cap sync` mirrors `public/tiles/` into the APK
   assets — never write `android/.../assets` directly, and never run bare
   `cap sync` (stale tiles); always use the `android:*` npm chains, which

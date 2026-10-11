@@ -1,68 +1,27 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync, existsSync } from 'node:fs';
-import { execSync } from 'node:child_process';
+import { readFileSync } from 'node:fs';
 
-test('release job runs npm steps at root and gradle in android/', () => {
+// Free-distribution checks: debug APK artifact + Pages deploy, no Play signing.
+test('android workflow builds debug APK only (no release/signing lane)', () => {
   const w = readFileSync('.github/workflows/android-build.yml', 'utf8');
-  const releaseJob = w.slice(w.indexOf('\n  release:'));
-  assert.match(releaseJob, /cd android && \.\/gradlew bundleRelease/);
-  assert.doesNotMatch(releaseJob, /working-directory: android\n        run: \.\/gradlew/);
-  assert.match(releaseJob, /fetch-depth: 0|fetch-tags/);
+  assert.match(w, /assembleDebug/);
+  assert.match(w, /name: app-debug/);
+  assert.doesNotMatch(w, /TINEGHIR_KEYSTORE/);
+  assert.doesNotMatch(w, /bundleRelease/);
+  assert.doesNotMatch(w, /jarsigner|apksigner/);
 });
 
-test('versionCodeFor rejects non-numeric override instead of NaN', async () => {
-  process.env.VERSION_CODE = 'abc';
-  const mod = await import(`../scripts/release-version.mjs?x=${Date.now()}`);
-  assert.throws(() => mod.versionCodeFor(['v1.0.0']), /VERSION_CODE/);
-  delete process.env.VERSION_CODE;
-  assert.equal(mod.versionCodeFor([]), 1);
+test('pages workflow publishes public/ to GitHub Pages', () => {
+  const w = readFileSync('.github/workflows/pages.yml', 'utf8');
+  assert.match(w, /upload-pages-artifact/);
+  assert.match(w, /deploy-pages/);
+  assert.match(w, /path: \.\/public/);
 });
 
-test('privacy page and data safety agree: on-device, tile logs, backup', () => {
+test('privacy page mentions on-device location use', () => {
   const p = readFileSync('public/privacy.html', 'utf8');
   assert.match(p, /on-device/i);
-  assert.match(p, /tile/i);
-  assert.match(p, /backup/i);
-  const ds = readFileSync('docs/PLAY-DATA-SAFETY.md', 'utf8');
-  assert.match(ds, /ACCESS_FINE_LOCATION/);
-  assert.match(ds, /No collection|no collection/i);
-});
-
-test('AAB verified with jarsigner, never apksigner', () => {
-  const w = readFileSync('.github/workflows/android-build.yml', 'utf8');
-  assert.match(w, /jarsigner/);
-  assert.doesNotMatch(w, /apksigner/);
-});
-
-test('keystore docs require fingerprint record and forbid committing keys', () => {
-  const d = readFileSync('docs/RELEASE-SIGNING.md', 'utf8');
-  assert.match(d, /keytool -list|SHA-256|fingerprint/i);
-  assert.match(d, /never commit|do not commit/i);
-});
-
-test('generic CI artifact is clearly unsigned', () => {
-  const w = readFileSync('.github/workflows/android-build.yml', 'utf8');
-  assert.match(w, /app-release-unsigned/);
-});
-
-test('draft screenshots are suffixed so they cannot ship silently', () => {
-  assert.ok(existsSync('store/screenshots/phone-1-draft.png'));
-  assert.ok(!existsSync('store/screenshots/phone-1.png'));
-});
-
-test('FR listing is complete and mirrors EN structure', () => {
-  const f = readFileSync('store/listing-fr.md', 'utf8');
-  assert.doesNotMatch(f, /TODO/i);
-  for (const needle of ['Tineghir City', 'privacy.html', 'support@tineghir.ma', 'Description courte', 'Description complète']) {
-    assert.ok(f.includes(needle), `listing-fr.md missing "${needle}"`);
-  }
-});
-
-test('listing privacy URL equals meta canonical', () => {
-  const meta = JSON.parse(readFileSync('src/templates/pages.meta.json', 'utf8'));
-  const l = readFileSync('store/listing-en.md', 'utf8');
-  assert.ok(l.includes(meta.privacy.canonical), `${meta.privacy.canonical} not in listing`);
 });
 
 test('checked-in versionName matches package.json', () => {

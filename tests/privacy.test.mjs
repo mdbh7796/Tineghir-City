@@ -10,10 +10,8 @@ test('privacy page built and linked from footer', () => {
   assert.match(html, /Location stays on-device|location/i);
 });
 
-test('play compliance docs answer data safety and rating', () => {
-  assert.ok(existsSync('docs/PLAY-DATA-SAFETY.md'));
-  assert.ok(existsSync('docs/PLAY-CONTENT-RATING.md'));
-  const ds = readFileSync('docs/PLAY-DATA-SAFETY.md', 'utf8');
-  assert.match(ds, /ACCESS_FINE_LOCATION|precise location/i);
-  assert.match(ds, /No collection|never transmitted/i);
+test('privacy docs describe on-device location use', () => {
+  assert.ok(existsSync('docs/PRIVACY.md'));
+  const d = readFileSync('docs/PRIVACY.md', 'utf8');
+  assert.match(d, /on-device/i);
 });

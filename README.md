@@ -57,15 +57,16 @@ npm install
 npm run android:sync          # build Tailwind + copy public/ into android/
 npm run android:build-debug   # macOS/Linux -> android/app/build/outputs/apk/debug/app-debug.apk
 npm run android:build-debug-win   # Windows -> same APK via gradlew.bat
-npm run android:build-release # -> android/app/build/outputs/bundle/release/app-release.aab (unsigned)
 ```
 
 No SDK installed? Push to `main` (or run the workflow manually) and grab the
-APK/AAB from the **Android build (Capacitor)** GitHub Actions artifacts.
+debug APK from the **Android debug APK (Capacitor)** GitHub Actions artifacts.
 
-For Play Store release, create a keystore once and configure
-`android/app/build.gradle` signing, then build the AAB and upload it in
-Play Console. To customize the launcher icon/splash, run
+The website itself deploys free via GitHub Pages (`pages.yml`): enable
+Pages in repo Settings → Pages → Source "GitHub Actions" once, then every
+push to `main` publishes `public/`.
+
+To customize the launcher icon/splash, run
 `npx @capacitor/assets generate` with your source icon.
 
 ## Contributing
