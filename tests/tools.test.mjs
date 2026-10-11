@@ -41,3 +41,13 @@ test('writeList fails closed without storage', () => {
   assert.deepEqual(tools.readList('tineghir-plan'), []);
   assert.equal(tools.writeList('tineghir-plan', ['x']), false);
 });
+
+test('escH escapes &, <, >, quotes', () => {
+  const src = readFileSync('public/js/tools.js', 'utf8');
+  assert.match(src, /&gt;/);
+  assert.match(src, /&#39;/);
+  const m = src.match(/function escH\(s\) \{[^}]+\}/);
+  assert.ok(m, 'escH found');
+  const escH = new Function(`${m[0]}; return escH;`)();
+  assert.equal(escH(`<a href="x">o'b & co</a>`), '&lt;a href=&quot;x&quot;&gt;o&#39;b &amp; co&lt;/a&gt;');
+});

@@ -222,6 +222,31 @@ for (const p of pages) {
   if (!/AVIF_Q/.test(opt)) fail('scripts/optimize-images.mjs missing AVIF_Q');
 }
 
+// JS/CSS provenance: src/ is canonical, public/ is built (Capacitor webDir).
+{
+  for (const f of ['attractions-data.js', 'reveal.js', 'lightbox.js', 'map.js', 'cards.js', 'sort.js', 'back.js']) {
+    if (!existsSync(join(root, 'src', 'js', f))) fail(`missing src/js/${f}`);
+  }
+  const built = readFileSync(join(pub, 'script.js'), 'utf8');
+  if (!built.startsWith('// Built from src/js/')) fail('public/script.js missing build header (run npm run build:js)');
+  for (const marker of ['src/js/attractions-data.js', 'src/js/back.js']) {
+    if (!built.includes(marker)) fail(`public/script.js missing section ${marker}`);
+  }
+  if (/style\.cssText/.test(built)) fail('public/script.js still uses inline style.cssText (use src/input.css classes)');
+  const swSrc = readFileSync(join(root, 'src', 'sw.js'), 'utf8');
+  const swPub = readFileSync(join(pub, 'sw.js'), 'utf8');
+  if (swSrc.trim() !== swPub.trim()) fail('public/sw.js drifted from src/sw.js (run npm run build:js)');
+  const consent = readFileSync(join(pub, 'js', 'consent.js'), 'utf8');
+  if (/style\.cssText/.test(consent)) fail('public/js/consent.js still uses inline style.cssText');
+  const css = readFileSync(join(root, 'src', 'input.css'), 'utf8');
+  for (const needle of ['.consent-banner', '.directions-btn', '.share-btn', '.sort-toggle', '@source']) {
+    if (!css.includes(needle)) fail(`src/input.css missing "${needle}"`);
+  }
+  if (existsSync(join(root, 'tailwind.config.js'))) fail('tailwind.config.js still present — v4 uses CSS-first @source in src/input.css');
+  const base = readFileSync(join(root, 'src', 'templates', 'base.html'), 'utf8');
+  if (!base.includes('fonts.googleapis.com') || !base.includes('preconnect')) fail('base.html missing font preconnect');
+}
+
 if (failures.length) {
   console.error('check:pages FAIL');
   for (const f of failures) console.error(` - ${f}`);

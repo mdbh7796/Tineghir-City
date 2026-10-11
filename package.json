@@ -5,10 +5,11 @@
   "type": "module",
   "scripts": {
     "pages": "node scripts/build-pages.mjs",
+    "build:js": "node scripts/build-js.mjs",
     "check:pages": "node scripts/check-pages.mjs",
     "test": "node --test tests/*.test.mjs",
     "check": "npm run check:pages && npm test",
-    "build": "npm run pages && tailwindcss -i ./src/input.css -o ./public/style.css",
+    "build": "npm run pages && npm run build:js && tailwindcss -i ./src/input.css -o ./public/style.css",
     "images:optimize": "node scripts/optimize-images.mjs",
     "tiles:fetch": "node scripts/fetch-tiles.mjs",
     "watch": "tailwindcss -i ./src/input.css -o ./public/style.css --watch",

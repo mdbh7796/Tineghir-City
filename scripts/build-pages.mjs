@@ -91,7 +91,7 @@ export function validateStays(stays, rootDir = root) {
   return stays;
 }
 
-const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
 export function renderStayEntry(s) {
   const waText = encodeURIComponent(`Hello ${s.name}, I'd like to inquire about availability.`);

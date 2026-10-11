@@ -1,0 +1,5 @@
+# Built output is committed for Capacitor webDir — hide diff noise, keep source reviewable.
+public/style.css linguist-generated=true
+public/script.js linguist-generated=true
+public/*.html linguist-generated=true
+public/vendor/** linguist-generated=true

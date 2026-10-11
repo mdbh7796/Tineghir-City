@@ -1,10 +1,52 @@
+// Built from src/js/*.js — do not edit directly. Run: npm run build:js
+// --- src/js/attractions-data.js ---
+const ATTRACTIONS = {
+  'tineghir-center': { name: 'Tineghir City Center', lat: 31.5139, lng: -5.5316, kind: 'point', verified: true,
+    desc: 'Gateway to Todra Gorge', imgUrl: 'images/hero-tineghir.jpg' },
+  'todra-gorge': { name: 'Todra Gorge', lat: 31.58395, lng: -5.59161, kind: 'point', verified: true,
+    desc: 'Towering 300m canyon walls, hiking & climbing', imgUrl: 'images/todra-gorge.jpg' },
+  'palm-grove': { name: 'Palm Grove', lat: 31.5205, lng: -5.5302, kind: 'point', verified: true,
+    desc: 'Lush oasis with date palms along the Todra River', imgUrl: 'images/tineghir-palm-grove.jpg' },
+  'souks': { name: 'Traditional Souks', lat: 31.5125, lng: -5.5330, kind: 'point', verified: true,
+    desc: 'Handicrafts, carpets, silver jewelry & spices', imgUrl: 'images/gallery-crafts.jpg' },
+  'kasbah-el-glaoui': { name: 'Kasbah El Glaoui', lat: 31.5248, lng: -5.5312, kind: 'point', verified: true,
+    desc: 'Historic mud-brick kasbah in the city center', imgUrl: 'images/about-tineghir.jpg' },
+  'medina': { name: 'Medina of Tineghir', lat: 31.5147, lng: -5.5328, kind: 'point', verified: true,
+    desc: 'Old medina with Berber architecture & narrow alleys', imgUrl: 'images/gallery-palms.jpg' },
+  'dades-valley': { name: 'Dades Valley', lat: 31.4285, lng: -5.9754, kind: 'area', verified: true,
+    desc: 'Hairpin roads and kasbah-dotted valleys', imgUrl: 'images/gallery-trek.jpg' },
+  'todra-villages': { name: 'Todra Valley Villages', lat: 31.5450, lng: -5.5560, kind: 'area', verified: true,
+    desc: 'Berber villages and terraced plots up the valley', imgUrl: 'images/gallery-palms.jpg' },
+  'jebel-saghro': { name: 'Jebel Saghro', lat: 31.1333, lng: -5.6000, kind: 'area', verified: true,
+    desc: 'Volcanic massif and nomad trails', imgUrl: 'images/todra-gorge-hike.jpg' },
+};
 
-// Mobile menu is owned by js/drawer.js (slide-in drawer). This file keeps
-// only per-page widgets; every init below is guarded by its mount element
-// so pages without that section are safe no-ops.
+// Card headings as written in index.html -> table keys.
+const CARD_TITLES = {
+  'Todra Gorge': 'todra-gorge',
+  'Palm Grove (Palmerie)': 'palm-grove',
+  'Kasbah El Glaoui': 'kasbah-el-glaoui',
+  'Traditional Souks': 'souks',
+  'Medina of Tineghir': 'medina',
+  'Dades Valley': 'dades-valley',
+  'Todra Valley Villages': 'todra-villages',
+  'Jebel Saghro': 'jebel-saghro',
+};
 
-// --- NEW FEATURES ---
+// Planner (tools page) reads names through this handle instead of a copy.
+if (typeof window !== 'undefined') {
+  window.__attractions = ATTRACTIONS;
+}
 
+function cardAttractionId(card) {
+  if (card.dataset.attraction) return card.dataset.attraction;
+  const h3 = card.querySelector('h3');
+  const id = h3 ? CARD_TITLES[h3.textContent.trim()] : undefined;
+  if (id) card.dataset.attraction = id;
+  return id;
+}
+
+// --- src/js/reveal.js ---
 // 1. Scroll Animations (Intersection Observer)
 function initScrollAnimations() {
   const observer = new IntersectionObserver((entries) => {
@@ -25,6 +67,7 @@ function initScrollAnimations() {
   });
 }
 
+// --- src/js/lightbox.js ---
 // 2. Gallery Lightbox
 function initLightbox() {
   const lightbox = document.getElementById('lightbox');
@@ -38,7 +81,6 @@ function initLightbox() {
   const galleryItems = document.querySelectorAll('.lightbox-trigger');
 
   galleryItems.forEach(item => {
-    item.style.cursor = 'pointer';
     item.addEventListener('click', () => {
       // Use explicit data attribute first (Robust)
       let src = item.getAttribute('data-lightbox-src');
@@ -88,52 +130,8 @@ function initLightbox() {
 }
 
 // Pins must be checked in Google Maps before release.
-const ATTRACTIONS = {
-  'tineghir-center': { name: 'Tineghir City Center', lat: 31.5139, lng: -5.5316, kind: 'point', verified: true,
-    desc: 'Gateway to Todra Gorge', imgUrl: 'images/hero-tineghir.jpg' },
-  'todra-gorge': { name: 'Todra Gorge', lat: 31.58395, lng: -5.59161, kind: 'point', verified: true,
-    desc: 'Towering 300m canyon walls, hiking & climbing', imgUrl: 'images/todra-gorge.jpg' },
-  'palm-grove': { name: 'Palm Grove', lat: 31.5205, lng: -5.5302, kind: 'point', verified: true,
-    desc: 'Lush oasis with date palms along the Todra River', imgUrl: 'images/tineghir-palm-grove.jpg' },
-  'souks': { name: 'Traditional Souks', lat: 31.5125, lng: -5.5330, kind: 'point', verified: true,
-    desc: 'Handicrafts, carpets, silver jewelry & spices', imgUrl: 'images/gallery-crafts.jpg' },
-  'kasbah-el-glaoui': { name: 'Kasbah El Glaoui', lat: 31.5248, lng: -5.5312, kind: 'point', verified: true,
-    desc: 'Historic mud-brick kasbah in the city center', imgUrl: 'images/about-tineghir.jpg' },
-  'medina': { name: 'Medina of Tineghir', lat: 31.5147, lng: -5.5328, kind: 'point', verified: true,
-    desc: 'Old medina with Berber architecture & narrow alleys', imgUrl: 'images/gallery-palms.jpg' },
-  'dades-valley': { name: 'Dades Valley', lat: 31.4285, lng: -5.9754, kind: 'area', verified: true,
-    desc: 'Hairpin roads and kasbah-dotted valleys', imgUrl: 'images/gallery-trek.jpg' },
-  'todra-villages': { name: 'Todra Valley Villages', lat: 31.5450, lng: -5.5560, kind: 'area', verified: true,
-    desc: 'Berber villages and terraced plots up the valley', imgUrl: 'images/gallery-palms.jpg' },
-  'jebel-saghro': { name: 'Jebel Saghro', lat: 31.1333, lng: -5.6000, kind: 'area', verified: true,
-    desc: 'Volcanic massif and nomad trails', imgUrl: 'images/todra-gorge-hike.jpg' },
-};
 
-// Card headings as written in index.html -> table keys.
-const CARD_TITLES = {
-  'Todra Gorge': 'todra-gorge',
-  'Palm Grove (Palmerie)': 'palm-grove',
-  'Kasbah El Glaoui': 'kasbah-el-glaoui',
-  'Traditional Souks': 'souks',
-  'Medina of Tineghir': 'medina',
-  'Dades Valley': 'dades-valley',
-  'Todra Valley Villages': 'todra-villages',
-  'Jebel Saghro': 'jebel-saghro',
-};
-
-// Planner (tools page) reads names through this handle instead of a copy.
-if (typeof window !== 'undefined') {
-  window.__attractions = ATTRACTIONS;
-}
-
-function cardAttractionId(card) {
-  if (card.dataset.attraction) return card.dataset.attraction;
-  const h3 = card.querySelector('h3');
-  const id = h3 ? CARD_TITLES[h3.textContent.trim()] : undefined;
-  if (id) card.dataset.attraction = id;
-  return id;
-}
-
+// --- src/js/map.js ---
 // 3. Initialize Leaflet Map
 function initMap() {
   const mapElement = document.getElementById('map');
@@ -168,7 +166,7 @@ function initMap() {
   const mapStatus = document.createElement('div');
   mapStatus.setAttribute('role', 'status');
   mapStatus.setAttribute('aria-live', 'polite');
-  mapStatus.style.cssText = 'position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);';
+  mapStatus.className = 'visually-hidden';
   map.getContainer().appendChild(mapStatus);
   const locateBtn = L.control({ position: 'topright' });
   locateBtn.onAdd = () => {
@@ -445,6 +443,7 @@ async function getPosition() {
   });
 }
 
+// --- src/js/cards.js ---
 // 5. Directions buttons (Google Maps universal link; hidden unless verified)
 function initNavigateButtons() {
   if (!document.getElementById('attractions-grid')) return;
@@ -459,7 +458,6 @@ function initNavigateButtons() {
     link.target = '_blank';
     link.rel = 'noopener';
     link.setAttribute('aria-label', `Directions to ${a.name}`);
-    link.style.cssText = 'margin-left:16px;font-size:14px;font-weight:500;color:#B45309;text-decoration:none;display:inline-flex;align-items:center;min-height:44px;padding:12px 0;';
     const shareBtn = card.querySelector('.share-btn');
     const container = card.querySelector('.p-6');
     if (shareBtn) shareBtn.after(link);
@@ -480,7 +478,6 @@ function initShareButtons() {
     btn.type = 'button';
     btn.className = 'share-btn';
     btn.textContent = 'Share ⤴';
-    btn.style.cssText = 'margin-top:4px;font-size:14px;font-weight:500;color:#B45309;background:none;border:none;cursor:pointer;padding:12px 0;min-height:44px;';
     btn.addEventListener('click', () => shareAttraction(btn, name, desc));
     const container = card.querySelector('.p-6');
     if (container) container.appendChild(btn);
@@ -527,7 +524,6 @@ function initSaveButtons() {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'save-btn';
-    btn.style.cssText = 'margin-top:4px;margin-left:16px;font-size:14px;font-weight:500;color:#B45309;background:none;border:none;cursor:pointer;padding:12px 0;min-height:44px;';
     const paint = () => {
       const on = saved.has(id);
       btn.setAttribute('aria-pressed', String(on));
@@ -547,6 +543,7 @@ function initSaveButtons() {
   });
 }
 
+// --- src/js/sort.js ---
 // 7. Sort attractions by distance (verified pins only, in-place reorder)
 let cachedPosition = null;
 let sortOriginalOrder = null;
@@ -584,7 +581,6 @@ function setDistanceLabels(show, entries) {
     const label = document.createElement('span');
     label.className = 'distance-label';
     label.textContent = formatDistance(km, kind);
-    label.style.cssText = 'display:block;font-size:13px;color:#78716c;margin-top:4px;';
     const meta = card.querySelector('.p-6 p.text-stone-500');
     const container = card.querySelector('.p-6');
     if (meta) meta.after(label);
@@ -600,11 +596,11 @@ function initSortControl() {
   btn.type = 'button';
   btn.textContent = 'Sort by distance';
   btn.setAttribute('aria-pressed', 'false');
-  btn.style.cssText = 'margin-top:20px;font-size:15px;font-weight:500;color:#B45309;background:#fff;border:2px solid #D97706;border-radius:9999px;padding:10px 24px;min-height:48px;cursor:pointer;';
+  btn.className = 'sort-toggle';
   const status = document.createElement('p');
   status.id = 'sort-status';
   status.setAttribute('role', 'status');
-  status.style.cssText = 'margin-top:12px;font-size:14px;color:#57534e;min-height:20px;';
+  status.className = 'sort-status';
   btn.addEventListener('click', onSortToggle);
   header.appendChild(btn);
   header.appendChild(status);
@@ -655,6 +651,7 @@ async function onSortToggle() {
   setSortMessage('Places sorted by straight-line distance, closest first.');
 }
 
+// --- src/js/back.js ---
 // 8. Active nav link is set by js/drawer.js from location.pathname
 // (the old anchor scrollspy has no sections to observe on split pages).
 
