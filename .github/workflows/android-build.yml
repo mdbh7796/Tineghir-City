@@ -126,7 +126,9 @@ jobs:
 
       - name: Attach signed APK to GitHub Release
         run: |
-          gh release upload "${{ github.ref_name }}" \
+          TAG="${{ github.ref_name }}"
+          gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --generate-notes
+          gh release upload "$TAG" \
             android/app/build/outputs/apk/release/app-release.apk \
             --clobber
         env:
