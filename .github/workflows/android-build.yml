@@ -102,6 +102,9 @@ jobs:
           test -n "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" || (echo "missing TINEGHIR_KEYSTORE_BASE64 secret" && exit 1)
           echo "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" | base64 -d > android/app/tineghir-release.keystore
 
+      - name: Fetch release map tiles (fail-closed)
+        run: npm run tiles:fetch -- --release
+
       - name: Stamp version + build signed release APK
         env:
           TINEGHIR_KEYSTORE_PATH: tineghir-release.keystore

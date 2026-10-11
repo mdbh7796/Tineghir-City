@@ -10,6 +10,11 @@ test('android workflow builds debug APK; tag release signs and attaches APK', ()
   const releaseJob = w.slice(w.indexOf('\n  release:'));
   assert.match(releaseJob, /startsWith\(github\.ref, 'refs\/tags\/v'\)/);
   assert.match(releaseJob, /TINEGHIR_KEYSTORE_BASE64/);
+  assert.match(releaseJob, /tiles:fetch -- --release/);
+  assert.ok(
+    releaseJob.indexOf('tiles:fetch -- --release') < releaseJob.indexOf('assembleRelease'),
+    'tiles must be fetched before the release build'
+  );
   assert.match(releaseJob, /release-version.*--apply/);
   assert.match(releaseJob, /assembleRelease/);
   assert.match(releaseJob, /apksigner verify/);
