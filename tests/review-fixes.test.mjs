@@ -16,7 +16,9 @@ test('privacy doc does not overclaim analytics loader', () => {
   assert.ok(!claimsLoader || hasLoader, 'doc claims a loader that does not exist');
 });
 
-test('release buildType is plain (no keystore signing)', () => {
+test('release signing is env-based and optional (unsigned local builds work)', () => {
   const g = readFileSync('android/app/build.gradle', 'utf8');
-  assert.doesNotMatch(g, /signingConfig/);
+  assert.ok(g.indexOf('signingConfigs') < g.indexOf('buildTypes'), 'signingConfigs must precede buildTypes');
+  assert.match(g, /TINEGHIR_KEYSTORE_PATH/);
+  assert.match(g, /if \(hasSigning\)/);
 });

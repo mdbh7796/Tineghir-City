@@ -7,10 +7,10 @@ test('AndroidManifest blocks cleartext traffic', () => {
   assert.match(xml, /usesCleartextTraffic="false"/);
 });
 
-test('build.gradle defines debug suffix without release keystore', () => {
+test('build.gradle defines debug suffix with optional env release signing', () => {
   const g = readFileSync('android/app/build.gradle', 'utf8');
   assert.match(g, /applicationIdSuffix ".debug"/);
-  assert.doesNotMatch(g, /TINEGHIR_KEYSTORE/);
+  assert.match(g, /TINEGHIR_KEYSTORE_PATH/);
 });
 
 test('capacitor config defines splash background', () => {

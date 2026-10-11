@@ -2,14 +2,21 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 
-// Free-distribution checks: debug APK artifact + Pages deploy, no Play signing.
-test('android workflow builds debug APK only (no release/signing lane)', () => {
+// Free-distribution checks: debug APK artifact + Pages deploy + tag release lane.
+test('android workflow builds debug APK; tag release signs and attaches APK', () => {
   const w = readFileSync('.github/workflows/android-build.yml', 'utf8');
   assert.match(w, /assembleDebug/);
   assert.match(w, /name: app-debug/);
-  assert.doesNotMatch(w, /TINEGHIR_KEYSTORE/);
-  assert.doesNotMatch(w, /bundleRelease/);
-  assert.doesNotMatch(w, /jarsigner|apksigner/);
+  const releaseJob = w.slice(w.indexOf('\n  release:'));
+  assert.match(releaseJob, /startsWith\(github\.ref, 'refs\/tags\/v'\)/);
+  assert.match(releaseJob, /TINEGHIR_KEYSTORE_BASE64/);
+  assert.match(releaseJob, /release-version.*--apply/);
+  assert.match(releaseJob, /assembleRelease/);
+  assert.match(releaseJob, /apksigner verify/);
+  assert.match(releaseJob, /gh release upload/);
+  // Debug lane stays secret-free.
+  const buildJob = w.slice(w.indexOf('\n  build:'), w.indexOf('\n  release:'));
+  assert.doesNotMatch(buildJob, /TINEGHIR_KEYSTORE/);
 });
 
 test('pages workflow publishes public/ to GitHub Pages', () => {

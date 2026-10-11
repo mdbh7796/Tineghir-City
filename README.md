@@ -66,6 +66,31 @@ The website itself deploys free via GitHub Pages (`pages.yml`): enable
 Pages in repo Settings → Pages → Source "GitHub Actions" once, then every
 push to `main` publishes `public/`.
 
+## Release (signed APK, free distribution)
+
+Debug APKs install fine, but Android only auto-updates apps signed with the
+same key. One-time setup (on your machine, never committed):
+
+```bash
+keytool -genkeypair -alias tineghir -keyalg RSA -keysize 4096 \
+  -validity 10000 -keystore ~/.secure/tineghir-release.keystore
+```
+
+Back up the keystore + passwords offline ×2 — losing it breaks updates.
+Then repo Settings → Secrets → Actions, add `TINEGHIR_KEYSTORE_BASE64`
+(base64 of the keystore), `TINEGHIR_KEYSTORE_PASSWORD`, `TINEGHIR_KEY_ALIAS`,
+`TINEGHIR_KEY_PASSWORD`.
+
+To ship: bump `version` in `package.json`, commit, then
+
+```bash
+git tag v1.0.0 && git push origin v1.0.0
+```
+
+CI stamps the version, builds a signed release APK, verifies it with
+`apksigner`, and attaches it to the GitHub Release. Share that APK link —
+it installs and updates cleanly on any phone.
+
 To customize the launcher icon/splash, run
 `npx @capacitor/assets generate` with your source icon.
 

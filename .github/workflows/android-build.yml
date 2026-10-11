@@ -60,3 +60,71 @@ jobs:
         with:
           name: app-debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
+
+  # Free-distribution release: push a tag `vX.Y.Z` to build a SIGNED release
+  # APK and attach it to the GitHub Release.
+  release:
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+    # One-time setup (owner, local):
+    #   1. keytool -genkeypair -alias tineghir -keyalg RSA -keysize 4096
+    #        -validity 10000 -keystore ~/.secure/tineghir-release.keystore
+    #   2. Back up the keystore + passwords offline x2 (loss = updates break).
+    #   3. Repo Settings → Secrets → Actions: TINEGHIR_KEYSTORE_BASE64 (base64
+    #      of the keystore), TINEGHIR_KEYSTORE_PASSWORD, TINEGHIR_KEY_ALIAS,
+    #      TINEGHIR_KEY_PASSWORD.
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate pages + unit tests
+        run: npm run check
+
+      - name: Decode release keystore
+        run: |
+          test -n "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" || (echo "missing TINEGHIR_KEYSTORE_BASE64 secret" && exit 1)
+          echo "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" | base64 -d > android/app/tineghir-release.keystore
+
+      - name: Stamp version + build signed release APK
+        env:
+          TINEGHIR_KEYSTORE_PATH: tineghir-release.keystore
+          TINEGHIR_KEYSTORE_PASSWORD: ${{ secrets.TINEGHIR_KEYSTORE_PASSWORD }}
+          TINEGHIR_KEY_ALIAS: ${{ secrets.TINEGHIR_KEY_ALIAS }}
+          TINEGHIR_KEY_PASSWORD: ${{ secrets.TINEGHIR_KEY_PASSWORD }}
+        run: |
+          npm run build
+          node scripts/release-version.mjs --apply
+          npx cap sync android
+          cd android && chmod +x gradlew && ./gradlew assembleRelease
+
+      - name: Verify APK signature (must pass)
+        working-directory: android
+        run: |
+          APK=app/build/outputs/apk/release/app-release.apk
+          test -f "$APK"
+          $ANDROID_HOME/build-tools/36.0.0/apksigner verify --print-certs "$APK"
+
+      - name: Attach signed APK to GitHub Release
+        run: |
+          gh release upload "${{ github.ref_name }}" \
+            android/app/build/outputs/apk/release/app-release.apk \
+            --clobber
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
