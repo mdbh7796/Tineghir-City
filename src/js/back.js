@@ -27,6 +27,17 @@ function initBackButton() {
   });
 }
 
+// 10. Android-only footer: hide the Explore link block and use the
+// MDBH Agence credit. Native only (window.Capacitor is set solely in the
+// Capacitor app); the website keeps the full footer untouched.
+function initAndroidFooter() {
+  if (!window.Capacitor) return;
+  const explore = document.getElementById('footer-explore');
+  if (explore) explore.remove();
+  const credit = document.getElementById('footer-credit');
+  if (credit) credit.textContent = 'Made with heart by MDBH Agence.';
+}
+
 // Initialize everything when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   initScrollAnimations();
@@ -37,4 +48,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initNavigateButtons();
   initSortControl();
   initBackButton();
+  initAndroidFooter();
 });
