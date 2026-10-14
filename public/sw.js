@@ -35,15 +35,24 @@ self.addEventListener('fetch', (e) => {
   }
   if (url.pathname.endsWith('.html') || url.pathname === '/' || url.pathname.endsWith('/')) {
     e.respondWith(fetch(e.request).then((r) => {
-      const copy = r.clone();
-      caches.open(CACHE_VERSION).then((c) => c.put(e.request, copy));
+      if (r && r.ok) {
+        const copy = r.clone();
+        caches.open(CACHE_VERSION).then((c) => c.put(e.request, copy)).catch(() => {});
+      }
       return r;
     }).catch(() => caches.match(e.request).then((m) => m || caches.match('./index.html'))));
     return;
   }
+  // Cache-first for same-origin GET only; never cache errors or cross-origin opaque.
+  if (url.origin !== self.location.origin) {
+    e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+    return;
+  }
   e.respondWith(caches.match(e.request).then((hit) => hit || fetch(e.request).then((r) => {
-    const copy = r.clone();
-    caches.open(CACHE_VERSION).then((c) => c.put(e.request, copy));
+    if (r && r.ok) {
+      const copy = r.clone();
+      caches.open(CACHE_VERSION).then((c) => c.put(e.request, copy)).catch(() => {});
+    }
     return r;
   }).catch(() => hit)));
 });

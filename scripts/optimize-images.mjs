@@ -26,6 +26,7 @@ const RESPONSIVE = new Set([
   'kasbah-el-glaoui.jpg',
   'tineghir-palm-grove.jpg',
   'about-tineghir.jpg',
+  'medina-tineghir.jpg',
 ]);
 
 const kb = (n) => `${(n / 1024).toFixed(0)} KB`;

@@ -102,8 +102,9 @@ export function renderStayEntry(s) {
     ...(s.whatsapp ? [`<a href="https://wa.me/${s.whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(s.name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>`] : []),
     ...(s.verified === false ? [] : [`<a href="https://www.google.com/maps/dir/?api=1&amp;destination=${encodeURIComponent(s.mapsQuery)}" target="_blank" rel="noopener" class="${btn} text-amber-700 hover:text-amber-600">Directions 🧭</a>`]),
   ].join('\n              ');
+  const base = s.image ? s.image.replace(/\.jpg$/, '') : null;
   const photo = s.image
-    ? `<img src="${esc(s.image)}" alt="${esc(s.name)}" loading="lazy" class="w-full h-48 object-cover">`
+    ? `<img src="${esc(base)}-640.jpg" srcset="${esc(base)}-640.jpg 640w, ${esc(base)}-1024.jpg 1024w" sizes="(max-width: 1023px) 100vw, 33vw" alt="${esc(s.name)}" loading="lazy" decoding="async" width="640" height="480" class="w-full h-48 object-cover">`
     : `<div class="w-full h-48 bg-stone-200 flex items-center justify-center text-4xl" aria-hidden="true">🏨</div>`;
   return `          <div data-stay="${esc(s.name)}" class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg reveal">
             ${photo}
