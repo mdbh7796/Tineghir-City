@@ -7,12 +7,14 @@ test('android workflow builds debug APK; tag release signs and attaches APK', ()
   const w = readFileSync('.github/workflows/android-build.yml', 'utf8');
   assert.match(w, /assembleDebug/);
   assert.match(w, /name: app-debug/);
+  // Tag pushes must trigger the workflow (a branches-only filter excludes tags).
+  assert.match(w, /tags: \['v\*'\]/);
   const releaseJob = w.slice(w.indexOf('\n  release:'));
   assert.match(releaseJob, /startsWith\(github\.ref, 'refs\/tags\/v'\)/);
   assert.match(releaseJob, /TINEGHIR_KEYSTORE_BASE64/);
-  assert.match(releaseJob, /tiles:fetch -- --release/);
+  assert.match(releaseJob, /tiles:fetch/);
   assert.ok(
-    releaseJob.indexOf('tiles:fetch -- --release') < releaseJob.indexOf('assembleRelease'),
+    releaseJob.indexOf('tiles:fetch') < releaseJob.indexOf('assembleRelease'),
     'tiles must be fetched before the release build'
   );
   assert.match(releaseJob, /release-version.*--apply/);

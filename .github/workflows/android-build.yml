@@ -6,6 +6,7 @@ name: Android debug APK (Capacitor)
 on:
   push:
     branches: [main]
+    tags: ['v*']
   pull_request:
   workflow_dispatch:
 
@@ -108,8 +109,11 @@ jobs:
           test -n "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" || (echo "missing TINEGHIR_KEYSTORE_BASE64 secret" && exit 1)
           echo "${{ secrets.TINEGHIR_KEYSTORE_BASE64 }}" | base64 -d > android/app/tineghir-release.keystore
 
-      - name: Fetch release map tiles (fail-closed)
-        run: npm run tiles:fetch -- --release
+      # Offline map tiles are optional until the owner publishes the first tile
+      # release + public/tiles.json (see docs/tiles.md). With no manifest the
+      # layer stays dormant and the signed release still ships.
+      - name: Fetch offline map tiles (skipped when no tiles.json)
+        run: npm run tiles:fetch
 
       - name: Stamp version + build signed release APK + AAB
         env:
