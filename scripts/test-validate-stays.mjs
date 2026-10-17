@@ -7,7 +7,7 @@ process.exit = ((code) => { throw new Error(`exit:${code}`); });
 const good = {
   name: 'T', area: 'town', priceBand: 'mid', blurb: 'B',
   bookingUrl: 'https://www.booking.com/searchresults.html?ss=T%2C+Tinghir',
-  mapsQuery: 'T, Tinghir, Morocco', verified: true,
+  mapsQuery: 'T, Tinghir, Morocco', verified: true, lastVerified: '2026-10-16',
 };
 let pass = 0;
 const rejects = (label, entry) => {

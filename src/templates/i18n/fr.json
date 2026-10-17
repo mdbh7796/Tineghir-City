@@ -1,0 +1,18 @@
+{
+  "lang": "fr",
+  "dir": "ltr",
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "attractions": "Attractions",
+    "gallery": "Galerie",
+    "guide": "Guide",
+    "practical": "Pratique",
+    "planVisit": "Planifiez votre visite"
+  },
+  "footer": {
+    "tagline": "Découvrez la magie du sud du Maroc, entre traditions anciennes et beauté naturelle.",
+    "explore": "Explorer",
+    "reportOutdated": "Signaler une info obsolète"
+  }
+}

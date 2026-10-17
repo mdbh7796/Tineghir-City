@@ -1,23 +1,20 @@
-    <!-- Footer -->
-    <footer class="bg-stone-900 py-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
+    <!-- Footer: light, quiet, single accent -->
+    <footer class="bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid md:grid-cols-12 gap-8 mb-10">
 <!--IF:showMap-->
-           <!-- Column 1: Interactive Map (Span 9) -->
-          <div class="lg:col-span-9 reveal">
-            <div id="map" class="w-full h-full min-h-[250px] md:min-h-[400px] rounded-2xl shadow-xl border border-stone-700 z-0"></div>
+          <div class="md:col-span-8">
+            <div id="map" class="w-full h-full min-h-[250px] md:min-h-[320px] rounded-2xl border border-stone-200 dark:border-stone-700 z-0"></div>
           </div>
 
-          <!-- Column 2: Brand & Socials (Span 3) -->
-          <div class="lg:col-span-3 space-y-6">
+          <div class="md:col-span-4 space-y-5">
 <!--ENDIF-->
 <!--IFNOT:showMap-->
-          <!-- Brand (full width when no map) -->
-          <div class="lg:col-span-12 space-y-6 max-w-2xl">
+          <div class="md:col-span-12 space-y-5 max-w-2xl">
 <!--ENDIF-->
             <div class="flex items-center gap-2">
               <svg
-                class="w-10 h-10 text-amber-500"
+                class="w-8 h-8 text-amber-700"
                 viewBox="0 0 40 40"
                 fill="currentColor"
               >
@@ -28,50 +25,49 @@
                   d="M20 10l-8 5v8l8 5 8-5v-8l-8-5zm0 3l5 3.125v5L20 24.25l-5-3.125v-5L20 13z"
                 />
               </svg>
-              <span class="font-display text-2xl font-semibold text-amber-100">Tineghir</span>
+              <span class="font-display text-xl font-semibold text-stone-900 dark:text-amber-100">Tineghir</span>
             </div>
-            <p id="footer-text" class="text-stone-400 max-w-sm leading-relaxed">
+            <p id="footer-text" class="text-stone-600 dark:text-stone-400 leading-relaxed">
               Discover the magic of Southern Morocco. Where ancient traditions
               meet breathtaking natural beauty.
             </p>
 
-            <div class="pt-4" id="footer-explore">
-              <h2 class="font-display text-lg font-semibold text-amber-100 mb-4">Explore</h2>
-              <ul class="space-y-2 text-stone-400">
-                <li><a href="./index.html" class="hover:text-amber-400 transition-colors">Home</a></li>
-                <li><a href="./about.html" class="hover:text-amber-400 transition-colors">About</a></li>
-                <li><a href="./attractions.html" class="hover:text-amber-400 transition-colors">Attractions</a></li>
-                <li><a href="./gallery.html" class="hover:text-amber-400 transition-colors">Gallery</a></li>
-                <li><a href="./itineraries.html" class="hover:text-amber-400 transition-colors">Itineraries</a></li>
-                <li><a href="./guide.html" class="hover:text-amber-400 transition-colors">Guide</a></li>
-                <li><a href="./practical.html" class="hover:text-amber-400 transition-colors">Practical</a></li>
-                <li><a href="./stay.html" class="hover:text-amber-400 transition-colors">Stay</a></li>
-                <li><a href="./contact.html" class="hover:text-amber-400 transition-colors">Contact</a></li>
-                <li><a href="./transport.html" class="hover:text-amber-400 transition-colors">Transport</a></li>
-                <li><a href="./tools.html" class="hover:text-amber-400 transition-colors">Tools</a></li>
-                <li><a href="./visit.html" class="hover:text-amber-400 transition-colors">Plan Your Visit</a></li>
-                <li><a href="./privacy.html" class="hover:text-amber-400 transition-colors">Privacy</a></li>
+            <div class="pt-2" id="footer-explore">
+              <h2 class="eyebrow mb-3">Explore</h2>
+              <ul class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-stone-600 dark:text-stone-400">
+                <li><a href="./index.html" class="hover:text-stone-900 dark:hover:text-white">Home</a></li>
+                <li><a href="./about.html" class="hover:text-stone-900 dark:hover:text-white">About</a></li>
+                <li><a href="./attractions.html" class="hover:text-stone-900 dark:hover:text-white">Attractions</a></li>
+                <li><a href="./gallery.html" class="hover:text-stone-900 dark:hover:text-white">Gallery</a></li>
+                <li><a href="./itineraries.html" class="hover:text-stone-900 dark:hover:text-white">Itineraries</a></li>
+                <li><a href="./guide.html" class="hover:text-stone-900 dark:hover:text-white">Guide</a></li>
+                <li><a href="./practical.html" class="hover:text-stone-900 dark:hover:text-white">Practical</a></li>
+                <li><a href="./stay.html" class="hover:text-stone-900 dark:hover:text-white">Stay</a></li>
+                <li><a href="./contact.html" class="hover:text-stone-900 dark:hover:text-white">Contact</a></li>
+                <li><a href="./transport.html" class="hover:text-stone-900 dark:hover:text-white">Transport</a></li>
+                <li><a href="./tools.html" class="hover:text-stone-900 dark:hover:text-white">Tools</a></li>
+                <li><a href="./visit.html" class="hover:text-stone-900 dark:hover:text-white">Plan Your Visit</a></li>
+                <li><a href="./privacy.html" class="hover:text-stone-900 dark:hover:text-white">Privacy</a></li>
               </ul>
             </div>
           </div>
 
         </div>
         <div
-          class="border-t border-stone-800 pt-8 text-center text-stone-400 text-sm"
+          class="border-t border-stone-200 dark:border-stone-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-500 dark:text-stone-400"
         >
-          <p class="mb-4">Found this guide useful? Tips support an independent local guide.</p>
+          <p id="footer-credit">
+            Made with heart by MDBH Agence. · <a href="mailto:support@tineghir.ma?subject=Outdated%20info%20report" class="underline hover:text-stone-900 dark:hover:text-white">Report outdated info</a>
+          </p>
           <a
             href="{{TIP_URL}}"
             target="_blank"
             rel="noopener"
             aria-label="Tip via PayPal"
-            class="inline-flex items-center justify-center bg-amber-700 hover:bg-amber-600 text-white px-6 py-3 rounded-full text-sm font-medium transition-all min-h-[44px] min-w-[44px]"
+            class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
             ☕ Tip via PayPal
           </a>
-          <p class="mt-6" id="footer-credit">
-            Made with heart by MDBH Agence.
-          </p>
         </div>
       </div>
     </footer>

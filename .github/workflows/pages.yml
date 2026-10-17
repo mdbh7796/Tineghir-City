@@ -36,6 +36,9 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Verify public/ matches src/ (no direct public/ edits)
+        run: git diff --exit-code -- public/*.html public/script.js public/sw.js public/js public/sitemap.xml
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5
         with:

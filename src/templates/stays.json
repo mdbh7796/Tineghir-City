@@ -8,7 +8,8 @@
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Kasbah+Hotel+Amazir%2C+Tinghir",
     "phone": "+212524895109",
     "mapsQuery": "Kasbah Hotel Amazir, Todra Gorge, Tinghir, Morocco",
-    "verified": true
+    "verified": true,
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Hotel Tomboctou",
@@ -19,18 +20,20 @@
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Tomboctou%2C+Tinghir",
     "phone": "+212524834604",
     "mapsQuery": "Hotel Tomboctou, Tinghir, Morocco",
-    "verified": true
+    "verified": true,
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Hotel Saghro",
     "area": "town",
     "priceBand": "budget",
-    "blurb": "Central budget base with a restaurant; handy for early starts toward the gorge and Dades Valley.",
+    "blurb": "Central budget base with a restaurant; handy for early starts toward Todra Gorge.",
     "image": "images/medina-tineghir.jpg",
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Saghro%2C+Tinghir",
     "phone": "+212524834181",
     "mapsQuery": "Hotel Saghro, Tinghir, Morocco",
-    "verified": true
+    "verified": true,
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Hotel Restaurant La Kasbah",
@@ -41,7 +44,8 @@
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Hotel+Restaurant+La+Kasbah%2C+Tinghir",
     "phone": "+212524834471",
     "mapsQuery": "Hotel Restaurant La Kasbah, Tinghir, Morocco",
-    "verified": true
+    "verified": true,
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Dar Ayour",
@@ -53,7 +57,8 @@
     "phone": "+212672521251",
     "whatsapp": "212672521251",
     "mapsQuery": "Dar Ayour, Todra Valley, Tinghir, Morocco",
-    "verified": true
+    "verified": true,
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Auberge le Festival Todra Gorges",
@@ -65,18 +70,56 @@
     "phone": "+212673454307",
     "whatsapp": "212673454307",
     "mapsQuery": "Auberge le Festival, Todra Gorge, Tinghir, Morocco",
-    "verified": true
+    "verified": true,
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Auberge Bougafer",
     "area": "gorge-road",
     "priceBand": "budget",
-    "blurb": "Traditional Berber guesthouse in Tamtattouchte village — Atlas views, pool, and a cultural welcome.",
+    "blurb": "Traditional Berber guesthouse in Tinghir's upper Todra Valley — Atlas views, pool, and a cultural welcome.",
     "image": "images/tineghir-palm-grove.jpg",
     "bookingUrl": "https://www.booking.com/searchresults.html?ss=Auberge+Bougafer%2C+Tinghir",
     "phone": "+212670223536",
     "whatsapp": "212670223536",
-    "mapsQuery": "Auberge Bougafer, Tamtattouchte, Tinghir, Morocco",
-    "verified": true
+    "mapsQuery": "Auberge Bougafer, Tinghir, Morocco",
+    "verified": true,
+    "lastVerified": "2026-10-16"
+  },
+  {
+    "name": "Riad Dar Bab Todra",
+    "area": "gorge-road",
+    "priceBand": "mid",
+    "blurb": "Riad on the gorge road with pool, garden and terrace — 9.1-rated hospitality a short drive from town.",
+    "image": "images/medina-tineghir.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Riad+Dar+Bab+Todra%2C+Tinghir",
+    "phone": "+212671443979",
+    "mapsQuery": "Riad Dar Bab Todra, Tinghir, Morocco",
+    "verified": true,
+    "lastVerified": "2026-10-16"
+  },
+  {
+    "name": "Guesthouse Panorama Todra",
+    "area": "gorge-road",
+    "priceBand": "budget",
+    "blurb": "Family-run guesthouse above the gorge with panoramic views and breakfast — about $30 a night.",
+    "image": "images/todra-gorge.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Guesthouse+Panorama+Todra%2C+Tinghir",
+    "phone": "+212677004972",
+    "mapsQuery": "Guesthouse Panorama Todra, Tinghir, Morocco",
+    "verified": true,
+    "lastVerified": "2026-10-16"
+  },
+  {
+    "name": "Etoile des Gorges",
+    "area": "gorge-road",
+    "priceBand": "budget",
+    "blurb": "Hotel-restaurant 2 km before the gorge — rooms $20–40, a base for climbing and hiking in Tinghir.",
+    "image": "images/about-tineghir.jpg",
+    "bookingUrl": "https://www.booking.com/searchresults.html?ss=Etoile+des+Gorges%2C+Tinghir",
+    "phone": "+212687928519",
+    "mapsQuery": "Etoile des Gorges, Tinghir, Morocco",
+    "verified": true,
+    "lastVerified": "2026-10-16"
   }
 ]

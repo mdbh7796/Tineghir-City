@@ -25,6 +25,9 @@ export function validateContacts(contacts) {
     if (!c.name || typeof c.name !== 'string') fail('contacts.json: entry missing "name"');
     if (!CONTACT_CATS[c.category]) fail(`contacts.json: "${c.name}" has bad category "${c.category}"`);
     if (!c.note || typeof c.note !== 'string') fail(`contacts.json: "${c.name}" missing "note"`);
+    if (!c.lastVerified || !/^\d{4}-\d{2}-\d{2}$/.test(c.lastVerified))
+      fail(`contacts.json: "${c.name}" missing lastVerified YYYY-MM-DD`);
+    if (Number.isNaN(Date.parse(c.lastVerified))) fail(`contacts.json: "${c.name}" bad lastVerified date`);
     if (c.phone !== undefined && !/^\+212\d{9}$/.test(c.phone))
       fail(`contacts.json: "${c.name}" phone must be E.164 like +2126XXXXXXXX`);
     if (c.whatsapp !== undefined && !/^212\d{9}$/.test(c.whatsapp))
@@ -40,9 +43,9 @@ export function renderContactCard(name, note, phone, whatsapp) {
     ...(phone ? [`<a href="tel:${phone}" aria-label="Call ${esc(name)}" class="${btn} bg-amber-700 hover:bg-amber-600 text-white">Call ${esc(phone)}</a>`] : []),
     ...(whatsapp ? [`<a href="https://wa.me/${whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>`] : []),
   ].join('\n              ');
-  return `          <div data-contact="${esc(name)}" class="bg-white rounded-2xl p-6 shadow-lg reveal">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-2">${esc(name)}</h3>
-            <p class="text-stone-600 mb-4">${esc(note)}</p>${actions ? `\n            <div class="flex flex-wrap gap-3">\n              ${actions}\n            </div>` : ''}
+  return `          <div data-contact="${esc(name)}" class="card p-6 reveal">
+            <h3 class="text-lg font-semibold text-stone-900 dark:text-white mb-1">${esc(name)}</h3>
+            <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">${esc(note)}</p>${actions ? `\n            <div class="flex flex-wrap gap-3">\n              ${actions}\n            </div>` : ''}
           </div>`;
 }
 
@@ -51,14 +54,14 @@ export function renderContactSection(contacts, stays) {
     const cards = contacts.filter((c) => c.category === cat)
       .map((c) => renderContactCard(c.name, c.note, c.phone, c.whatsapp)).join('\n');
     if (!cards) return '';
-    return `    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">${CONTACT_CATS[cat]}</h2>
+    return `    <h2 class="font-display text-2xl font-bold text-stone-900 dark:text-white mt-12 mb-6">${CONTACT_CATS[cat]}</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 ${cards}
     </div>`;
   }).filter(Boolean).join('\n');
   const stayCards = stays.filter((s) => s.phone)
     .map((s) => renderContactCard(s.name, `${s.area} · ${s.priceBand}`, s.phone, s.whatsapp)).join('\n');
-  const stayGroup = stayCards ? `    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Stays</h2>
+  const stayGroup = stayCards ? `    <h2 class="font-display text-2xl font-bold text-stone-900 dark:text-white mt-12 mb-6">Stays</h2>
     <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
 ${stayCards}
     </div>` : '';
@@ -75,6 +78,9 @@ export function validateStays(stays, rootDir = root) {
     for (const key of ['name', 'area', 'priceBand', 'blurb', 'bookingUrl', 'mapsQuery']) {
       if (!s[key] || typeof s[key] !== 'string') fail(`stays.json: "${s.name || '?'}" missing "${key}"`);
     }
+    if (!s.lastVerified || !/^\d{4}-\d{2}-\d{2}$/.test(s.lastVerified))
+      fail(`stays.json: "${s.name}" missing lastVerified YYYY-MM-DD`);
+    if (Number.isNaN(Date.parse(s.lastVerified))) fail(`stays.json: "${s.name}" bad lastVerified date`);
     if (!AREAS[s.area]) fail(`stays.json: "${s.name}" has bad area "${s.area}"`);
     if (!PRICE_BANDS.has(s.priceBand)) fail(`stays.json: "${s.name}" has bad priceBand "${s.priceBand}"`);
     if (!s.bookingUrl.startsWith('https://www.booking.com/searchresults.html?ss=') || /\s/.test(s.bookingUrl))
@@ -106,14 +112,14 @@ export function renderStayEntry(s) {
   const photo = s.image
     ? `<img src="${esc(base)}-640.jpg" srcset="${esc(base)}-640.jpg 640w, ${esc(base)}-1024.jpg 1024w" sizes="(max-width: 1023px) 100vw, 33vw" alt="${esc(s.name)}" loading="lazy" decoding="async" width="640" height="480" class="w-full h-48 object-cover">`
     : `<div class="w-full h-48 bg-stone-200 flex items-center justify-center text-4xl" aria-hidden="true">🏨</div>`;
-  return `          <div data-stay="${esc(s.name)}" class="card-hover bg-white rounded-2xl overflow-hidden shadow-lg reveal">
+  return `          <div data-stay="${esc(s.name)}" class="card card-hover overflow-hidden reveal">
             ${photo}
             <div class="p-6">
               <div class="flex items-center gap-2 mb-2">
-                <span class="bg-amber-100 text-amber-800 text-xs font-bold px-3 py-1 rounded-full">${s.priceBand}</span>
+                <span class="bg-amber-50 text-amber-800 text-xs font-semibold px-3 py-1 rounded-full border border-amber-100">${s.priceBand}</span>
               </div>
-              <h3 class="font-display text-2xl font-bold text-stone-800 mb-2">${esc(s.name)}</h3>
-              <p class="text-stone-600 mb-4">${esc(s.blurb)}</p>
+              <h3 class="text-xl font-semibold text-stone-900 dark:text-white mb-1">${esc(s.name)}</h3>
+              <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">${esc(s.blurb)}</p>
               <div class="flex flex-wrap gap-3">
               ${actions}
               </div>
@@ -126,7 +132,7 @@ export function renderStaySection(stays) {
     const cards = stays.filter((s) => s.area === area).map(renderStayEntry).join('\n');
     if (!cards) return '';
     return `    <!-- Stay: ${AREAS[area]} -->
-    <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">${AREAS[area]}</h2>
+    <h2 class="font-display text-2xl font-bold text-stone-900 dark:text-white mt-12 mb-6">${AREAS[area]}</h2>
     <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 ${cards}
     </div>`;
@@ -167,16 +173,16 @@ export function buildPages(rootDir = root) {
       const contacts = validateContacts(JSON.parse(readFileSync(join(dir, m.contactSource), 'utf8')));
       const stays = JSON.parse(readFileSync(join(dir, 'stays.json'), 'utf8'));
       content = `    <!-- Contact intro -->
-    <section class="py-20 md:py-28 bg-stone-100">
+    <section class="py-20 md:py-28 bg-stone-50 dark:bg-stone-950">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
           <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
             Call
           </p>
-          <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6">
+          <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-900 dark:text-white mb-6">
             Contacts &amp; Numbers
           </h1>
-          <p class="text-stone-600 text-lg max-w-2xl mx-auto">
+          <p class="text-stone-600 dark:text-stone-400 text-lg max-w-2xl mx-auto">
             One-tap calls for transport, health, guides, and stays. Works
             offline — numbers are on your phone, not on a server.
           </p>
@@ -187,16 +193,16 @@ ${renderContactSection(contacts, stays)}
     } else if (m.staySource) {
       const stays = validateStays(JSON.parse(readFileSync(join(dir, m.staySource), 'utf8')), rootDir);
       const intro = `    <!-- Stay intro -->
-    <section class="py-20 md:py-28 bg-stone-100">
+    <section class="py-20 md:py-28 bg-stone-50 dark:bg-stone-950">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
           <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
             Sleep
           </p>
-          <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6">
+          <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-900 dark:text-white mb-6">
             Where to Stay in Tineghir
           </h1>
-          <p class="text-stone-600 text-lg max-w-2xl mx-auto">
+          <p class="text-stone-600 dark:text-stone-400 text-lg max-w-2xl mx-auto">
             Kasbah-hotels on the gorge road, family riads in town, and garden
             lodges in the palmeraie — book direct online, call, or message
             on WhatsApp.
@@ -243,11 +249,12 @@ ${renderStaySection(stays)}
   console.log(`pages:build: wrote ${written.join(', ')}`);
 
   // Sitemap is generated from meta canonicals so new pages can't drift.
+  const today = new Date().toISOString().slice(0, 10);
   const sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
   for (const [page, m] of Object.entries(meta)) {
     const priority = page === 'index' ? '1.0' : (m.priority || '0.8');
     const changefreq = page === 'index' ? 'weekly' : 'monthly';
-    sm.push('  <url>', `    <loc>${m.canonical}</loc>`, '    <lastmod>2026-10-08</lastmod>', `    <changefreq>${changefreq}</changefreq>`, `    <priority>${priority}</priority>`, '  </url>');
+    sm.push('  <url>', `    <loc>${m.canonical}</loc>`, `    <lastmod>${today}</lastmod>`, `    <changefreq>${changefreq}</changefreq>`, `    <priority>${priority}</priority>`, '  </url>');
   }
   sm.push('</urlset>');
   writeFileSync(join(outDir, 'sitemap.xml'), sm.join('\n') + '\n');

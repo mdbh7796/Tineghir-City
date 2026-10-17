@@ -2,27 +2,32 @@
   {
     "name": "Petit taxis",
     "category": "transport",
-    "note": "Fixed short routes around town for a few dirhams (~5 MAD base). Agree the fare before longer rides."
+    "note": "Fixed short routes around town for a few dirhams (~5 MAD base). Agree the fare before longer rides.",
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Grand taxi day hire",
     "category": "transport",
-    "note": "For the gorge, Dades Valley, and villages. Agree the full-day rate before departure; splitting with other travelers is normal."
+    "note": "For Todra Gorge and palmeraie villages inside Tinghir. Agree the full-day rate before departure; splitting with other travelers is normal.",
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "CTM / Supratours station",
     "category": "transport",
-    "note": "Intercity buses leave from the town station. Book a day ahead in spring and autumn."
+    "note": "Intercity buses leave from the town station. Book a day ahead in spring and autumn.",
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Pharmacies",
     "category": "health",
-    "note": "Day pharmacies open roughly 09–21h on Avenue Mohammed V; nights are on call — ask your hotel or any pharmacy door sign."
+    "note": "Day pharmacies open roughly 09–21h on Avenue Mohammed V; nights are on call — ask your hotel or any pharmacy door sign.",
+    "lastVerified": "2026-10-16"
   },
   {
     "name": "Todra Gorge travel info",
     "category": "services",
     "phone": "+212649359121",
-    "note": "Local team for accommodation and travel arrangements around the gorge (published contact)."
+    "note": "Local team for accommodation and travel arrangements around the gorge (published contact).",
+    "lastVerified": "2026-10-16"
   }
 ]

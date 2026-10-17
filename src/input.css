@@ -46,8 +46,11 @@ nav {
   border-radius: 4px;
 }
 
-/* Active nav link (set by scrollspy in script.js) */
+/* Active nav link (set by drawer.js scrollspy) */
 .nav-active {
+  color: var(--brand) !important;
+}
+[data-theme="dark"] .nav-active {
   color: #fbbf24 !important;
 }
 
@@ -73,6 +76,90 @@ details summary::after {
 }
 details[open] summary::after {
   content: "–";
+}
+
+/* Design tokens: clear + simple (single brand, single radius/shadow scale) */
+:root {
+  --brand: #b45309;
+  --brand-hover: #92400e;
+  --ink: #1c1917;
+  --muted: #57534e;
+  --bg: #fafaf9;
+  --surface: #ffffff;
+  --line: #e7e5e4;
+  --radius: 16px;
+  --shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.06);
+  --shadow-md: 0 4px 16px rgba(28, 25, 23, 0.08);
+}
+
+/* Reusable primitives: use these for new work instead of ad-hoc utilities */
+.eyebrow {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brand);
+}
+.lead {
+  font-size: 1.125rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  background: var(--brand);
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: background 0.2s ease;
+}
+.btn-primary:hover {
+  background: var(--brand-hover);
+}
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 1rem;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.btn-ghost:hover {
+  border-color: var(--brand);
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+[data-theme="dark"] .card,
+[data-theme="dark"] .btn-ghost {
+  background: #292524;
+  border-color: #44403c;
+  color: #e7e5e4;
+}
+[data-theme="dark"] .lead {
+  color: #a8a29e;
+}
+[data-theme="dark"] .eyebrow {
+  color: #fbbf24;
 }
 
 /* Custom Styles */
@@ -125,10 +212,11 @@ body {
   animation: fadeInUp 0.8s ease-out forwards;
 }
 .card-hover {
-  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
 }
 .card-hover:hover {
-  transform: translateY(-8px) scale(1.02);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
 }
 
 .pattern-overlay {
@@ -165,13 +253,19 @@ body.drawer-open .drawer-backdrop {
   bottom: 0;
   z-index: 70;
   width: min(20rem, 85vw);
-  background: #1c1917;
-  border-left: 1px solid rgba(180, 83, 9, 0.3);
-  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.35);
+  background: #ffffff;
+  color: #1c1917;
+  border-left: 1px solid var(--line);
+  box-shadow: -8px 0 24px rgba(0, 0, 0, 0.12);
   transform: translateX(100%);
   transition: transform 0.3s ease-in-out;
   overflow-y: auto;
   visibility: hidden;
+}
+[data-theme="dark"] .site-drawer {
+  background: #1c1917;
+  color: #e7e5e4;
+  border-left-color: #44403c;
 }
 body.drawer-open {
   overflow: hidden;
@@ -218,11 +312,11 @@ body.drawer-open .site-drawer {
   }
 }
 
-/* Scroll Animation Classes */
+/* Scroll Animation Classes: subtle single-rise (was 30px / 0.8s) */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease-out;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
 .reveal.active {

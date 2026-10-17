@@ -2,6 +2,7 @@
 // Sources live in src/; public/ output is committed for Capacitor webDir.
 // Usage: node scripts/build-js.mjs
 import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -38,6 +39,18 @@ writeFileSync(outJs, header + body + '\n');
 console.log(`build:js: wrote public/script.js from ${files.join(', ')}`);
 
 // Service worker: src/sw.js is canonical, public/sw.js is the deployed copy.
-const sw = readFileSync(join(root, 'src', 'sw.js'), 'utf8');
+// CACHE_VERSION is stamped from a hash of the CSS/JS sources so any asset change
+// evicts the stale cache-first entries returning visitors would otherwise keep.
+const versionInputs = [join(root, 'src', 'input.css'), ...files.map((f) => join(srcDir, f))];
+const hash = createHash('sha256');
+for (const f of versionInputs) hash.update(readFileSync(f));
+const swVersion = `tineghir-${hash.digest('hex').slice(0, 10)}`;
+
+const swSrc = readFileSync(join(root, 'src', 'sw.js'), 'utf8');
+if (!swSrc.includes('__SW_VERSION__')) {
+  console.error('build:js: src/sw.js missing __SW_VERSION__ token — cannot stamp CACHE_VERSION');
+  process.exit(1);
+}
+const sw = swSrc.replace(/(const CACHE_VERSION = )'__SW_VERSION__';/, `$1'${swVersion}';`);
 writeFileSync(outSw, sw.endsWith('\n') ? sw : sw + '\n');
-console.log('build:js: wrote public/sw.js from src/sw.js');
+console.log(`build:js: wrote public/sw.js from src/sw.js (${swVersion})`);

@@ -3,6 +3,8 @@ import { test, expect } from '@playwright/test';
 // Real browser smoke: drawer, planner, consent. Run: npx playwright test.
 // CI installs browsers via `npx playwright install --with-deps chromium`.
 test('drawer opens, traps focus, closes on Escape', async ({ page }) => {
+  // Drawer button is md:hidden: exercise it at a mobile viewport.
+  await page.setViewportSize({ width: 375, height: 667 });
   await page.goto('/index.html');
   await expect(page.locator('#site-drawer')).toBeAttached();
   await page.locator('#mobile-menu-btn').click();

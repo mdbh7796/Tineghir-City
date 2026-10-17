@@ -1,7 +1,11 @@
 // Offline shell for Tineghir City (Capacitor + web).
 // Cache-first for vendored assets + images; network-first for HTML.
 // Tile archives (*.pmtiles) are versioned via tiles.json — never cache stale.
-const CACHE_VERSION = 'tineghir-v1';
+// The cache name carries a build hash: the version token below is replaced by
+// scripts/build-js.mjs from the CSS/JS source bytes. Bumping it on change is
+// what evicts stale cache-first assets; a bare 'tineghir-v1' would pin
+// returning visitors to old CSS/JS. Do not edit the token by hand.
+const CACHE_VERSION = '__SW_VERSION__';
 const SHELL = [
   './',
   './index.html',
@@ -9,6 +13,7 @@ const SHELL = [
   './script.js',
   './js/drawer.js',
   './js/tools.js',
+  './js/consent.js',
   './manifest.webmanifest',
   './vendor/leaflet/leaflet.css',
   './vendor/leaflet/leaflet.js',

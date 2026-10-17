@@ -21,6 +21,9 @@
     <link rel="apple-touch-icon" href="images/icon-192.png" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="canonical" href="https://www.tineghir.ma/tools.html" />
+    <!-- No language alternates yet: fr/ar have no localized URLs, so naming
+         them here would point at the English page and tell Google nothing.
+         Add real alternates back only once /fr/ and /ar/ pages exist. -->
     <meta name="theme-color" content="#1c1917" />
     <meta name="color-scheme" content="light dark" />
     <script>
@@ -90,18 +93,18 @@
   </head>
 
   <body
-    class="h-full font-body bg-stone-50 dark:bg-stone-900 text-stone-800 dark:text-stone-200 overflow-auto scroll-smooth"
+    class="h-full font-body bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-200 overflow-auto scroll-smooth antialiased"
     data-page="tools"
   >
-    <!-- Navigation -->
+    <!-- Navigation: slim, light, single accent -->
     <nav
-      class="fixed top-0 left-0 right-0 z-50 bg-stone-900/90 backdrop-blur-md border-b border-amber-700/30"
+      class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-stone-900/90 backdrop-blur-md border-b border-stone-200 dark:border-stone-800"
     >
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex items-center justify-between h-16">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6">
+        <div class="flex items-center justify-between h-14">
           <a href="./index.html" class="flex items-center gap-2" aria-label="Tineghir home">
             <svg
-              class="w-8 h-8 text-amber-500"
+              class="w-7 h-7 text-amber-700"
               viewBox="0 0 40 40"
               fill="currentColor"
             >
@@ -111,57 +114,51 @@
               <path
                 d="M20 10l-8 5v8l8 5 8-5v-8l-8-5zm0 3l5 3.125v5L20 24.25l-5-3.125v-5L20 13z"
               /></svg
-            ><span class="font-display text-xl font-semibold text-amber-100"
+            ><span class="font-display text-lg font-semibold text-stone-900 dark:text-amber-100"
               >Tineghir</span
             >
           </a>
-          <div class="hidden md:flex items-center gap-8">
-            <a
-              href="./index.html"
-              data-page="index"
-              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
-              >Home</a
-            >
-            <a
-              href="./about.html"
-              data-page="about"
-              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
-              >About</a
-            >
+          <div class="hidden md:flex items-center gap-6">
             <a
               href="./attractions.html"
               data-page="attractions"
-              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
+              class="text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors text-sm font-medium"
               >Attractions</a
-            >
-            <a
-              href="./gallery.html"
-              data-page="gallery"
-              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
-              >Gallery</a
             >
             <a
               href="./guide.html"
               data-page="guide"
-              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
+              class="text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors text-sm font-medium"
               >Guide</a
             >
             <a
-              href="./practical.html"
-              data-page="practical"
-              class="text-amber-200/80 hover:text-amber-400 transition-colors text-sm font-medium"
-              >Practical</a
+              href="./stay.html"
+              data-page="stay"
+              class="text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors text-sm font-medium"
+              >Stay</a
+            >
+            <a
+              href="./transport.html"
+              data-page="transport"
+              class="text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors text-sm font-medium"
+              >Transport</a
+            >
+            <a
+              href="./tools.html"
+              data-page="tools"
+              class="text-stone-600 dark:text-stone-300 hover:text-stone-900 dark:hover:text-white transition-colors text-sm font-medium"
+              >Tools</a
             >
             <a
               href="./visit.html"
               data-page="visit"
-              class="bg-amber-700 hover:bg-amber-600 text-white px-4 py-2 rounded-full text-sm font-medium transition-all"
+              class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
               >Plan Your Visit</a
             >
           </div>
-          <div class="flex items-center gap-2">
-          <button id="theme-toggle" type="button" class="text-amber-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
-          <button id="mobile-menu-btn" class="drawer-btn md:hidden text-amber-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
+          <div class="flex items-center gap-1">
+          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
+          <button id="mobile-menu-btn" class="drawer-btn md:hidden text-stone-700 dark:text-stone-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
             <span class="drawer-bars" aria-hidden="true">
               <span></span>
               <span></span>
@@ -173,33 +170,33 @@
     </nav>
     <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
     <aside id="site-drawer" class="site-drawer" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
-      <div class="flex items-center justify-between px-4 h-16 border-b border-amber-700/30">
-        <span class="font-display text-lg font-semibold text-amber-100">Tineghir</span>
-        <button id="drawer-close" class="text-amber-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Close menu">
+      <div class="flex items-center justify-between px-4 h-14 border-b border-stone-200 dark:border-stone-800">
+        <span class="font-display text-lg font-semibold text-stone-900 dark:text-amber-100">Tineghir</span>
+        <button id="drawer-close" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Close menu">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
       <nav class="px-4 py-4 space-y-1" aria-label="Mobile">
-        <a href="./index.html" data-page="index" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Home</a>
-        <a href="./about.html" data-page="about" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">About</a>
-        <a href="./attractions.html" data-page="attractions" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Attractions</a>
-        <a href="./gallery.html" data-page="gallery" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Gallery</a>
-        <a href="./itineraries.html" data-page="itineraries" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Itineraries</a>
-        <a href="./guide.html" data-page="guide" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Guide</a>
-        <a href="./practical.html" data-page="practical" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Practical</a>
-        <a href="./stay.html" data-page="stay" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Stay</a>
-        <a href="./contact.html" data-page="contact" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Contact</a>
-        <a href="./transport.html" data-page="transport" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Transport</a>
-        <a href="./tools.html" data-page="tools" class="block text-amber-200/80 hover:text-amber-400 py-3 px-2 rounded-lg">Tools</a>
-        <a href="./visit.html" data-page="visit" class="block bg-amber-700 hover:bg-amber-600 text-white px-4 py-3 rounded-full text-center mt-4">Plan Your Visit</a>
+        <a href="./index.html" data-page="index" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Home</a>
+        <a href="./about.html" data-page="about" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">About</a>
+        <a href="./attractions.html" data-page="attractions" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Attractions</a>
+        <a href="./gallery.html" data-page="gallery" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Gallery</a>
+        <a href="./itineraries.html" data-page="itineraries" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Itineraries</a>
+        <a href="./guide.html" data-page="guide" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Guide</a>
+        <a href="./practical.html" data-page="practical" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Practical</a>
+        <a href="./stay.html" data-page="stay" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Stay</a>
+        <a href="./contact.html" data-page="contact" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Contact</a>
+        <a href="./transport.html" data-page="transport" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Transport</a>
+        <a href="./tools.html" data-page="tools" class="block text-stone-700 dark:text-stone-200 hover:bg-stone-100 dark:hover:bg-stone-800 py-2.5 px-3 rounded-lg">Tools</a>
+        <a href="./visit.html" data-page="visit" class="btn-primary w-full text-center mt-4">Plan Your Visit</a>
       </nav>
     </aside>
 
     <main>
     <!-- Tools intro -->
-    <section class="py-20 md:py-28 bg-stone-100">
+    <section class="py-20 md:py-28 bg-stone-50 dark:bg-stone-950">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
           <p
@@ -208,68 +205,67 @@
             Trip Tools
           </p>
           <h1
-            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-800 mb-6"
+            class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-900 dark:text-white mb-6"
           >
             Packing &amp; Planner
           </h1>
-          <p class="text-stone-600 text-lg max-w-2xl mx-auto">
+          <p class="text-stone-600 dark:text-stone-400 text-lg max-w-2xl mx-auto">
             Everything saved on your device — no account, no connection
             needed after the first visit.
           </p>
         </div>
-        <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">Packing checklist</h2>
-        <p id="pack-progress" role="status" class="text-stone-600 mb-4">0/12 packed</p>
+        <h2 class="font-display text-2xl font-bold text-stone-900 dark:text-white mt-12 mb-6">Packing checklist</h2>
+        <p id="pack-progress" role="status" class="text-stone-600 dark:text-stone-400 mb-4">0/12 packed</p>
         <p id="pack-notice" hidden class="bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 mb-4 text-amber-800 text-sm">Saving is unavailable on this device — your ticks won't be kept.</p>
         <div id="pack-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-white rounded-2xl p-6 shadow-lg">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">☀️ Desert sun</h3>
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4">☀️ Desert sun</h3>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sun-hat" class="w-5 h-5 accent-amber-700"> Wide-brim hat</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunscreen" class="w-5 h-5 accent-amber-700"> Sunscreen SPF 50</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunglasses" class="w-5 h-5 accent-amber-700"> Sunglasses</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="water-bottle" class="w-5 h-5 accent-amber-700"> Refillable water bottle</label>
           </div>
-          <div class="bg-white rounded-2xl p-6 shadow-lg">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">🥾 Gorge walking</h3>
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4">🥾 Gorge walking</h3>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="gorge-shoes" class="w-5 h-5 accent-amber-700"> Grippy walking shoes</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="daypack" class="w-5 h-5 accent-amber-700"> Small daypack</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="warm-layer" class="w-5 h-5 accent-amber-700"> Warm layer (cold nights)</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="swimwear" class="w-5 h-5 accent-amber-700"> Swimwear for the river</label>
           </div>
-          <div class="bg-white rounded-2xl p-6 shadow-lg">
-            <h3 class="font-display text-xl font-bold text-stone-800 mb-4">🎒 Essentials</h3>
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
+            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4">🎒 Essentials</h3>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="passport-copy" class="w-5 h-5 accent-amber-700"> Passport + a copy</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="cash-dirhams" class="w-5 h-5 accent-amber-700"> Cash in dirhams</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="power-bank" class="w-5 h-5 accent-amber-700"> Power bank</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="first-aid" class="w-5 h-5 accent-amber-700"> Basic first-aid kit</label>
           </div>
         </div>
-        <h2 class="font-display text-2xl font-bold text-stone-800 mt-12 mb-6">My plan</h2>
+        <h2 class="font-display text-2xl font-bold text-stone-900 dark:text-white mt-12 mb-6">My plan</h2>
         <p id="plan-notice" hidden class="bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 mb-4 text-amber-800 text-sm"></p>
         <div class="flex flex-wrap gap-3 mb-6">
           <button type="button" id="plan-share" hidden class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Share plan</button>
-          <button type="button" id="plan-clear" hidden class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-stone-300 text-stone-600 hover:text-red-700">Clear</button>
+          <button type="button" id="plan-clear" hidden class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-stone-300 text-stone-600 dark:text-stone-400 hover:text-red-700">Clear</button>
         </div>
         <div id="plan-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          <div class="bg-white rounded-2xl p-6 shadow-lg">
-            <p class="text-stone-600">Nothing saved yet. Star places on the <a href="./attractions.html" class="text-amber-700 hover:text-amber-600 font-medium">attractions page</a> and they will appear here.</p>
+          <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
+            <p class="text-stone-600 dark:text-stone-400">Nothing saved yet. Star places on the <a href="./attractions.html" class="text-amber-700 hover:text-amber-600 font-medium">attractions page</a> and they will appear here.</p>
           </div>
         </div>
       </div>
     </section>
 
     </main>
-    <!-- Footer -->
-    <footer class="bg-stone-900 py-16">
-      <div class="max-w-7xl mx-auto px-4">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 mb-12">
+    <!-- Footer: light, quiet, single accent -->
+    <footer class="bg-white dark:bg-stone-900 border-t border-stone-200 dark:border-stone-800 py-12">
+      <div class="max-w-6xl mx-auto px-4">
+        <div class="grid md:grid-cols-12 gap-8 mb-10">
 
 
-          <!-- Brand (full width when no map) -->
-          <div class="lg:col-span-12 space-y-6 max-w-2xl">
+          <div class="md:col-span-12 space-y-5 max-w-2xl">
 
             <div class="flex items-center gap-2">
               <svg
-                class="w-10 h-10 text-amber-500"
+                class="w-8 h-8 text-amber-700"
                 viewBox="0 0 40 40"
                 fill="currentColor"
               >
@@ -280,50 +276,49 @@
                   d="M20 10l-8 5v8l8 5 8-5v-8l-8-5zm0 3l5 3.125v5L20 24.25l-5-3.125v-5L20 13z"
                 />
               </svg>
-              <span class="font-display text-2xl font-semibold text-amber-100">Tineghir</span>
+              <span class="font-display text-xl font-semibold text-stone-900 dark:text-amber-100">Tineghir</span>
             </div>
-            <p id="footer-text" class="text-stone-400 max-w-sm leading-relaxed">
+            <p id="footer-text" class="text-stone-600 dark:text-stone-400 leading-relaxed">
               Discover the magic of Southern Morocco. Where ancient traditions
               meet breathtaking natural beauty.
             </p>
 
-            <div class="pt-4" id="footer-explore">
-              <h2 class="font-display text-lg font-semibold text-amber-100 mb-4">Explore</h2>
-              <ul class="space-y-2 text-stone-400">
-                <li><a href="./index.html" class="hover:text-amber-400 transition-colors">Home</a></li>
-                <li><a href="./about.html" class="hover:text-amber-400 transition-colors">About</a></li>
-                <li><a href="./attractions.html" class="hover:text-amber-400 transition-colors">Attractions</a></li>
-                <li><a href="./gallery.html" class="hover:text-amber-400 transition-colors">Gallery</a></li>
-                <li><a href="./itineraries.html" class="hover:text-amber-400 transition-colors">Itineraries</a></li>
-                <li><a href="./guide.html" class="hover:text-amber-400 transition-colors">Guide</a></li>
-                <li><a href="./practical.html" class="hover:text-amber-400 transition-colors">Practical</a></li>
-                <li><a href="./stay.html" class="hover:text-amber-400 transition-colors">Stay</a></li>
-                <li><a href="./contact.html" class="hover:text-amber-400 transition-colors">Contact</a></li>
-                <li><a href="./transport.html" class="hover:text-amber-400 transition-colors">Transport</a></li>
-                <li><a href="./tools.html" class="hover:text-amber-400 transition-colors">Tools</a></li>
-                <li><a href="./visit.html" class="hover:text-amber-400 transition-colors">Plan Your Visit</a></li>
-                <li><a href="./privacy.html" class="hover:text-amber-400 transition-colors">Privacy</a></li>
+            <div class="pt-2" id="footer-explore">
+              <h2 class="eyebrow mb-3">Explore</h2>
+              <ul class="grid grid-cols-2 gap-x-6 gap-y-2 text-sm text-stone-600 dark:text-stone-400">
+                <li><a href="./index.html" class="hover:text-stone-900 dark:hover:text-white">Home</a></li>
+                <li><a href="./about.html" class="hover:text-stone-900 dark:hover:text-white">About</a></li>
+                <li><a href="./attractions.html" class="hover:text-stone-900 dark:hover:text-white">Attractions</a></li>
+                <li><a href="./gallery.html" class="hover:text-stone-900 dark:hover:text-white">Gallery</a></li>
+                <li><a href="./itineraries.html" class="hover:text-stone-900 dark:hover:text-white">Itineraries</a></li>
+                <li><a href="./guide.html" class="hover:text-stone-900 dark:hover:text-white">Guide</a></li>
+                <li><a href="./practical.html" class="hover:text-stone-900 dark:hover:text-white">Practical</a></li>
+                <li><a href="./stay.html" class="hover:text-stone-900 dark:hover:text-white">Stay</a></li>
+                <li><a href="./contact.html" class="hover:text-stone-900 dark:hover:text-white">Contact</a></li>
+                <li><a href="./transport.html" class="hover:text-stone-900 dark:hover:text-white">Transport</a></li>
+                <li><a href="./tools.html" class="hover:text-stone-900 dark:hover:text-white">Tools</a></li>
+                <li><a href="./visit.html" class="hover:text-stone-900 dark:hover:text-white">Plan Your Visit</a></li>
+                <li><a href="./privacy.html" class="hover:text-stone-900 dark:hover:text-white">Privacy</a></li>
               </ul>
             </div>
           </div>
 
         </div>
         <div
-          class="border-t border-stone-800 pt-8 text-center text-stone-400 text-sm"
+          class="border-t border-stone-200 dark:border-stone-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-stone-500 dark:text-stone-400"
         >
-          <p class="mb-4">Found this guide useful? Tips support an independent local guide.</p>
+          <p id="footer-credit">
+            Made with heart by MDBH Agence. · <a href="mailto:support@tineghir.ma?subject=Outdated%20info%20report" class="underline hover:text-stone-900 dark:hover:text-white">Report outdated info</a>
+          </p>
           <a
             href="https://www.paypal.com/ncp/payment/J3LGU3527J9FU"
             target="_blank"
             rel="noopener"
             aria-label="Tip via PayPal"
-            class="inline-flex items-center justify-center bg-amber-700 hover:bg-amber-600 text-white px-6 py-3 rounded-full text-sm font-medium transition-all min-h-[44px] min-w-[44px]"
+            class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
             ☕ Tip via PayPal
           </a>
-          <p class="mt-6" id="footer-credit">
-            Made with heart by MDBH Agence.
-          </p>
         </div>
       </div>
     </footer>

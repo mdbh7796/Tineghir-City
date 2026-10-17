@@ -23,3 +23,19 @@ test('launcher icons exist for all densities', () => {
     assert.ok(existsSync(`android/app/src/main/res/mipmap-${d}/ic_launcher.png`), d);
   }
 });
+
+test('AndroidManifest declares only expected permissions', () => {
+  const xml = readFileSync('android/app/src/main/AndroidManifest.xml', 'utf8');
+  for (const p of ['android.permission.INTERNET', 'android.permission.ACCESS_COARSE_LOCATION', 'android.permission.ACCESS_FINE_LOCATION']) {
+    assert.ok(xml.includes(p), `missing ${p}`);
+  }
+  assert.doesNotMatch(xml, /ACCESS_BACKGROUND_LOCATION/);
+  assert.doesNotMatch(xml, /RECORD_AUDIO|CAMERA/);
+});
+
+test('Android location rationale documented in privacy + strings', () => {
+  const doc = readFileSync('docs/PRIVACY.md', 'utf8');
+  assert.match(doc, /ACCESS_COARSE_LOCATION|on-device/i);
+  const strings = readFileSync('android/app/src/main/res/values/strings.xml', 'utf8');
+  assert.match(strings, /location_rationale/i);
+});

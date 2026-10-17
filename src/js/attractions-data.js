@@ -11,12 +11,8 @@ const ATTRACTIONS = {
     desc: 'Historic mud-brick kasbah in the city center', imgUrl: 'images/about-tineghir.jpg' },
   'medina': { name: 'Medina of Tineghir', lat: 31.5147, lng: -5.5328, kind: 'point', verified: true,
     desc: 'Old medina with Berber architecture & narrow alleys', imgUrl: 'images/gallery-palms.jpg' },
-  'dades-valley': { name: 'Dades Valley', lat: 31.4285, lng: -5.9754, kind: 'area', verified: true,
-    desc: 'Hairpin roads and kasbah-dotted valleys', imgUrl: 'images/gallery-trek.jpg' },
   'todra-villages': { name: 'Todra Valley Villages', lat: 31.5450, lng: -5.5560, kind: 'area', verified: true,
-    desc: 'Berber villages and terraced plots up the valley', imgUrl: 'images/gallery-palms.jpg' },
-  'jebel-saghro': { name: 'Jebel Saghro', lat: 31.1333, lng: -5.6000, kind: 'area', verified: true,
-    desc: 'Volcanic massif and nomad trails', imgUrl: 'images/todra-gorge-hike.jpg' },
+    desc: 'Berber villages and terraced plots up Tinghir valley', imgUrl: 'images/gallery-palms.jpg' },
 };
 
 // Card headings as written in index.html -> table keys.
@@ -26,9 +22,7 @@ const CARD_TITLES = {
   'Kasbah El Glaoui': 'kasbah-el-glaoui',
   'Traditional Souks': 'souks',
   'Medina of Tineghir': 'medina',
-  'Dades Valley': 'dades-valley',
   'Todra Valley Villages': 'todra-villages',
-  'Jebel Saghro': 'jebel-saghro',
 };
 
 // Planner (tools page) reads names through this handle instead of a copy.

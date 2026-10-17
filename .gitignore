@@ -18,3 +18,12 @@ android/capacitor-cordova-android-plugins/build/
 *.keystore
 *.jks
 local.properties
+
+# Playwright MCP session output (screenshots, snapshots)
+.playwright-mcp/
+
+# Playwright test output
+test-results/
+
+# Stray Commons downloads at repo root; canonical copies live in assets/originals/
+/commons-*.jpg

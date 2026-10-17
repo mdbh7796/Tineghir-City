@@ -1,0 +1,18 @@
+{
+  "lang": "en",
+  "dir": "ltr",
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "attractions": "Attractions",
+    "gallery": "Gallery",
+    "guide": "Guide",
+    "practical": "Practical",
+    "planVisit": "Plan Your Visit"
+  },
+  "footer": {
+    "tagline": "Discover the magic of Southern Morocco. Where ancient traditions meet breathtaking natural beauty.",
+    "explore": "Explore",
+    "reportOutdated": "Report outdated info"
+  }
+}

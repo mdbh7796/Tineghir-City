@@ -21,6 +21,9 @@
     <link rel="apple-touch-icon" href="images/icon-192.png" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="canonical" href="{{CANONICAL}}" />
+    <!-- No language alternates yet: fr/ar have no localized URLs, so naming
+         them here would point at the English page and tell Google nothing.
+         Add real alternates back only once /fr/ and /ar/ pages exist. -->
     <meta name="theme-color" content="#1c1917" />
     <meta name="color-scheme" content="light dark" />
     <script>
@@ -95,7 +98,7 @@
   </head>
 
   <body
-    class="h-full font-body bg-stone-50 dark:bg-stone-900 text-stone-800 dark:text-stone-200 overflow-auto scroll-smooth"
+    class="h-full font-body bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-200 overflow-auto scroll-smooth antialiased"
     data-page="{{ACTIVE_NAV}}"
   >
 {{NAV}}

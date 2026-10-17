@@ -42,6 +42,9 @@ for (const p of pages) {
   const ogUrl = (html.match(/<meta property="og:url" content="([^"]+)" \/>/) || [])[1];
   if (!canon) fail(`${p}.html missing canonical`);
   if (ogUrl !== canon) fail(`${p}.html og:url does not match canonical`);
+  // hreflang must only name real localized URLs; self-referential fr/ar claims
+  // on an English-only page are an SEO anti-pattern. Guard against re-adding them.
+  if (/hreflang="(fr|ar|x-default)"/.test(html)) fail(`${p}.html declares hreflang for a language with no localized URL`);
   const desc = (html.match(/<meta\s+name="description"\s+content="([^"]+)"\s*\/>/) || [])[1];
   if (!desc) fail(`${p}.html missing meta description`);
   if (!html.includes('href="./stay.html"')) fail(`${p}.html missing Stay cross-link (drawer/footer)`);
@@ -148,6 +151,8 @@ if (checkTransport) {
 }
 {
   const titles = new Set();
+  const descriptions = new Set();
+  const h1s = new Set();
   for (const p of pages) {
     const f = join(pub, `${p}.html`);
     if (!existsSync(f)) continue;
@@ -157,6 +162,26 @@ if (checkTransport) {
       if (titles.has(t)) fail(`duplicate <title>: ${t}`);
       titles.add(t);
     }
+    const d = (html.match(/<meta\s+name="description"\s+content="([^"]+)"\s*\/>/) || [])[1];
+    if (d) {
+      if (descriptions.has(d)) fail(`duplicate meta description on ${p}.html`);
+      descriptions.add(d);
+    }
+    const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1];
+    if (h1) {
+      const text = h1.replace(/<[^>]+>/g, '').trim().toLowerCase();
+      if (text) {
+        if (h1s.has(text)) fail(`duplicate <h1>: "${text}"`);
+        h1s.add(text);
+      }
+    } else {
+      fail(`${p}.html missing <h1>`);
+    }
+  }
+  // visit.html is the planning hub: must link to guide/practical/transport/stay/tools.
+  const visit = existsSync(join(pub, 'visit.html')) ? readFileSync(join(pub, 'visit.html'), 'utf8') : '';
+  for (const needle of ['./guide.html', './practical.html', './transport.html', './stay.html', './tools.html']) {
+    if (visit && !visit.includes(`href="${needle}"`)) fail(`visit.html missing hub link ${needle}`);
   }
   const css = readFileSync(join(pub, 'style.css'), 'utf8');
   for (const needle of ['.site-drawer', '.nav-active']) {
@@ -212,6 +237,14 @@ for (const p of pages) {
   const loc = p === 'index' ? 'https://www.tineghir.ma/' : `https://www.tineghir.ma/${p}.html`;
   if (!sm.includes(loc)) fail(`sitemap.xml missing ${loc}`);
 }
+// lastmod must be fresh (within 90 days) so new pages can't drift with a hardcoded date.
+const mods = [...sm.matchAll(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/g)].map((m) => m[1]);
+if (!mods.length) fail('sitemap.xml missing <lastmod>');
+else {
+  const newest = mods.sort().at(-1);
+  const ageDays = Math.floor((Date.now() - Date.parse(newest)) / 86400000);
+  if (Number.isNaN(ageDays) || ageDays > 90) fail(`sitemap.xml lastmod stale: ${newest}`);
+}
 }
 }
 
@@ -235,7 +268,11 @@ for (const p of pages) {
   if (/style\.cssText/.test(built)) fail('public/script.js still uses inline style.cssText (use src/input.css classes)');
   const swSrc = readFileSync(join(root, 'src', 'sw.js'), 'utf8');
   const swPub = readFileSync(join(pub, 'sw.js'), 'utf8');
-  if (swSrc.trim() !== swPub.trim()) fail('public/sw.js drifted from src/sw.js (run npm run build:js)');
+  // CACHE_VERSION is stamped from a build hash; normalize it before comparing so
+  // the token->hash substitution is not reported as drift.
+  const normalizeSw = (s) => s.replace(/const CACHE_VERSION = '[^']*';/, "const CACHE_VERSION = '<stamped>';");
+  if (normalizeSw(swSrc).trim() !== normalizeSw(swPub).trim()) fail('public/sw.js drifted from src/sw.js (run npm run build:js)');
+  if (!/const CACHE_VERSION = 'tineghir-[0-9a-f]{10}';/.test(swPub)) fail('public/sw.js CACHE_VERSION not stamped with a build hash (run npm run build:js)');
   const consent = readFileSync(join(pub, 'js', 'consent.js'), 'utf8');
   if (/style\.cssText/.test(consent)) fail('public/js/consent.js still uses inline style.cssText');
   const css = readFileSync(join(root, 'src', 'input.css'), 'utf8');

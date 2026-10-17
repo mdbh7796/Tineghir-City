@@ -98,10 +98,12 @@ To customize the launcher icon/splash, run
 
 1. Fork the repository.
 2. Create a new branch: `git checkout -b feature-name`.
-3. Make your changes and commit: `git commit -m 'Add some feature'`.
-4. Push to the branch: `git push origin feature-name`.
-5. Open a Pull Request.
+3. **Never edit `public/` directly** — `src/` is canonical (`src/templates/` → `public/*.html`, `src/js/` → `public/script.js`, `src/sw.js` → `public/sw.js`). Run `npm run build` and commit both.
+4. Verify: `npm run check` and `npm run check:drift` must pass.
+5. Make your changes and commit: `git commit -m 'Add some feature'`.
+6. Push to the branch: `git push origin feature-name`.
+7. Open a Pull Request.
 
 ## License
 
-This project is licensed under the ISC License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

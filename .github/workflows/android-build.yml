@@ -44,6 +44,12 @@ jobs:
       - name: Build web assets + sync Capacitor
         run: npm run android:sync
 
+      - name: Verify Capacitor sync is clean (no native drift)
+        run: git diff --exit-code -- android/app/src/main/AndroidManifest.xml android/capacitor.settings.gradle android/app/build.gradle capacitor.config.ts
+
+      - name: Verify public/ matches src/ (no direct public/ edits)
+        run: git diff --exit-code -- public/*.html public/script.js public/sw.js public/js public/sitemap.xml
+
       - name: Ensure Gradle wrapper is executable
         run: chmod +x android/gradlew
 

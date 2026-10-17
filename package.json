@@ -7,10 +7,13 @@
     "pages": "node scripts/build-pages.mjs",
     "build:js": "node scripts/build-js.mjs",
     "check:pages": "node scripts/check-pages.mjs",
+    "check:drift": "node scripts/check-drift.mjs",
+    "content:check": "node scripts/content-check.mjs",
+    "i18n:check": "node scripts/i18n-check.mjs",
     "test": "node --test tests/*.test.mjs",
     "e2e": "playwright test",
     "e2e:install": "playwright install --with-deps chromium",
-    "check": "npm run check:pages && npm test",
+    "check": "npm run check:pages && npm run content:check && npm run i18n:check && npm test",
     "build": "npm run pages && npm run build:js && tailwindcss -i ./src/input.css -o ./public/style.css",
     "images:optimize": "node scripts/optimize-images.mjs",
     "tiles:fetch": "node scripts/fetch-tiles.mjs",
@@ -27,7 +30,7 @@
     "tourism"
   ],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
     "@playwright/test": "^1.64.0",
