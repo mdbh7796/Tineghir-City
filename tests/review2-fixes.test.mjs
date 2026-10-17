@@ -18,6 +18,10 @@ test('android workflow builds debug APK; tag release signs and attaches APK', ()
   assert.match(releaseJob, /release-version.*--apply/);
   assert.match(releaseJob, /assembleRelease/);
   assert.match(releaseJob, /apksigner verify/);
+  // Play lane: signed AAB built and verified alongside the APK.
+  assert.match(releaseJob, /bundleRelease/);
+  assert.match(releaseJob, /jarsigner -verify/);
+  assert.match(releaseJob, /app-release\.aab/);
   assert.match(releaseJob, /gh release create/);
   assert.match(releaseJob, /gh release upload/);
   // Debug lane stays secret-free.

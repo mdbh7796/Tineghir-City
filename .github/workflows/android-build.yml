@@ -111,7 +111,7 @@ jobs:
       - name: Fetch release map tiles (fail-closed)
         run: npm run tiles:fetch -- --release
 
-      - name: Stamp version + build signed release APK
+      - name: Stamp version + build signed release APK + AAB
         env:
           TINEGHIR_KEYSTORE_PATH: tineghir-release.keystore
           TINEGHIR_KEYSTORE_PASSWORD: ${{ secrets.TINEGHIR_KEYSTORE_PASSWORD }}
@@ -121,21 +121,26 @@ jobs:
           npm run build
           node scripts/release-version.mjs --apply
           npx cap sync android
-          cd android && chmod +x gradlew && ./gradlew assembleRelease
+          cd android && chmod +x gradlew && ./gradlew assembleRelease bundleRelease
 
-      - name: Verify APK signature (must pass)
+      - name: Verify APK + AAB signatures (must pass)
         working-directory: android
         run: |
           APK=app/build/outputs/apk/release/app-release.apk
+          AAB=app/build/outputs/bundle/release/app-release.aab
           test -f "$APK"
+          test -f "$AAB"
           $ANDROID_HOME/build-tools/36.0.0/apksigner verify --print-certs "$APK"
+          # AABs are JAR-signed, not APK-signed — verify with jarsigner.
+          jarsigner -verify "$AAB"
 
-      - name: Attach signed APK to GitHub Release
+      - name: Attach signed APK + AAB to GitHub Release
         run: |
           TAG="${{ github.ref_name }}"
           gh release view "$TAG" >/dev/null 2>&1 || gh release create "$TAG" --generate-notes
           gh release upload "$TAG" \
             android/app/build/outputs/apk/release/app-release.apk \
+            android/app/build/outputs/bundle/release/app-release.aab \
             --clobber
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

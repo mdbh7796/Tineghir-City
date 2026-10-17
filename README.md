@@ -94,6 +94,37 @@ it installs and updates cleanly on any phone.
 To customize the launcher icon/splash, run
 `npx @capacitor/assets generate` with your source icon.
 
+## Google Play (AAB)
+
+Play Store submissions use an **Android App Bundle (`.aab`)**, not the free
+distribution APK. The tag-release CI job now builds, verifies (`jarsigner`),
+and attaches `app-release.aab` alongside the APK.
+
+Store listing graphics are generated from the built site + brand assets:
+
+```bash
+npm run play:graphics   # -> assets/play/{icon-512,feature-graphic-1024x500}.png
+                        #    assets/play/screenshots/phone-*.png (1080x1920)
+```
+
+Build a signed bundle locally (requires the four `TINEGHIR_KEYSTORE_*` env
+vars, and a `public/tiles.json` pointer because `--release` is fail-closed):
+
+```bash
+npm run android:bundle-release
+# -> android/app/build/outputs/bundle/release/app-release.aab
+```
+
+Play Console checklist:
+* Enrol in **Play App Signing** and keep this keystore as the **upload key**.
+* Bump `versionCode` for every upload (the release job stamps it from tag count).
+* New apps/updates must target **Android 16 (API 36)+** — this project targets 36.
+* Complete **Data safety** + the **Location permission declaration**
+  (`ACCESS_FINE_LOCATION`/`ACCESS_COARSE_LOCATION`), content rating, and the
+  privacy policy URL (`https://www.tineghir.ma/privacy.html`).
+* New personal developer accounts need **closed testing with 12 testers for
+  14 continuous days** before production access.
+
 ## Contributing
 
 1. Fork the repository.
