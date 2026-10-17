@@ -281,7 +281,13 @@ else {
   }
   if (existsSync(join(root, 'tailwind.config.js'))) fail('tailwind.config.js still present — v4 uses CSS-first @source in src/input.css');
   const base = readFileSync(join(root, 'src', 'templates', 'base.html'), 'utf8');
-  if (!base.includes('fonts.googleapis.com') || !base.includes('preconnect')) fail('base.html missing font preconnect');
+  if (base.includes('fonts.googleapis.com')) fail('base.html must self-host fonts, not load Google Fonts from the CDN');
+  if (!/rel="preload"[^>]*as="font"/.test(base)) fail('base.html missing self-hosted font preload');
+  const fontsCss = readFileSync(join(root, 'src', 'fonts.css'), 'utf8');
+  for (const needle of ['font-display: swap', "url('./fonts/"]) {
+    if (!fontsCss.includes(needle)) fail(`src/fonts.css missing "${needle}"`);
+  }
+  if (!/vendor\/leaflet\/leaflet\.js" defer/.test(base)) fail('base.html must defer the vendored Leaflet scripts');
 }
 
 if (failures.length) {

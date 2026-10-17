@@ -18,6 +18,9 @@ const SHELL = [
   './vendor/leaflet/leaflet.css',
   './vendor/leaflet/leaflet.js',
   './vendor/protomaps-leaflet/protomaps-leaflet.js',
+  // Critical self-hosted faces: keeps first-paint typography working offline.
+  './fonts/outfit-400-latin.woff2',
+  './fonts/playfair-display-700-latin.woff2',
 ];
 
 self.addEventListener('install', (e) => {

@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Tineghir - Gateway to Todra Gorge</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Outfit:wght@300;400;500;600&amp;display=swap"
-      rel="stylesheet"
-    />
-    <noscript>
-      <style>
-        .font-display { font-family: Georgia, serif; }
-        .font-body { font-family: system-ui, sans-serif; }
-      </style>
-    </noscript>
+    <!-- Self-hosted webfonts (built from src/fonts.css into style.css): no
+         third-party render-blocking CSS, stable preloadable URLs, and working
+         typography offline in the Capacitor app. -->
+    <link rel="preload" as="font" type="font/woff2" href="fonts/outfit-400-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-display-700-latin.woff2" crossorigin />
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="images/icon-192.png" />
     <link rel="manifest" href="manifest.webmanifest" />
@@ -90,10 +83,12 @@
     </script>
     <link rel="stylesheet" href="style.css" />
 
-    <!-- Leaflet Map CSS & JS (vendored: npm leaflet@1.9.4, protomaps-leaflet@5.1.0 — CDN cannot load offline) -->
+    <!-- Leaflet Map CSS & JS (vendored: npm leaflet@1.9.4, protomaps-leaflet@5.1.0 — CDN cannot load offline).
+         defer keeps them off the render-blocking path; document order still runs
+         them before script.js, so `L` exists when the map initialises. -->
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
-    <script src="vendor/leaflet/leaflet.js"></script>
-    <script src="vendor/protomaps-leaflet/protomaps-leaflet.js"></script>
+    <script src="vendor/leaflet/leaflet.js" defer></script>
+    <script src="vendor/protomaps-leaflet/protomaps-leaflet.js" defer></script>
 
   </head>
 
@@ -201,6 +196,16 @@
 
     <main>
     <!-- Hero: single image, single message, single CTA row -->
+    <!-- LCP hint: the hero <img> carries fetchpriority="high"; preload the AVIF
+         candidate so the fetch starts before the <picture> is parsed. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      imagesrcset="images/hero-tineghir-640.avif 640w, images/hero-tineghir-1024.avif 1024w, images/hero-tineghir-1920.avif 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     <section
       id="home"
       class="relative flex items-center overflow-hidden bg-stone-900"

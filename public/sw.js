@@ -5,7 +5,7 @@
 // scripts/build-js.mjs from the CSS/JS source bytes. Bumping it on change is
 // what evicts stale cache-first assets; a bare 'tineghir-v1' would pin
 // returning visitors to old CSS/JS. Do not edit the token by hand.
-const CACHE_VERSION = 'tineghir-f40c7b1de8';
+const CACHE_VERSION = 'tineghir-20f4d2c61b';
 const SHELL = [
   './',
   './index.html',
@@ -18,6 +18,9 @@ const SHELL = [
   './vendor/leaflet/leaflet.css',
   './vendor/leaflet/leaflet.js',
   './vendor/protomaps-leaflet/protomaps-leaflet.js',
+  // Critical self-hosted faces: keeps first-paint typography working offline.
+  './fonts/outfit-400-latin.woff2',
+  './fonts/playfair-display-700-latin.woff2',
 ];
 
 self.addEventListener('install', (e) => {

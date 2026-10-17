@@ -5,18 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Trip Tools - Packing & Planner</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Outfit:wght@300;400;500;600&amp;display=swap"
-      rel="stylesheet"
-    />
-    <noscript>
-      <style>
-        .font-display { font-family: Georgia, serif; }
-        .font-body { font-family: system-ui, sans-serif; }
-      </style>
-    </noscript>
+    <!-- Self-hosted webfonts (built from src/fonts.css into style.css): no
+         third-party render-blocking CSS, stable preloadable URLs, and working
+         typography offline in the Capacitor app. -->
+    <link rel="preload" as="font" type="font/woff2" href="fonts/outfit-400-latin.woff2" crossorigin />
+    <link rel="preload" as="font" type="font/woff2" href="fonts/playfair-display-700-latin.woff2" crossorigin />
     <link rel="icon" href="images/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="images/icon-192.png" />
     <link rel="manifest" href="manifest.webmanifest" />

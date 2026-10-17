@@ -1,4 +1,14 @@
     <!-- Hero: single image, single message, single CTA row -->
+    <!-- LCP hint: the hero <img> carries fetchpriority="high"; preload the AVIF
+         candidate so the fetch starts before the <picture> is parsed. -->
+    <link
+      rel="preload"
+      as="image"
+      type="image/avif"
+      imagesrcset="images/hero-tineghir-640.avif 640w, images/hero-tineghir-1024.avif 1024w, images/hero-tineghir-1920.avif 1920w"
+      imagesizes="100vw"
+      fetchpriority="high"
+    />
     <section
       id="home"
       class="relative flex items-center overflow-hidden bg-stone-900"
