@@ -234,7 +234,7 @@ if (!existsSync(smPath)) fail('missing public/sitemap.xml');
 else {
 const sm = readFileSync(smPath, 'utf8');
 for (const p of pages) {
-  const loc = p === 'index' ? 'https://www.tineghir.ma/' : `https://www.tineghir.ma/${p}.html`;
+  const loc = p === 'index' ? 'https://mdbh7796.github.io/Tineghir-City/' : `https://mdbh7796.github.io/Tineghir-City/${p}.html`;
   if (!sm.includes(loc)) fail(`sitemap.xml missing ${loc}`);
 }
 // lastmod must be fresh (within 90 days) so new pages can't drift with a hardcoded date.

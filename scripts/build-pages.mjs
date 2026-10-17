@@ -229,7 +229,7 @@ ${renderStaySection(stays)}
       .replace('{{CONTENT}}', content)
       .replace('{{FOOTER}}', footer)
       .replaceAll('{{TIP_URL}}', site.tipUrl)
-      .replaceAll('{{CONTACT_EMAIL}}', site.contactEmail || 'support@tineghir.ma');
+      .replaceAll('{{CONTACT_EMAIL}}', site.contactEmail || 'mdbh854@outlook.com');
     html = applyCond(html, { showMap: !!m.showMap, leaflet: !!m.leaflet });
     if (/\{\{|\}\}|IF:(showMap|leaflet)|IFNOT:/.test(html)) fail(`${page}.html has unreplaced template markers`);
     mkdirSync(outDir, { recursive: true });

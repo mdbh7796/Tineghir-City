@@ -2,8 +2,10 @@
 
 Status: switching logic + fetch pipeline implemented. No tile release
 published yet — the offline layer is dormant until the `tiles.json` bump
-PR lands (see ordering below). Range-in-APK UNPROVEN (spike ran desktop
-only); the in-app Range test gates this feature (§6).
+PR lands (see ordering below). Releases no longer require tiles: the tag
+release job and `android:bundle-release` run plain `tiles:fetch`, which
+skips gracefully while no manifest exists. Range-in-APK UNPROVEN (spike ran
+desktop only); the in-app Range test gates this feature (§6).
 
 ## How it works
 
@@ -30,16 +32,18 @@ only); the in-app Range test gates this feature (§6).
   maxZoom, asset}`. Bbox `[-6.10, 31.05, -5.40, 31.70]`, zooms 9–16.
 - `scripts/fetch-tiles.mjs` downloads the release asset into
   `public/tiles/`, verifies SHA256, exits non-zero on any failure once a
-  manifest exists. No manifest yet → warns, exits 0 (dormant), EXCEPT with
-  `--release`: builds fail without the manifest or the verified asset, so an
-  offline-maps build can never silently ship without map data.
+  manifest exists. No manifest yet → warns, exits 0 (dormant). The
+  `--release` flag stays fail-closed for anyone who wants a build that
+  refuses to ship without map data, but the shipped release lane does not
+  pass it (see `docs/PLAY-RELEASE-CHECKLIST.md`).
 - `*.pmtiles` gitignored. `cap sync` mirrors `public/tiles/` into the APK
   assets — never write `android/.../assets` directly, and never run bare
   `cap sync` (stale tiles); always use the `android:*` npm chains, which
   fetch first.
-- Ordering (hard rule): owner uploads the release asset FIRST, computes
-  SHA256, then the `tiles.json` bump PR merges. A `tiles.json` pointing at
-  a missing asset breaks every android build by design (fail-closed).
+- Ordering (hard rule once a manifest exists): the owner uploads the release
+  asset FIRST, computes SHA256, then the `tiles.json` bump PR merges. A
+  `tiles.json` pointing at a missing asset breaks every android build by
+  design (fail-closed), because once a pointer exists the fetch verifies it.
 - Tile updates ship with app releases. A `tiles-vN` release alone does NOT
   reach installed apps.
 

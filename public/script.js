@@ -414,7 +414,7 @@ function initBaseLayers(map) {
 }
 
 // Public site URL shared from attraction cards (never a local/dev URL)
-const SITE_URL = 'https://www.tineghir.ma';
+const SITE_URL = 'https://mdbh7796.github.io/Tineghir-City';
 
 // Unified position lookup: Capacitor native GPS in the app, browser API on web
 async function getPosition() {

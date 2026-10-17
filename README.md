@@ -108,7 +108,7 @@ npm run play:graphics   # -> assets/play/{icon-512,feature-graphic-1024x500}.png
 ```
 
 Build a signed bundle locally (requires the four `TINEGHIR_KEYSTORE_*` env
-vars, and a `public/tiles.json` pointer because `--release` is fail-closed):
+vars; offline maps stay dormant until `public/tiles.json` exists):
 
 ```bash
 npm run android:bundle-release
@@ -121,9 +121,12 @@ Play Console checklist:
 * New apps/updates must target **Android 16 (API 36)+** — this project targets 36.
 * Complete **Data safety** + the **Location permission declaration**
   (`ACCESS_FINE_LOCATION`/`ACCESS_COARSE_LOCATION`), content rating, and the
-  privacy policy URL (`https://www.tineghir.ma/privacy.html`).
+  privacy policy URL (`https://mdbh7796.github.io/Tineghir-City/privacy.html`).
 * New personal developer accounts need **closed testing with 12 testers for
   14 continuous days** before production access.
+* Full checklists: `docs/PLAY-RELEASE-CHECKLIST.md`,
+  `docs/PLAY-DATA-SAFETY.md`, `docs/PLAY-CONTENT-RATING.md`,
+  `docs/PLAY-QA-CHECKLIST.md`, `docs/RELEASE-SIGNING.md`.
 
 ## Contributing
 
