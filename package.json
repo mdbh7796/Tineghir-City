@@ -35,7 +35,7 @@
   "license": "MIT",
   "devDependencies": {
     "@capacitor/assets": "^3.0.5",
-    "@playwright/test": "^1.64.0",
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/cli": "^4.1.18",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.1.18",
