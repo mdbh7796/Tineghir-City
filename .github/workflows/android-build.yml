@@ -10,9 +10,12 @@ on:
   pull_request:
   workflow_dispatch:
 
+# Runners are pinned to Ubuntu 24.04 on purpose: the ubuntu-latest label began
+# migrating to Ubuntu 26 on 2026-10-19 and caused intermittent Gradle/Maven
+# dependency-resolution failures. Revisit once the new image settles.
 jobs:
   spike-guard:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
       - name: Fail if spike artifacts present
@@ -22,7 +25,7 @@ jobs:
           test ! -e scripts/build-spike-pmtiles.mjs
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v5
 
@@ -71,7 +74,7 @@ jobs:
   # Free-distribution release: push a tag `vX.Y.Z` to build a SIGNED release
   # APK and attach it to the GitHub Release.
   release:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     if: startsWith(github.ref, 'refs/tags/v')
     permissions:
       contents: write
