@@ -32,7 +32,11 @@
           document.documentElement.dataset.theme = next;
           try { localStorage.setItem('tineghir-theme', next); } catch (e) {}
           var b = document.getElementById('theme-toggle');
-          if (b) { b.setAttribute('aria-pressed', String(next === 'dark')); b.textContent = next === 'dark' ? '☀️' : '🌙'; }
+          if (b) {
+            b.setAttribute('aria-pressed', String(next === 'dark'));
+            var u = b.querySelector('use');
+            if (u) u.setAttribute('href', 'images/icons.svg#' + (next === 'dark' ? 'i-sun' : 'i-moon'));
+          }
           return next;
         }
       };
@@ -150,7 +154,7 @@
             >
           </div>
           <div class="flex items-center gap-1">
-          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
+          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()"><svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-moon"/></svg></button>
           <button id="mobile-menu-btn" class="drawer-btn md:hidden text-stone-700 dark:text-stone-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
             <span class="drawer-bars" aria-hidden="true">
               <span></span>
@@ -239,7 +243,7 @@
              </picture>
              <!-- Floating Badge -->
              <div class="absolute -bottom-6 -left-6 bg-stone-800 border border-stone-700 p-4 rounded-xl shadow-xl flex items-center gap-3">
-               <span class="text-3xl">🥾</span>
+               <span class="text-3xl text-amber-400" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-boot"/></svg></span>
                <div>
                  <p class="text-stone-400 text-xs uppercase tracking-wider">Activity Level</p>
                  <p class="text-white font-bold">Moderate to High</p>
@@ -313,7 +317,8 @@
             aria-label="Tip via PayPal"
             class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
-            ☕ Tip via PayPal
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-coffee"/></svg>
+            Tip via PayPal
           </a>
         </div>
       </div>
@@ -332,7 +337,8 @@
         if (b) {
           var dark = document.documentElement.dataset.theme === 'dark';
           b.setAttribute('aria-pressed', String(dark));
-          b.textContent = dark ? '☀️' : '🌙';
+          var u = b.querySelector('use');
+          if (u) u.setAttribute('href', 'images/icons.svg#' + (dark ? 'i-sun' : 'i-moon'));
         }
       })();
     </script>

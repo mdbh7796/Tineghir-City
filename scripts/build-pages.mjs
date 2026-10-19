@@ -41,7 +41,7 @@ export function renderContactCard(name, note, phone, whatsapp) {
   const waText = encodeURIComponent(`Hello ${name}, I found you via the Tineghir guide.`);
   const actions = [
     ...(phone ? [`<a href="tel:${phone}" aria-label="Call ${esc(name)}" class="${btn} bg-amber-700 hover:bg-amber-600 text-white">Call ${esc(phone)}</a>`] : []),
-    ...(whatsapp ? [`<a href="https://wa.me/${whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>`] : []),
+    ...(whatsapp ? [`<a href="https://wa.me/${whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>`] : []),
   ].join('\n              ');
   return `          <div data-contact="${esc(name)}" class="card p-6 reveal">
             <h3 class="text-lg font-semibold text-stone-900 dark:text-white mb-1">${esc(name)}</h3>
@@ -104,14 +104,14 @@ export function renderStayEntry(s) {
   const btn = 'inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px]';
   const actions = [
     `<a href="${esc(s.bookingUrl)}" target="_blank" rel="noopener" aria-label="Book ${esc(s.name)} on Booking.com" class="${btn} bg-amber-700 hover:bg-amber-600 text-white">Book</a>`,
-    ...(s.phone ? [`<a href="tel:${s.phone}" aria-label="Call ${esc(s.name)}" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>`] : []),
-    ...(s.whatsapp ? [`<a href="https://wa.me/${s.whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(s.name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>`] : []),
-    ...(s.verified === false ? [] : [`<a href="https://www.google.com/maps/dir/?api=1&amp;destination=${encodeURIComponent(s.mapsQuery)}" target="_blank" rel="noopener" class="${btn} text-amber-700 hover:text-amber-600">Directions 🧭</a>`]),
+    ...(s.phone ? [`<a href="tel:${s.phone}" aria-label="Call ${esc(s.name)}" class="${btn} border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>`] : []),
+    ...(s.whatsapp ? [`<a href="https://wa.me/${s.whatsapp}?text=${waText}" target="_blank" rel="noopener" aria-label="Message ${esc(s.name)} on WhatsApp" class="${btn} border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>`] : []),
+    ...(s.verified === false ? [] : [`<a href="https://www.google.com/maps/dir/?api=1&amp;destination=${encodeURIComponent(s.mapsQuery)}" target="_blank" rel="noopener" class="${btn} link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>`]),
   ].join('\n              ');
   const base = s.image ? s.image.replace(/\.jpg$/, '') : null;
   const photo = s.image
     ? `<img src="${esc(base)}-640.jpg" srcset="${esc(base)}-640.jpg 640w, ${esc(base)}-1024.jpg 1024w" sizes="(max-width: 1023px) 100vw, 33vw" alt="${esc(s.name)}" loading="lazy" decoding="async" width="640" height="480" class="w-full h-48 object-cover">`
-    : `<div class="w-full h-48 bg-stone-200 flex items-center justify-center text-4xl" aria-hidden="true">🏨</div>`;
+    : `<div class="w-full h-48 bg-stone-200 flex items-center justify-center text-stone-500" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-bed"/></svg></div>`;
   return `          <div data-stay="${esc(s.name)}" class="card card-hover overflow-hidden reveal">
             ${photo}
             <div class="p-6">
@@ -176,7 +176,7 @@ export function buildPages(rootDir = root) {
     <section class="py-20 md:py-28 bg-stone-50 dark:bg-stone-950">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
-          <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
+          <p class="eyebrow mb-4">
             Call
           </p>
           <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-900 dark:text-white mb-6">
@@ -196,7 +196,7 @@ ${renderContactSection(contacts, stays)}
     <section class="py-20 md:py-28 bg-stone-50 dark:bg-stone-950">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
-          <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
+          <p class="eyebrow mb-4">
             Sleep
           </p>
           <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-900 dark:text-white mb-6">

@@ -29,6 +29,7 @@ function initMap() {
   } catch {}
 
   // 'Locate me' control (native GPS via Capacitor, browser fallback)
+  const locateIcon = '<svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-map-pin"/></svg>';
   const mapStatus = document.createElement('div');
   mapStatus.setAttribute('role', 'status');
   mapStatus.setAttribute('aria-live', 'polite');
@@ -40,7 +41,7 @@ function initMap() {
     btn.type = 'button';
     btn.title = 'Show my location';
     btn.setAttribute('aria-label', 'Show my location');
-    btn.textContent = '📍';
+    btn.innerHTML = locateIcon;
     L.DomEvent.on(btn, 'click', async (e) => {
       L.DomEvent.stopPropagation(e);
       btn.textContent = '…';
@@ -51,10 +52,10 @@ function initMap() {
         const { latitude, longitude } = pos.coords;
         map.setView([latitude, longitude], 14);
         L.marker([latitude, longitude]).addTo(map).bindPopup('You are here').openPopup();
-        btn.textContent = '📍';
+        btn.innerHTML = locateIcon;
         mapStatus.textContent = 'Location found.';
       } catch (err) {
-        btn.textContent = '📍';
+        btn.innerHTML = locateIcon;
         btn.title = err && err.message === 'denied'
           ? 'Location permission denied — enable it in system settings'
           : 'Could not get your location';

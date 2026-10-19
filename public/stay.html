@@ -32,7 +32,11 @@
           document.documentElement.dataset.theme = next;
           try { localStorage.setItem('tineghir-theme', next); } catch (e) {}
           var b = document.getElementById('theme-toggle');
-          if (b) { b.setAttribute('aria-pressed', String(next === 'dark')); b.textContent = next === 'dark' ? '☀️' : '🌙'; }
+          if (b) {
+            b.setAttribute('aria-pressed', String(next === 'dark'));
+            var u = b.querySelector('use');
+            if (u) u.setAttribute('href', 'images/icons.svg#' + (next === 'dark' ? 'i-sun' : 'i-moon'));
+          }
           return next;
         }
       };
@@ -150,7 +154,7 @@
             >
           </div>
           <div class="flex items-center gap-1">
-          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
+          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()"><svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-moon"/></svg></button>
           <button id="mobile-menu-btn" class="drawer-btn md:hidden text-stone-700 dark:text-stone-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
             <span class="drawer-bars" aria-hidden="true">
               <span></span>
@@ -192,7 +196,7 @@
     <section class="py-20 md:py-28 bg-stone-50 dark:bg-stone-950">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
-          <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
+          <p class="eyebrow mb-4">
             Sleep
           </p>
           <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-900 dark:text-white mb-6">
@@ -217,8 +221,8 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Mud-brick kasbah styling minutes from the gorge mouth, with a pool and terrace views over the oasis.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Kasbah+Hotel+Amazir%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Kasbah Hotel Amazir on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212524895109" aria-label="Call Kasbah Hotel Amazir" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kasbah%20Hotel%20Amazir%2C%20Todra%20Gorge%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212524895109" aria-label="Call Kasbah Hotel Amazir" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Kasbah%20Hotel%20Amazir%2C%20Todra%20Gorge%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -232,9 +236,9 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Guesthouse calm up the Todra Valley road, between river gardens and cliff paths.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Dar+Ayour%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Dar Ayour on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212672521251" aria-label="Call Dar Ayour" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://wa.me/212672521251?text=Hello%20Dar%20Ayour%2C%20I'd%20like%20to%20inquire%20about%20availability." target="_blank" rel="noopener" aria-label="Message Dar Ayour on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Dar%20Ayour%2C%20Todra%20Valley%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212672521251" aria-label="Call Dar Ayour" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://wa.me/212672521251?text=Hello%20Dar%20Ayour%2C%20I'd%20like%20to%20inquire%20about%20availability." target="_blank" rel="noopener" aria-label="Message Dar Ayour on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Dar%20Ayour%2C%20Todra%20Valley%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -248,9 +252,9 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Climber-friendly auberge near the gorge entrance — terrace tagines and route beta at breakfast.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Auberge+le+Festival+Todra+Gorges%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Auberge le Festival Todra Gorges on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212673454307" aria-label="Call Auberge le Festival Todra Gorges" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://wa.me/212673454307?text=Hello%20Auberge%20le%20Festival%20Todra%20Gorges%2C%20I'd%20like%20to%20inquire%20about%20availability." target="_blank" rel="noopener" aria-label="Message Auberge le Festival Todra Gorges on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Auberge%20le%20Festival%2C%20Todra%20Gorge%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212673454307" aria-label="Call Auberge le Festival Todra Gorges" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://wa.me/212673454307?text=Hello%20Auberge%20le%20Festival%20Todra%20Gorges%2C%20I'd%20like%20to%20inquire%20about%20availability." target="_blank" rel="noopener" aria-label="Message Auberge le Festival Todra Gorges on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Auberge%20le%20Festival%2C%20Todra%20Gorge%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -264,9 +268,9 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Traditional Berber guesthouse in Tinghir&#39;s upper Todra Valley — Atlas views, pool, and a cultural welcome.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Auberge+Bougafer%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Auberge Bougafer on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212670223536" aria-label="Call Auberge Bougafer" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://wa.me/212670223536?text=Hello%20Auberge%20Bougafer%2C%20I'd%20like%20to%20inquire%20about%20availability." target="_blank" rel="noopener" aria-label="Message Auberge Bougafer on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Auberge%20Bougafer%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212670223536" aria-label="Call Auberge Bougafer" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://wa.me/212670223536?text=Hello%20Auberge%20Bougafer%2C%20I'd%20like%20to%20inquire%20about%20availability." target="_blank" rel="noopener" aria-label="Message Auberge Bougafer on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Auberge%20Bougafer%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -280,8 +284,8 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Riad on the gorge road with pool, garden and terrace — 9.1-rated hospitality a short drive from town.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Riad+Dar+Bab+Todra%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Riad Dar Bab Todra on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212671443979" aria-label="Call Riad Dar Bab Todra" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Riad%20Dar%20Bab%20Todra%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212671443979" aria-label="Call Riad Dar Bab Todra" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Riad%20Dar%20Bab%20Todra%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -295,8 +299,8 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Family-run guesthouse above the gorge with panoramic views and breakfast — about $30 a night.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Guesthouse+Panorama+Todra%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Guesthouse Panorama Todra on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212677004972" aria-label="Call Guesthouse Panorama Todra" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Guesthouse%20Panorama%20Todra%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212677004972" aria-label="Call Guesthouse Panorama Todra" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Guesthouse%20Panorama%20Todra%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -310,8 +314,8 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Hotel-restaurant 2 km before the gorge — rooms $20–40, a base for climbing and hiking in Tinghir.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Etoile+des+Gorges%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Etoile des Gorges on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212687928519" aria-label="Call Etoile des Gorges" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Etoile%20des%20Gorges%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212687928519" aria-label="Call Etoile des Gorges" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Etoile%20des%20Gorges%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -329,8 +333,8 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Long-running town hotel on the main avenue — simple rooms, easy walk to the souks and petit taxis.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Hotel+Tomboctou%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Hotel Tomboctou on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212524834604" aria-label="Call Hotel Tomboctou" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel%20Tomboctou%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212524834604" aria-label="Call Hotel Tomboctou" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel%20Tomboctou%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -344,8 +348,8 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Central budget base with a restaurant; handy for early starts toward Todra Gorge.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Hotel+Saghro%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Hotel Saghro on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212524834181" aria-label="Call Hotel Saghro" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel%20Saghro%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212524834181" aria-label="Call Hotel Saghro" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel%20Saghro%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -359,8 +363,8 @@
               <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">Heart of the Todra Valley on Avenue Mohammed V — rooftop terrace with river views and a tour desk.</p>
               <div class="flex flex-wrap gap-3">
               <a href="https://www.booking.com/searchresults.html?ss=Hotel+Restaurant+La+Kasbah%2C+Tinghir" target="_blank" rel="noopener" aria-label="Book Hotel Restaurant La Kasbah on Booking.com" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Book</a>
-              <a href="tel:+212524834471" aria-label="Call Hotel Restaurant La Kasbah" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">Call</a>
-              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel%20Restaurant%20La%20Kasbah%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] text-amber-700 hover:text-amber-600">Directions 🧭</a>
+              <a href="tel:+212524834471" aria-label="Call Hotel Restaurant La Kasbah" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">Call</a>
+              <a href="https://www.google.com/maps/dir/?api=1&amp;destination=Hotel%20Restaurant%20La%20Kasbah%2C%20Tinghir%2C%20Morocco" target="_blank" rel="noopener" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] link"><svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions</a>
               </div>
             </div>
           </div>
@@ -430,7 +434,8 @@
             aria-label="Tip via PayPal"
             class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
-            ☕ Tip via PayPal
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-coffee"/></svg>
+            Tip via PayPal
           </a>
         </div>
       </div>
@@ -449,7 +454,8 @@
         if (b) {
           var dark = document.documentElement.dataset.theme === 'dark';
           b.setAttribute('aria-pressed', String(dark));
-          b.textContent = dark ? '☀️' : '🌙';
+          var u = b.querySelector('use');
+          if (u) u.setAttribute('href', 'images/icons.svg#' + (dark ? 'i-sun' : 'i-moon'));
         }
       })();
     </script>

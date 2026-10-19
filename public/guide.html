@@ -32,7 +32,11 @@
           document.documentElement.dataset.theme = next;
           try { localStorage.setItem('tineghir-theme', next); } catch (e) {}
           var b = document.getElementById('theme-toggle');
-          if (b) { b.setAttribute('aria-pressed', String(next === 'dark')); b.textContent = next === 'dark' ? '☀️' : '🌙'; }
+          if (b) {
+            b.setAttribute('aria-pressed', String(next === 'dark'));
+            var u = b.querySelector('use');
+            if (u) u.setAttribute('href', 'images/icons.svg#' + (next === 'dark' ? 'i-sun' : 'i-moon'));
+          }
           return next;
         }
       };
@@ -150,7 +154,7 @@
             >
           </div>
           <div class="flex items-center gap-1">
-          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
+          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()"><svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-moon"/></svg></button>
           <button id="mobile-menu-btn" class="drawer-btn md:hidden text-stone-700 dark:text-stone-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
             <span class="drawer-bars" aria-hidden="true">
               <span></span>
@@ -206,36 +210,36 @@
         </div>
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <div class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🚕</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-taxi"/></svg></span>
             <h2 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Getting Around</h2>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Walkable center. Petit taxis for short hops; grand taxi for gorges and valleys.</p>
-            <a href="./contact.html" class="mt-2 inline-block text-sm font-medium text-amber-700 hover:text-amber-600">Call transport →</a>
-            <a href="./transport.html" class="ml-4 mt-2 inline-block text-sm font-medium text-amber-700 hover:text-amber-600">Flights &amp; transport →</a>
+            <a href="./contact.html" class="mt-2 inline-block text-sm font-medium link">Call transport →</a>
+            <a href="./transport.html" class="ml-4 mt-2 inline-block text-sm font-medium link">Flights &amp; transport →</a>
           </div>
           <div class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🛏️</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-bed"/></svg></span>
             <h2 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Where To Stay</h2>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Gorge-road views or town welcome — book ahead in spring and autumn.</p>
-            <a href="./stay.html" class="mt-2 inline-block text-sm font-medium text-amber-700 hover:text-amber-600">Browse stays →</a>
-            <a href="./practical.html" class="ml-4 mt-2 inline-block text-sm font-medium text-amber-700 hover:text-amber-600">Prices &amp; numbers →</a>
+            <a href="./stay.html" class="mt-2 inline-block text-sm font-medium link">Browse stays →</a>
+            <a href="./practical.html" class="ml-4 mt-2 inline-block text-sm font-medium link">Prices &amp; numbers →</a>
           </div>
           <div class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🍲</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-bowl"/></svg></span>
             <h2 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Food &amp; Drink</h2>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Tagine, Medfouna, oasis dates, mint tea in Tinghir — try Chez Mohamed, La Kasbah, and the patisseries on Avenue Mohammed V. Bottled water is easiest.</p>
           </div>
           <div class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">💰</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-currency"/></svg></span>
             <h2 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Money &amp; Costs</h2>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Dirhams only — ATMs on Avenue Mohammed V. Souk prices negotiable.</p>
           </div>
           <div class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🗣️</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-chat"/></svg></span>
             <h2 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Language</h2>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Tamazight first; French widely understood. Try <em>azul</em> and <em>tanemmirt</em>.</p>
           </div>
           <div class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🤝</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-handshake"/></svg></span>
             <h2 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Etiquette</h2>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Dress modestly, ask before photos, accept the tea.</p>
           </div>
@@ -325,7 +329,8 @@
             aria-label="Tip via PayPal"
             class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
-            ☕ Tip via PayPal
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-coffee"/></svg>
+            Tip via PayPal
           </a>
         </div>
       </div>
@@ -344,7 +349,8 @@
         if (b) {
           var dark = document.documentElement.dataset.theme === 'dark';
           b.setAttribute('aria-pressed', String(dark));
-          b.textContent = dark ? '☀️' : '🌙';
+          var u = b.querySelector('use');
+          if (u) u.setAttribute('href', 'images/icons.svg#' + (dark ? 'i-sun' : 'i-moon'));
         }
       })();
     </script>

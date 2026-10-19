@@ -15,6 +15,8 @@ const SHELL = [
   './js/tools.js',
   './js/consent.js',
   './manifest.webmanifest',
+  // UI icon sprite: keeps nav/controls working on a cold offline launch.
+  './images/icons.svg',
   './vendor/leaflet/leaflet.css',
   './vendor/leaflet/leaflet.js',
   './vendor/protomaps-leaflet/protomaps-leaflet.js',

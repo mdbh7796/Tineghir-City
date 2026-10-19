@@ -32,7 +32,11 @@
           document.documentElement.dataset.theme = next;
           try { localStorage.setItem('tineghir-theme', next); } catch (e) {}
           var b = document.getElementById('theme-toggle');
-          if (b) { b.setAttribute('aria-pressed', String(next === 'dark')); b.textContent = next === 'dark' ? '☀️' : '🌙'; }
+          if (b) {
+            b.setAttribute('aria-pressed', String(next === 'dark'));
+            var u = b.querySelector('use');
+            if (u) u.setAttribute('href', 'images/icons.svg#' + (next === 'dark' ? 'i-sun' : 'i-moon'));
+          }
           return next;
         }
       };
@@ -150,7 +154,7 @@
             >
           </div>
           <div class="flex items-center gap-1">
-          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
+          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()"><svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-moon"/></svg></button>
           <button id="mobile-menu-btn" class="drawer-btn md:hidden text-stone-700 dark:text-stone-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
             <span class="drawer-bars" aria-hidden="true">
               <span></span>
@@ -193,7 +197,7 @@
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
           <p
-            class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4"
+            class="eyebrow mb-4"
           >
             Trip Tools
           </p>
@@ -212,21 +216,21 @@
         <p id="pack-notice" hidden class="bg-amber-50 border border-amber-300 rounded-xl px-4 py-3 mb-4 text-amber-800 text-sm">Saving is unavailable on this device — your ticks won't be kept.</p>
         <div id="pack-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
-            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4">☀️ Desert sun</h3>
+            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4"><svg class="icon icon-lg mr-2 inline-block text-amber-700 dark:text-amber-400" aria-hidden="true"><use href="images/icons.svg#i-sun"/></svg>Desert sun</h3>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sun-hat" class="w-5 h-5 accent-amber-700"> Wide-brim hat</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunscreen" class="w-5 h-5 accent-amber-700"> Sunscreen SPF 50</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="sunglasses" class="w-5 h-5 accent-amber-700"> Sunglasses</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="water-bottle" class="w-5 h-5 accent-amber-700"> Refillable water bottle</label>
           </div>
           <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
-            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4">🥾 Gorge walking</h3>
+            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4"><svg class="icon icon-lg mr-2 inline-block text-amber-700 dark:text-amber-400" aria-hidden="true"><use href="images/icons.svg#i-boot"/></svg>Gorge walking</h3>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="gorge-shoes" class="w-5 h-5 accent-amber-700"> Grippy walking shoes</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="daypack" class="w-5 h-5 accent-amber-700"> Small daypack</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="warm-layer" class="w-5 h-5 accent-amber-700"> Warm layer (cold nights)</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="swimwear" class="w-5 h-5 accent-amber-700"> Swimwear for the river</label>
           </div>
           <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
-            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4">🎒 Essentials</h3>
+            <h3 class="font-display text-xl font-bold text-stone-900 dark:text-white mb-4"><svg class="icon icon-lg mr-2 inline-block text-amber-700 dark:text-amber-400" aria-hidden="true"><use href="images/icons.svg#i-backpack"/></svg>Essentials</h3>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="passport-copy" class="w-5 h-5 accent-amber-700"> Passport + a copy</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="cash-dirhams" class="w-5 h-5 accent-amber-700"> Cash in dirhams</label>
             <label class="flex items-center gap-3 py-3 min-h-[44px] cursor-pointer"><input type="checkbox" data-pack="power-bank" class="w-5 h-5 accent-amber-700"> Power bank</label>
@@ -241,7 +245,7 @@
         </div>
         <div id="plan-list" class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <div class="bg-white dark:bg-stone-900 rounded-2xl p-6 shadow-lg">
-            <p class="text-stone-600 dark:text-stone-400">Nothing saved yet. Star places on the <a href="./attractions.html" class="text-amber-700 hover:text-amber-600 font-medium">attractions page</a> and they will appear here.</p>
+            <p class="text-stone-600 dark:text-stone-400">Nothing saved yet. Star places on the <a href="./attractions.html" class="link font-medium">attractions page</a> and they will appear here.</p>
           </div>
         </div>
       </div>
@@ -310,7 +314,8 @@
             aria-label="Tip via PayPal"
             class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
-            ☕ Tip via PayPal
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-coffee"/></svg>
+            Tip via PayPal
           </a>
         </div>
       </div>
@@ -329,7 +334,8 @@
         if (b) {
           var dark = document.documentElement.dataset.theme === 'dark';
           b.setAttribute('aria-pressed', String(dark));
-          b.textContent = dark ? '☀️' : '🌙';
+          var u = b.querySelector('use');
+          if (u) u.setAttribute('href', 'images/icons.svg#' + (dark ? 'i-sun' : 'i-moon'));
         }
       })();
     </script>

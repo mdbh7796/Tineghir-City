@@ -52,7 +52,14 @@ nav {
   color: var(--brand) !important;
 }
 [data-theme="dark"] .nav-active {
-  color: #fbbf24 !important;
+  color: #7dd3fc !important;
+}
+/* The nav CTA is a filled button, not a text link: keep its own contrast. */
+.btn-primary.nav-active {
+  color: #fff !important;
+}
+[data-theme="dark"] .btn-primary.nav-active {
+  color: var(--sky-ink) !important;
 }
 
 /* FAQ accordions: custom marker */
@@ -91,6 +98,34 @@ details[open] summary::after {
   --radius: 16px;
   --shadow-sm: 0 1px 2px rgba(28, 25, 23, 0.06);
   --shadow-md: 0 4px 16px rgba(28, 25, 23, 0.08);
+
+  /* Icon size tokens: one family, one rhythm */
+  --icon-sm: 1rem;
+  --icon-md: 1.25rem;
+  --icon-lg: 1.5rem;
+
+  /* Aurora secondary (layered): day = desert amber, night = aurora sky */
+  --sky: #0ea5e9;
+  --sky-strong: #0284c7;
+  --sky-soft: #38bdf8;
+  --sky-ink: #0f172a; /* dark text on sky (6.5:1) */
+}
+
+/* Vector icons (public/images/icons.svg sprite) — theme via currentColor */
+.icon {
+  width: var(--icon-md);
+  height: var(--icon-md);
+  flex: none;
+  fill: currentColor;
+  vertical-align: -0.125em;
+}
+.icon-sm {
+  width: var(--icon-sm);
+  height: var(--icon-sm);
+}
+.icon-lg {
+  width: var(--icon-lg);
+  height: var(--icon-lg);
 }
 
 /* Reusable primitives: use these for new work instead of ad-hoc utilities */
@@ -139,6 +174,20 @@ details[open] summary::after {
 .btn-ghost:hover {
   border-color: var(--brand);
 }
+/* Inline links: amber by day, aurora sky by night */
+.link {
+  color: var(--brand);
+  transition: color 0.2s ease;
+}
+.link:hover {
+  color: var(--brand-hover);
+}
+[data-theme="dark"] .link {
+  color: #7dd3fc;
+}
+[data-theme="dark"] .link:hover {
+  color: #bae6fd;
+}
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -160,7 +209,64 @@ details[open] summary::after {
   color: #a8a29e;
 }
 [data-theme="dark"] .eyebrow {
-  color: #fbbf24;
+  color: #7dd3fc;
+}
+
+/* Layered aurora: dark mode leans to sky, light mode stays desert amber.
+   Sky is light, so text on it must be dark (white on #0ea5e9 is only 2.8:1). */
+[data-theme="dark"] .btn-primary {
+  background: var(--sky);
+  color: var(--sky-ink);
+}
+[data-theme="dark"] .btn-primary:hover {
+  background: var(--sky-soft);
+}
+[data-theme="dark"] :focus-visible {
+  outline-color: #7dd3fc;
+}
+
+/* Dark-mode widget accents (were hardcoded amber-on-white) */
+[data-theme="dark"] .directions-btn,
+[data-theme="dark"] .share-btn,
+[data-theme="dark"] .save-btn {
+  color: #7dd3fc;
+}
+[data-theme="dark"] .sort-toggle {
+  background: #292524;
+  border-color: #38bdf8;
+  color: #7dd3fc;
+}
+[data-theme="dark"] .distance-label,
+[data-theme="dark"] .sort-status {
+  color: #a8a29e;
+}
+
+/* Hero aurora veil: dusk mesh over the photo (static under reduced motion) */
+.aurora-veil {
+  background-image:
+    radial-gradient(55% 60% at 78% 8%, rgba(56, 189, 248, 0.32), transparent 68%),
+    radial-gradient(50% 55% at 12% 14%, rgba(129, 140, 248, 0.26), transparent 70%),
+    linear-gradient(
+      to bottom,
+      rgba(2, 6, 23, 0.62),
+      rgba(2, 6, 23, 0.42) 46%,
+      rgba(2, 6, 23, 0.72)
+    );
+  background-size: 140% 140%, 140% 140%, 100% 100%;
+  background-position: 50% 50%, 50% 50%, 0 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .aurora-veil {
+    animation: aurora-drift 12s ease-in-out infinite alternate;
+  }
+}
+@keyframes aurora-drift {
+  from {
+    background-position: 50% 50%, 50% 50%, 0 0;
+  }
+  to {
+    background-position: 38% 60%, 62% 44%, 0 0;
+  }
 }
 
 /* Custom Styles */
@@ -311,6 +417,17 @@ body.drawer-open .site-drawer {
   .drawer-btn .drawer-bars > span {
     transition: none;
   }
+}
+
+/* Lightbox: one state class (no hidden/flex ordering dependency) */
+.lightbox {
+  display: none;
+}
+.lightbox.is-open {
+  display: flex;
+}
+body.lightbox-open {
+  overflow: hidden;
 }
 
 /* Scroll Animation Classes: subtle single-rise (was 30px / 0.8s) */

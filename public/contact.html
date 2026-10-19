@@ -32,7 +32,11 @@
           document.documentElement.dataset.theme = next;
           try { localStorage.setItem('tineghir-theme', next); } catch (e) {}
           var b = document.getElementById('theme-toggle');
-          if (b) { b.setAttribute('aria-pressed', String(next === 'dark')); b.textContent = next === 'dark' ? '☀️' : '🌙'; }
+          if (b) {
+            b.setAttribute('aria-pressed', String(next === 'dark'));
+            var u = b.querySelector('use');
+            if (u) u.setAttribute('href', 'images/icons.svg#' + (next === 'dark' ? 'i-sun' : 'i-moon'));
+          }
           return next;
         }
       };
@@ -150,7 +154,7 @@
             >
           </div>
           <div class="flex items-center gap-1">
-          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
+          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()"><svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-moon"/></svg></button>
           <button id="mobile-menu-btn" class="drawer-btn md:hidden text-stone-700 dark:text-stone-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
             <span class="drawer-bars" aria-hidden="true">
               <span></span>
@@ -192,7 +196,7 @@
     <section class="py-20 md:py-28 bg-stone-50 dark:bg-stone-950">
       <div class="max-w-7xl mx-auto px-4">
         <div class="text-center mb-14">
-          <p class="text-amber-700 font-medium tracking-widest uppercase text-sm mb-4">
+          <p class="eyebrow mb-4">
             Call
           </p>
           <h1 class="font-display text-[clamp(1.875rem,4vw+1rem,3rem)] font-bold text-stone-900 dark:text-white mb-6">
@@ -270,7 +274,7 @@
             <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">gorge-road · splurge</p>
             <div class="flex flex-wrap gap-3">
               <a href="tel:+212672521251" aria-label="Call Dar Ayour" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212672521251</a>
-              <a href="https://wa.me/212672521251?text=Hello%20Dar%20Ayour%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Dar Ayour on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
+              <a href="https://wa.me/212672521251?text=Hello%20Dar%20Ayour%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Dar Ayour on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>
             </div>
           </div>
           <div data-contact="Auberge le Festival Todra Gorges" class="card p-6 reveal">
@@ -278,7 +282,7 @@
             <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">gorge-road · budget</p>
             <div class="flex flex-wrap gap-3">
               <a href="tel:+212673454307" aria-label="Call Auberge le Festival Todra Gorges" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212673454307</a>
-              <a href="https://wa.me/212673454307?text=Hello%20Auberge%20le%20Festival%20Todra%20Gorges%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Auberge le Festival Todra Gorges on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
+              <a href="https://wa.me/212673454307?text=Hello%20Auberge%20le%20Festival%20Todra%20Gorges%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Auberge le Festival Todra Gorges on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>
             </div>
           </div>
           <div data-contact="Auberge Bougafer" class="card p-6 reveal">
@@ -286,7 +290,7 @@
             <p class="text-sm leading-relaxed text-stone-600 dark:text-stone-400 mb-4">gorge-road · budget</p>
             <div class="flex flex-wrap gap-3">
               <a href="tel:+212670223536" aria-label="Call Auberge Bougafer" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] bg-amber-700 hover:bg-amber-600 text-white">Call +212670223536</a>
-              <a href="https://wa.me/212670223536?text=Hello%20Auberge%20Bougafer%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Auberge Bougafer on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 text-amber-200 hover:bg-amber-500/10">WhatsApp</a>
+              <a href="https://wa.me/212670223536?text=Hello%20Auberge%20Bougafer%2C%20I%20found%20you%20via%20the%20Tineghir%20guide." target="_blank" rel="noopener" aria-label="Message Auberge Bougafer on WhatsApp" class="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium transition-all min-h-[44px] border-2 border-amber-500/50 link hover:bg-amber-500/10">WhatsApp</a>
             </div>
           </div>
           <div data-contact="Riad Dar Bab Todra" class="card p-6 reveal">
@@ -380,7 +384,8 @@
             aria-label="Tip via PayPal"
             class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
-            ☕ Tip via PayPal
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-coffee"/></svg>
+            Tip via PayPal
           </a>
         </div>
       </div>
@@ -399,7 +404,8 @@
         if (b) {
           var dark = document.documentElement.dataset.theme === 'dark';
           b.setAttribute('aria-pressed', String(dark));
-          b.textContent = dark ? '☀️' : '🌙';
+          var u = b.querySelector('use');
+          if (u) u.setAttribute('href', 'images/icons.svg#' + (dark ? 'i-sun' : 'i-moon'));
         }
       })();
     </script>

@@ -32,7 +32,11 @@
           document.documentElement.dataset.theme = next;
           try { localStorage.setItem('tineghir-theme', next); } catch (e) {}
           var b = document.getElementById('theme-toggle');
-          if (b) { b.setAttribute('aria-pressed', String(next === 'dark')); b.textContent = next === 'dark' ? '☀️' : '🌙'; }
+          if (b) {
+            b.setAttribute('aria-pressed', String(next === 'dark'));
+            var u = b.querySelector('use');
+            if (u) u.setAttribute('href', 'images/icons.svg#' + (next === 'dark' ? 'i-sun' : 'i-moon'));
+          }
           return next;
         }
       };
@@ -157,7 +161,7 @@
             >
           </div>
           <div class="flex items-center gap-1">
-          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()">🌙</button>
+          <button id="theme-toggle" type="button" class="text-stone-500 dark:text-stone-300 p-3 min-w-[44px] min-h-[44px]" aria-label="Toggle dark mode" aria-pressed="false" onclick="window.__theme&&window.__theme.toggle()"><svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-moon"/></svg></button>
           <button id="mobile-menu-btn" class="drawer-btn md:hidden text-stone-700 dark:text-stone-200 p-3 min-w-[44px] min-h-[44px]" aria-label="Open menu" aria-expanded="false" aria-controls="site-drawer">
             <span class="drawer-bars" aria-hidden="true">
               <span></span>
@@ -216,7 +220,7 @@
         <source type="image/jpeg" srcset="images/hero-tineghir-640.jpg 640w, images/hero-tineghir-1024.jpg 1024w, images/hero-tineghir-1920.jpg 1920w" sizes="100vw">
         <img src="images/hero-tineghir-1920.jpg" alt="Todra Gorge canyon walls above the Tineghir oasis" width="2288" height="1437" fetchpriority="high" decoding="async" class="h-full w-full object-cover">
       </picture>
-      <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/35 to-black/60"></div>
+      <div class="aurora-veil absolute inset-0" aria-hidden="true"></div>
 
       <div class="relative z-10 mx-auto w-full max-w-6xl px-4 pb-16 pt-28 md:pb-24 md:pt-36">
         <div class="max-w-2xl">
@@ -292,32 +296,32 @@
         </div>
         <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           <a href="./about.html" class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🏛️</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-bank"/></svg></span>
             <h3 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">About</h3>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">History and daily life in the oasis city.</p>
           </a>
           <a href="./attractions.html" class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🏔️</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-mountains"/></svg></span>
             <h3 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Attractions</h3>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Gorge, palm grove, kasbahs, and day trips.</p>
           </a>
           <a href="./gallery.html" class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">📸</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-camera"/></svg></span>
             <h3 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Gallery</h3>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Canyons, oases, and crafts in pictures.</p>
           </a>
           <a href="./itineraries.html" class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🗺️</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-map"/></svg></span>
             <h3 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Itineraries</h3>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">One day or three — ready-made routes.</p>
           </a>
           <a href="./guide.html" class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🧭</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-compass"/></svg></span>
             <h3 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Travel Guide</h3>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Move, eat, pay, and speak with ease.</p>
           </a>
           <a href="./stay.html" class="card reveal p-6">
-            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-xl" aria-hidden="true">🏨</span>
+            <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700" aria-hidden="true"><svg class="icon icon-lg"><use href="images/icons.svg#i-bed"/></svg></span>
             <h3 class="mt-3 text-lg font-semibold text-stone-900 dark:text-white">Where to Stay</h3>
             <p class="mt-1 text-sm leading-relaxed text-stone-600 dark:text-stone-400">Riads and kasbah-hotels to book direct.</p>
           </a>
@@ -397,7 +401,8 @@
             aria-label="Tip via PayPal"
             class="btn-primary !min-h-[40px] !py-2 !px-5 !text-sm"
           >
-            ☕ Tip via PayPal
+            <svg class="icon" aria-hidden="true"><use href="images/icons.svg#i-coffee"/></svg>
+            Tip via PayPal
           </a>
         </div>
       </div>
@@ -416,7 +421,8 @@
         if (b) {
           var dark = document.documentElement.dataset.theme === 'dark';
           b.setAttribute('aria-pressed', String(dark));
-          b.textContent = dark ? '☀️' : '🌙';
+          var u = b.querySelector('use');
+          if (u) u.setAttribute('href', 'images/icons.svg#' + (dark ? 'i-sun' : 'i-moon'));
         }
       })();
     </script>

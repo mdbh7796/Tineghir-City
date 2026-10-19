@@ -10,7 +10,7 @@ function initBackButton() {
 
   App.addListener('backButton', () => {
     const lightbox = document.getElementById('lightbox');
-    if (lightbox && !lightbox.classList.contains('hidden')) {
+    if (lightbox && lightbox.classList.contains('is-open')) {
       document.getElementById('lightbox-close').click();
       return;
     }

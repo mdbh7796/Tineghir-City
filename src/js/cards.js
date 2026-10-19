@@ -7,7 +7,7 @@ function initNavigateButtons() {
     if (!a || a.lat == null || a.lng == null || !a.verified) return;
     const link = document.createElement('a');
     link.className = 'directions-btn';
-    link.textContent = 'Directions 🧭';
+    link.innerHTML = '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions';
     link.href = `https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lng}`;
     link.target = '_blank';
     link.rel = 'noopener';
@@ -31,7 +31,7 @@ function initShareButtons() {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'share-btn';
-    btn.textContent = 'Share ⤴';
+    btn.innerHTML = '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-share"/></svg>Share';
     btn.addEventListener('click', () => shareAttraction(btn, name, desc));
     const container = card.querySelector('.p-6');
     if (container) container.appendChild(btn);
@@ -56,9 +56,9 @@ async function shareAttraction(btn, name, desc) {
     if (err && (err.name === 'AbortError' || /cancel/i.test(err.message || ''))) return;
     try {
       await navigator.clipboard.writeText(`${data.title}\n${data.text}\n${data.url}`);
-      const original = btn.textContent;
+      const original = btn.innerHTML;
       btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = original; }, 1500);
+      setTimeout(() => { btn.innerHTML = original; }, 1500);
     } catch (_) {
       btn.textContent = 'Share unavailable';
     }
@@ -83,7 +83,9 @@ function initSaveButtons() {
       btn.setAttribute('aria-pressed', String(on));
       const name = (ATTRACTIONS[id] && ATTRACTIONS[id].name) || 'place';
       btn.setAttribute('aria-label', on ? `Remove ${name} from trip plan` : `Save ${name} to trip plan`);
-      btn.textContent = on ? '★ Saved' : '☆ Save';
+      btn.innerHTML = on
+        ? '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-star-fill"/></svg>Saved'
+        : '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-star"/></svg>Save';
     };
     paint();
     btn.addEventListener('click', () => {

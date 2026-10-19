@@ -62,63 +62,137 @@ function initScrollAnimations() {
 }
 
 // --- src/js/lightbox.js ---
-// 2. Gallery Lightbox
+// 2. Gallery Lightbox: accessible dialog with focus trap, focus return,
+// prev/next (buttons + arrow keys), scroll lock, and dynamic alt/caption.
 function initLightbox() {
   const lightbox = document.getElementById('lightbox');
   // Gallery-only widget: no triggers and no modal on other pages.
   if (!lightbox || !document.querySelector('.lightbox-trigger')) return;
   const lightboxImg = document.getElementById('lightbox-img');
   const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+  const caption = document.getElementById('lightbox-caption');
   if (!lightboxImg || !closeBtn) return;
-  
-  // Select all elements that should trigger lightbox
-  const galleryItems = document.querySelectorAll('.lightbox-trigger');
 
-  galleryItems.forEach(item => {
-    item.addEventListener('click', () => {
-      // Use explicit data attribute first (Robust)
-      let src = item.getAttribute('data-lightbox-src');
+  const triggers = [...document.querySelectorAll('.lightbox-trigger')];
+  const slides = triggers.map((item) => {
+    const img = item.querySelector('img');
+    const heading = item.querySelector('h2, h3');
+    const src = item.getAttribute('data-lightbox-src')
+      || item.getAttribute('href')
+      || (img && img.src)
+      || '';
+    return {
+      src,
+      alt: (img && img.alt) || (heading && heading.textContent.trim()) || 'Gallery photo',
+    };
+  });
+  if (!slides.length) return;
 
-      // Fallback: look for image tag
-      if (!src) {
-         const img = item.querySelector('img');
-         if (img) src = img.src;
-      }
+  let index = 0;
+  let returnFocus = null;
+  let closeTimer = null;
 
-      if (src) {
-        lightboxImg.src = src;
-        lightbox.classList.remove('hidden');
-        // Small timeout to allow display:block to apply before opacity transition
-        setTimeout(() => {
-          lightbox.classList.remove('opacity-0');
-          lightboxImg.classList.remove('scale-95');
-        }, 10);
-      }
+  const show = (i) => {
+    index = (i + slides.length) % slides.length;
+    const slide = slides[index];
+    if (slide.src) lightboxImg.src = slide.src;
+    lightboxImg.alt = slide.alt;
+    if (caption) caption.textContent = slide.alt;
+    // Preload neighbours so paging feels instant.
+    [index - 1, index + 1].forEach((n) => {
+      const s = slides[(n + slides.length) % slides.length];
+      if (s && s.src && s.src !== slide.src) new Image().src = s.src;
+    });
+  };
+
+  const focusables = () => [...lightbox.querySelectorAll('button:not([disabled]), [href], [tabindex]:not([tabindex="-1"])')]
+    .filter((el) => el.getClientRects().length > 0);
+
+  const open = (i, opener) => {
+    if (closeTimer) {
+      clearTimeout(closeTimer);
+      closeTimer = null;
+    }
+    returnFocus = opener || document.activeElement;
+    show(i);
+    lightbox.classList.add('is-open');
+    document.body.classList.add('lightbox-open');
+    // Let display:flex apply before transitioning opacity/scale.
+    requestAnimationFrame(() => {
+      lightbox.classList.remove('opacity-0');
+      lightboxImg.classList.remove('scale-95');
+    });
+    closeBtn.focus();
+  };
+
+  const close = () => {
+    if (!lightbox.classList.contains('is-open')) return;
+    lightbox.classList.add('opacity-0');
+    lightboxImg.classList.add('scale-95');
+    document.body.classList.remove('lightbox-open');
+    // Return focus immediately so keyboard users are not stranded.
+    if (returnFocus && typeof returnFocus.focus === 'function') returnFocus.focus();
+    returnFocus = null;
+    closeTimer = setTimeout(() => {
+      lightbox.classList.remove('is-open');
+      lightboxImg.src = '';
+      lightboxImg.alt = '';
+      if (caption) caption.textContent = '';
+      closeTimer = null;
+    }, 300); // Match transition duration
+  };
+
+  const step = (dir) => show(index + dir);
+
+  triggers.forEach((item, i) => {
+    item.addEventListener('click', (e) => {
+      // Keep modified/middle clicks as normal navigation to the image file.
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      open(i, item);
     });
   });
 
-  function closeLightbox() {
-    lightbox.classList.add('opacity-0');
-    lightboxImg.classList.add('scale-95');
-    setTimeout(() => {
-      lightbox.classList.add('hidden');
-      lightboxImg.src = '';
-    }, 300); // Match transition duration
-  }
+  closeBtn.addEventListener('click', close);
+  if (prevBtn) prevBtn.addEventListener('click', () => step(-1));
+  if (nextBtn) nextBtn.addEventListener('click', () => step(1));
 
-  closeBtn.addEventListener('click', closeLightbox);
-  
   // Close on background click
   lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-      closeLightbox();
-    }
+    if (e.target === lightbox) close();
   });
 
-  // Close on Escape key
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !lightbox.classList.contains('hidden')) {
-      closeLightbox();
+    if (!lightbox.classList.contains('is-open')) return;
+    if (e.key === 'Escape') {
+      e.preventDefault();
+      close();
+      return;
+    }
+    if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      step(-1);
+      return;
+    }
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      step(1);
+      return;
+    }
+    if (e.key !== 'Tab') return;
+    // Focus trap: cycle within the dialog while open.
+    const list = focusables();
+    if (!list.length) return;
+    const first = list[0];
+    const last = list[list.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
     }
   });
 }
@@ -157,6 +231,7 @@ function initMap() {
   } catch {}
 
   // 'Locate me' control (native GPS via Capacitor, browser fallback)
+  const locateIcon = '<svg class="icon icon-lg" aria-hidden="true"><use href="images/icons.svg#i-map-pin"/></svg>';
   const mapStatus = document.createElement('div');
   mapStatus.setAttribute('role', 'status');
   mapStatus.setAttribute('aria-live', 'polite');
@@ -168,7 +243,7 @@ function initMap() {
     btn.type = 'button';
     btn.title = 'Show my location';
     btn.setAttribute('aria-label', 'Show my location');
-    btn.textContent = '📍';
+    btn.innerHTML = locateIcon;
     L.DomEvent.on(btn, 'click', async (e) => {
       L.DomEvent.stopPropagation(e);
       btn.textContent = '…';
@@ -179,10 +254,10 @@ function initMap() {
         const { latitude, longitude } = pos.coords;
         map.setView([latitude, longitude], 14);
         L.marker([latitude, longitude]).addTo(map).bindPopup('You are here').openPopup();
-        btn.textContent = '📍';
+        btn.innerHTML = locateIcon;
         mapStatus.textContent = 'Location found.';
       } catch (err) {
-        btn.textContent = '📍';
+        btn.innerHTML = locateIcon;
         btn.title = err && err.message === 'denied'
           ? 'Location permission denied — enable it in system settings'
           : 'Could not get your location';
@@ -447,7 +522,7 @@ function initNavigateButtons() {
     if (!a || a.lat == null || a.lng == null || !a.verified) return;
     const link = document.createElement('a');
     link.className = 'directions-btn';
-    link.textContent = 'Directions 🧭';
+    link.innerHTML = '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-compass"/></svg>Directions';
     link.href = `https://www.google.com/maps/dir/?api=1&destination=${a.lat},${a.lng}`;
     link.target = '_blank';
     link.rel = 'noopener';
@@ -471,7 +546,7 @@ function initShareButtons() {
     const btn = document.createElement('button');
     btn.type = 'button';
     btn.className = 'share-btn';
-    btn.textContent = 'Share ⤴';
+    btn.innerHTML = '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-share"/></svg>Share';
     btn.addEventListener('click', () => shareAttraction(btn, name, desc));
     const container = card.querySelector('.p-6');
     if (container) container.appendChild(btn);
@@ -496,9 +571,9 @@ async function shareAttraction(btn, name, desc) {
     if (err && (err.name === 'AbortError' || /cancel/i.test(err.message || ''))) return;
     try {
       await navigator.clipboard.writeText(`${data.title}\n${data.text}\n${data.url}`);
-      const original = btn.textContent;
+      const original = btn.innerHTML;
       btn.textContent = 'Copied!';
-      setTimeout(() => { btn.textContent = original; }, 1500);
+      setTimeout(() => { btn.innerHTML = original; }, 1500);
     } catch (_) {
       btn.textContent = 'Share unavailable';
     }
@@ -523,7 +598,9 @@ function initSaveButtons() {
       btn.setAttribute('aria-pressed', String(on));
       const name = (ATTRACTIONS[id] && ATTRACTIONS[id].name) || 'place';
       btn.setAttribute('aria-label', on ? `Remove ${name} from trip plan` : `Save ${name} to trip plan`);
-      btn.textContent = on ? '★ Saved' : '☆ Save';
+      btn.innerHTML = on
+        ? '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-star-fill"/></svg>Saved'
+        : '<svg class="icon icon-sm mr-1" aria-hidden="true"><use href="images/icons.svg#i-star"/></svg>Save';
     };
     paint();
     btn.addEventListener('click', () => {
@@ -658,7 +735,7 @@ function initBackButton() {
 
   App.addListener('backButton', () => {
     const lightbox = document.getElementById('lightbox');
-    if (lightbox && !lightbox.classList.contains('hidden')) {
+    if (lightbox && lightbox.classList.contains('is-open')) {
       document.getElementById('lightbox-close').click();
       return;
     }
