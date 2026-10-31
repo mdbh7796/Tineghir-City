@@ -36,6 +36,12 @@ jobs:
       - name: Build site
         run: npm run build
 
+      - name: Install Playwright browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Run browser E2E
+        run: npm run e2e
+
       - name: Verify public/ matches src/ (no direct public/ edits)
         run: git diff --exit-code -- public/*.html public/script.js public/sw.js public/js public/sitemap.xml
 

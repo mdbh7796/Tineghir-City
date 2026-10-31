@@ -2,6 +2,21 @@
   "ci": {
     "collect": {
       "staticDistDir": "./public",
+      "url": [
+        "/index.html",
+        "/about.html",
+        "/attractions.html",
+        "/gallery.html",
+        "/itineraries.html",
+        "/guide.html",
+        "/practical.html",
+        "/visit.html",
+        "/stay.html",
+        "/contact.html",
+        "/transport.html",
+        "/tools.html",
+        "/privacy.html"
+      ],
       "maxAutodiscoverUrls": 0,
       "numberOfRuns": 2
     },

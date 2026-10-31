@@ -489,6 +489,27 @@ body.lightbox-open {
   cursor: pointer;
 }
 
+/* Skip link: hidden until keyboard focus, then pinned above the nav. */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: #1c1917;
+  color: #fff;
+  font-weight: 600;
+  transform: translateY(-200%);
+  transition: transform 120ms ease;
+}
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid #fcd34d;
+  outline-offset: 2px;
+}
+
 /* Per-card widgets (replaces inline style.cssText in public/script.js) */
 .visually-hidden {
   position: absolute;

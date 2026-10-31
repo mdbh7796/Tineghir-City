@@ -18,9 +18,21 @@ test('smoke: planner mounts with its tool styles', () => {
   assert.match(tools, /id="pack-list"/);
   assert.match(tools, /js\/tools\.js/);
   const css = readFileSync('public/style.css', 'utf8');
-  for (const c of ['.directions-btn', '.share-btn', '.sort-toggle']) {
+  for (const c of ['.directions-btn', '.share-btn', '.sort-toggle', '.skip-link']) {
     assert.ok(css.includes(c), `style.css missing ${c}`);
   }
+});
+
+test('smoke: every page has a skip link and a 404 exists outside the sitemap', () => {
+  const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport', 'tools', 'privacy', '404'];
+  for (const p of pages) {
+    const html = readFileSync(`public/${p}.html`, 'utf8');
+    assert.match(html, /class="skip-link"/, `${p}.html missing skip link`);
+    assert.match(html, /id="main-content"/, `${p}.html missing main target`);
+  }
+  const notFound = readFileSync('public/404.html', 'utf8');
+  assert.match(notFound, /<meta name="robots" content="noindex" \/>/);
+  assert.doesNotMatch(readFileSync('public/sitemap.xml', 'utf8'), /\/404\.html/);
 });
 
 test('smoke: map + share/sort guards present', () => {

@@ -15,7 +15,7 @@ const checkContact = scopes.has('all') || scopes.has('contact');
 const checkTransport = scopes.has('all') || scopes.has('transport');
 const checkTools = scopes.has('all') || scopes.has('tools');
 // Default page-structure assertions always run.
-const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport', 'tools', 'privacy'];
+const pages = ['index', 'about', 'attractions', 'gallery', 'itineraries', 'guide', 'practical', 'visit', 'stay', 'contact', 'transport', 'tools', 'privacy', '404'];
 const failures = [];
 const fail = (m) => failures.push(m);
 
@@ -28,6 +28,8 @@ for (const p of pages) {
   if (html.match(/href="#(home|about|attractions|gallery|guide|practical|visit)"/))
     fail(`${p}.html contains legacy cross-section anchor`);
   if (!html.includes('id="site-drawer"')) fail(`${p}.html missing #site-drawer`);
+  if (!html.includes('class="skip-link"')) fail(`${p}.html missing skip link`);
+  if (!html.includes('id="main-content"')) fail(`${p}.html missing #main-content target`);
   const tagWith = (id) => (html.match(new RegExp(`<[^>]*\\bid="${id}"[^>]*>`)) || [''])[0];
   if (!html.includes('id="mobile-menu-btn"')) fail(`${p}.html missing #mobile-menu-btn`);
   if (!tagWith('mobile-menu-btn').includes('aria-controls="site-drawer"')) fail(`${p}.html button missing aria-controls="site-drawer"`);
@@ -234,9 +236,11 @@ if (!existsSync(smPath)) fail('missing public/sitemap.xml');
 else {
 const sm = readFileSync(smPath, 'utf8');
 for (const p of pages) {
+  if (p === '404') continue;
   const loc = p === 'index' ? 'https://mdbh7796.github.io/Tineghir-City/' : `https://mdbh7796.github.io/Tineghir-City/${p}.html`;
   if (!sm.includes(loc)) fail(`sitemap.xml missing ${loc}`);
 }
+if (sm.includes('/404.html')) fail('sitemap.xml must not list the 404 page');
 // lastmod must be fresh (within 90 days) so new pages can't drift with a hardcoded date.
 const mods = [...sm.matchAll(/<lastmod>(\d{4}-\d{2}-\d{2})<\/lastmod>/g)].map((m) => m[1]);
 if (!mods.length) fail('sitemap.xml missing <lastmod>');
@@ -282,7 +286,7 @@ else {
   if (normalizeSw(swSrc).trim() !== normalizeSw(swPub).trim()) fail('public/sw.js drifted from src/sw.js (run npm run build:js)');
   if (!/const CACHE_VERSION = 'tineghir-[0-9a-f]{10}';/.test(swPub)) fail('public/sw.js CACHE_VERSION not stamped with a build hash (run npm run build:js)');
   const css = readFileSync(join(root, 'src', 'input.css'), 'utf8');
-  for (const needle of ['.directions-btn', '.share-btn', '.sort-toggle', '@source']) {
+  for (const needle of ['.directions-btn', '.share-btn', '.sort-toggle', '.skip-link', '@source']) {
     if (!css.includes(needle)) fail(`src/input.css missing "${needle}"`);
   }
   if (existsSync(join(root, 'tailwind.config.js'))) fail('tailwind.config.js still present — v4 uses CSS-first @source in src/input.css');

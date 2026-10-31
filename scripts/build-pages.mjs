@@ -230,8 +230,8 @@ ${renderStaySection(stays)}
       .replace('{{FOOTER}}', footer)
       .replaceAll('{{TIP_URL}}', site.tipUrl)
       .replaceAll('{{CONTACT_EMAIL}}', site.contactEmail || 'mdbh854@outlook.com');
-    html = applyCond(html, { showMap: !!m.showMap, leaflet: !!m.leaflet });
-    if (/\{\{|\}\}|IF:(showMap|leaflet)|IFNOT:/.test(html)) fail(`${page}.html has unreplaced template markers`);
+    html = applyCond(html, { showMap: !!m.showMap, leaflet: !!m.leaflet, noindex: !!m.noindex });
+    if (/\{\{|\}\}|IF:(showMap|leaflet|noindex)|IFNOT:/.test(html)) fail(`${page}.html has unreplaced template markers`);
     mkdirSync(outDir, { recursive: true });
     writeFileSync(join(outDir, `${page}.html`), html.endsWith('\n') ? html : html + '\n');
     written.push(`${page}.html`);
@@ -252,6 +252,7 @@ ${renderStaySection(stays)}
   const today = new Date().toISOString().slice(0, 10);
   const sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'];
   for (const [page, m] of Object.entries(meta)) {
+    if (m.sitemap === false) continue;
     const priority = page === 'index' ? '1.0' : (m.priority || '0.8');
     const changefreq = page === 'index' ? 'weekly' : 'monthly';
     sm.push('  <url>', `    <loc>${m.canonical}</loc>`, `    <lastmod>${today}</lastmod>`, `    <changefreq>${changefreq}</changefreq>`, `    <priority>${priority}</priority>`, '  </url>');

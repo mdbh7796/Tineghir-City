@@ -119,5 +119,16 @@
     "leaflet": false,
     "activeNav": "tools",
     "fragments": ["privacy.html"]
+  },
+  "404": {
+    "title": "Page Not Found - Tineghir City",
+    "description": "That page could not be found. Head back to the Tineghir guide, attractions, or trip planner.",
+    "canonical": "https://mdbh7796.github.io/Tineghir-City/404.html",
+    "showMap": false,
+    "leaflet": false,
+    "activeNav": "404",
+    "noindex": true,
+    "sitemap": false,
+    "fragments": ["404.html"]
   }
 }
