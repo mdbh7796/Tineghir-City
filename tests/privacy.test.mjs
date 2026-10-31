@@ -15,3 +15,15 @@ test('privacy docs describe on-device location use', () => {
   const d = readFileSync('docs/PRIVACY.md', 'utf8');
   assert.match(d, /on-device/i);
 });
+
+test('no consent banner is shipped while there is no analytics', () => {
+  const base = readFileSync('src/templates/base.html', 'utf8');
+  assert.doesNotMatch(base, /js\/consent\.js/);
+  for (const p of ['index', 'privacy', 'tools']) {
+    const html = readFileSync(`public/${p}.html`, 'utf8');
+    assert.doesNotMatch(html, /consent-banner|js\/consent\.js/, `${p}.html ships consent UI`);
+  }
+  const d = readFileSync('docs/PRIVACY.md', 'utf8');
+  assert.match(d, /no analytics/i);
+  assert.match(d, /no consent prompt/i);
+});

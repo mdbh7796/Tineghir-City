@@ -1,3 +1,4 @@
+// Built from src/js/drawer.js — do not edit directly. Run: npm run build:js
 // Slide-in drawer: open/close, backdrop + Escape, Tab focus trap,
 // focus return, and pathname-based active link. Null-safe so pages
 // without drawer markup never throw.

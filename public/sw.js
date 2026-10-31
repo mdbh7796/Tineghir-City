@@ -5,7 +5,7 @@
 // scripts/build-js.mjs from the CSS/JS source bytes. Bumping it on change is
 // what evicts stale cache-first assets; a bare 'tineghir-v1' would pin
 // returning visitors to old CSS/JS. Do not edit the token by hand.
-const CACHE_VERSION = 'tineghir-e1a50a8e0a';
+const CACHE_VERSION = 'tineghir-d257a74aa3';
 const SHELL = [
   './',
   './index.html',
@@ -13,7 +13,6 @@ const SHELL = [
   './script.js',
   './js/drawer.js',
   './js/tools.js',
-  './js/consent.js',
   './manifest.webmanifest',
   // UI icon sprite: keeps nav/controls working on a cold offline launch.
   './images/icons.svg',

@@ -20,7 +20,6 @@ Functional:
 - [ ] Back button: closes lightbox → closes drawer → goes back → exits only at root
 - [ ] Rotation on map + gallery: no lost state, no clipped controls
 - [ ] All 44px touch targets reachable; keyboard focus visible throughout
-- [ ] Consent banner: shows once, Accept/Decline both dismiss and persist
 - [ ] Support email link opens the mail client (`mdbh854@outlook.com`)
 
 Store / policy:

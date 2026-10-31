@@ -2,8 +2,8 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync, existsSync } from 'node:fs';
 
-// Static smoke coverage: drawer, planner/consent mounts, and CSS classes
-// exist in the built output (no browser required; Playwright-grade e2e TBD).
+// Static smoke coverage: drawer, planner mounts, and CSS classes
+// exist in the built output (no browser required; Playwright covers behavior).
 test('smoke: drawer mounts on every page', () => {
   for (const p of ['index', 'attractions', 'tools']) {
     const html = readFileSync(`public/${p}.html`, 'utf8');
@@ -12,16 +12,13 @@ test('smoke: drawer mounts on every page', () => {
   }
 });
 
-test('smoke: planner + consent mounts', () => {
+test('smoke: planner mounts with its tool styles', () => {
   const tools = readFileSync('public/tools.html', 'utf8');
   assert.match(tools, /id="plan-list"/);
   assert.match(tools, /id="pack-list"/);
   assert.match(tools, /js\/tools\.js/);
-  const js = readFileSync('public/js/consent.js', 'utf8');
-  assert.match(js, /consent-banner/);
-  assert.doesNotMatch(js, /style\.cssText/);
   const css = readFileSync('public/style.css', 'utf8');
-  for (const c of ['.consent-banner', '.directions-btn', '.share-btn', '.sort-toggle']) {
+  for (const c of ['.directions-btn', '.share-btn', '.sort-toggle']) {
     assert.ok(css.includes(c), `style.css missing ${c}`);
   }
 });

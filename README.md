@@ -132,7 +132,7 @@ Play Console checklist:
 
 1. Fork the repository.
 2. Create a new branch: `git checkout -b feature-name`.
-3. **Never edit `public/` directly** — `src/` is canonical (`src/templates/` → `public/*.html`, `src/js/` → `public/script.js`, `src/sw.js` → `public/sw.js`). Run `npm run build` and commit both.
+3. **Never edit `public/` directly** — `src/` is canonical (`src/templates/` → `public/*.html`, bundled `src/js/*.js` → `public/script.js`, standalone `src/js/drawer.js` + `src/js/tools.js` → `public/js/`, `src/sw.js` → `public/sw.js`). Run `npm run build` and commit both.
 4. Verify: `npm run check` and `npm run check:drift` must pass.
 5. Make your changes and commit: `git commit -m 'Add some feature'`.
 6. Push to the branch: `git push origin feature-name`.

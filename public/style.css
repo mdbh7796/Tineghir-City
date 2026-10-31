@@ -2084,47 +2084,6 @@ body.lightbox-open {
   font-weight: 600;
   cursor: pointer;
 }
-.consent-banner {
-  position: fixed;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
-  z-index: 80;
-  background: #1c1917;
-  color: #fff;
-  border-radius: 12px;
-  padding: 14px 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
-}
-.consent-msg {
-  margin: 0;
-  flex: 1 1 220px;
-  font-size: 14px;
-}
-.consent-accept {
-  min-height: 44px;
-  padding: 10px 20px;
-  background: #b45309;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.consent-decline {
-  min-height: 44px;
-  padding: 10px 20px;
-  background: transparent;
-  color: #fcd34d;
-  border: 1px solid #b45309;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-}
 .visually-hidden {
   position: absolute;
   width: 1px;

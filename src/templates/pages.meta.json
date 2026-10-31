@@ -113,7 +113,7 @@
   },
   "privacy": {
     "title": "Privacy Policy - Tineghir City",
-    "description": "How the Tineghir City app handles location, storage, and consent: nothing collected, everything on-device.",
+    "description": "How the Tineghir City app handles location and storage: nothing collected, everything on-device.",
     "canonical": "https://mdbh7796.github.io/Tineghir-City/privacy.html",
     "showMap": false,
     "leaflet": false,

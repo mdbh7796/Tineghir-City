@@ -260,6 +260,14 @@ else {
   for (const f of ['attractions-data.js', 'reveal.js', 'lightbox.js', 'map.js', 'cards.js', 'sort.js', 'back.js']) {
     if (!existsSync(join(root, 'src', 'js', f))) fail(`missing src/js/${f}`);
   }
+  // Standalone shell scripts are canonical in src/js and copied by build:js.
+  for (const f of ['drawer.js', 'tools.js']) {
+    if (!existsSync(join(root, 'src', 'js', f))) fail(`missing src/js/${f}`);
+    const pubCopy = join(pub, 'js', f);
+    if (!existsSync(pubCopy)) fail(`missing public/js/${f} (run npm run build:js)`);
+    else if (!readFileSync(pubCopy, 'utf8').startsWith(`// Built from src/js/${f}`))
+      fail(`public/js/${f} missing build header (run npm run build:js)`);
+  }
   const built = readFileSync(join(pub, 'script.js'), 'utf8');
   if (!built.startsWith('// Built from src/js/')) fail('public/script.js missing build header (run npm run build:js)');
   for (const marker of ['src/js/attractions-data.js', 'src/js/back.js']) {
@@ -273,10 +281,8 @@ else {
   const normalizeSw = (s) => s.replace(/const CACHE_VERSION = '[^']*';/, "const CACHE_VERSION = '<stamped>';");
   if (normalizeSw(swSrc).trim() !== normalizeSw(swPub).trim()) fail('public/sw.js drifted from src/sw.js (run npm run build:js)');
   if (!/const CACHE_VERSION = 'tineghir-[0-9a-f]{10}';/.test(swPub)) fail('public/sw.js CACHE_VERSION not stamped with a build hash (run npm run build:js)');
-  const consent = readFileSync(join(pub, 'js', 'consent.js'), 'utf8');
-  if (/style\.cssText/.test(consent)) fail('public/js/consent.js still uses inline style.cssText');
   const css = readFileSync(join(root, 'src', 'input.css'), 'utf8');
-  for (const needle of ['.consent-banner', '.directions-btn', '.share-btn', '.sort-toggle', '@source']) {
+  for (const needle of ['.directions-btn', '.share-btn', '.sort-toggle', '@source']) {
     if (!css.includes(needle)) fail(`src/input.css missing "${needle}"`);
   }
   if (existsSync(join(root, 'tailwind.config.js'))) fail('tailwind.config.js still present — v4 uses CSS-first @source in src/input.css');

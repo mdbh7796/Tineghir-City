@@ -13,7 +13,6 @@ const SHELL = [
   './script.js',
   './js/drawer.js',
   './js/tools.js',
-  './js/consent.js',
   './manifest.webmanifest',
   // UI icon sprite: keeps nav/controls working on a cold offline launch.
   './images/icons.svg',
