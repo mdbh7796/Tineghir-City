@@ -14,6 +14,9 @@
     <link rel="apple-touch-icon" href="images/icon-192.png" />
     <link rel="manifest" href="manifest.webmanifest" />
     <link rel="canonical" href="{{CANONICAL}}" />
+<!--IF:noindex-->
+    <meta name="robots" content="noindex" />
+<!--ENDIF-->
     <!-- No language alternates yet: fr/ar have no localized URLs, so naming
          them here would point at the English page and tell Google nothing.
          Add real alternates back only once /fr/ and /ar/ pages exist. -->
@@ -100,8 +103,9 @@
     class="h-full font-body bg-white dark:bg-stone-900 text-stone-900 dark:text-stone-200 overflow-auto scroll-smooth antialiased"
     data-page="{{ACTIVE_NAV}}"
   >
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 {{NAV}}
-    <main>
+    <main id="main-content" tabindex="-1">
 {{CONTENT}}
     </main>
 {{FOOTER}}

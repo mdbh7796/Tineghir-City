@@ -5,7 +5,7 @@
 // scripts/build-js.mjs from the CSS/JS source bytes. Bumping it on change is
 // what evicts stale cache-first assets; a bare 'tineghir-v1' would pin
 // returning visitors to old CSS/JS. Do not edit the token by hand.
-const CACHE_VERSION = 'tineghir-d257a74aa3';
+const CACHE_VERSION = 'tineghir-d1c1782fde';
 const SHELL = [
   './',
   './index.html',

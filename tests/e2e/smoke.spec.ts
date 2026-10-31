@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-// Real browser smoke: drawer, planner, map. Run: npx playwright test.
+// Real browser smoke: drawer, planner, skip link, map. Run: npx playwright test.
 // CI installs browsers via `npx playwright install --with-deps chromium`.
 test('drawer opens, traps focus, closes on Escape', async ({ page }) => {
   // Drawer button is md:hidden: exercise it at a mobile viewport.
@@ -24,6 +24,13 @@ test('planner and packing list persist on-device', async ({ page }) => {
   await expect(firstBox).toBeChecked();
 });
 
+test('skip link is first and moves focus to main content', async ({ page }) => {
+  await page.goto('/index.html');
+  await page.keyboard.press('Tab');
+  await expect(page.locator('.skip-link')).toBeFocused();
+  await page.keyboard.press('Enter');
+  await expect(page.locator('#main-content')).toBeFocused();
+});
 
 test('map mounts on index, absent elsewhere', async ({ page }) => {
   await page.goto('/index.html');

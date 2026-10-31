@@ -6,7 +6,7 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   use: { baseURL: 'http://127.0.0.1:8080', trace: 'on-first-retry' },
   webServer: {
-    command: 'npx -y http-server ./public -p 8080 --silent',
+    command: 'npx http-server ./public -p 8080 --silent',
     url: 'http://127.0.0.1:8080/index.html',
     reuseExistingServer: !process.env.CI,
     timeout: 30_000,
