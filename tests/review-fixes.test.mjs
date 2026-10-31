@@ -8,12 +8,9 @@ test('tiles manifest fetch bypasses HTTP cache', () => {
   assert.match(s, /resolveTilesManifest/);
 });
 
-test('privacy doc does not overclaim analytics loader', () => {
+test('privacy doc does not claim an analytics loader', () => {
   const d = readFileSync('docs/PRIVACY.md', 'utf8');
-  const js = readFileSync('public/js/consent.js', 'utf8');
-  const claimsLoader = /plausible.*pageview|loads .*analytics/i.test(d);
-  const hasLoader = /plausible/i.test(js);
-  assert.ok(!claimsLoader || hasLoader, 'doc claims a loader that does not exist');
+  assert.doesNotMatch(d, /plausible|loads .*analytics/i);
 });
 
 test('release signing is env-based and optional (unsigned local builds work)', () => {

@@ -1,11 +1,11 @@
 # Privacy
 
-- Default deny: no analytics, no beacons load before you press **Accept**.
-- Choice persists as `tineghir-consent` = `granted` | `denied` in localStorage.
-- Accept currently records nothing locally (loader stub reserved for a future
-  self-hosted, cookieless pageview). Decline loads nothing. Clear site data to reset.
+- No analytics, no beacons, no tracking SDK, no consent prompt. Nothing loads
+  beyond the site's own assets, online OpenStreetMap tiles when the online layer
+  is active, and the user-initiated links they choose to open.
+- No account and no server receiving behavior. There is nothing to opt into.
 - Maps: OSM raster online, bundled Protomaps offline. Tile CDN sees standard
-  HTTP logs only when online layer is used.
+  HTTP logs only when the online layer is used.
 - Location stays on-device (sort-by-distance, locate-me); never uploaded.
 
 ## Android permissions

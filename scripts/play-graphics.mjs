@@ -142,14 +142,11 @@ async function main() {
       .toFile(join(outDir, 'feature-graphic-1024x500.png'));
     console.log('play:graphics: wrote assets/play/feature-graphic-1024x500.png');
 
-    // 3. Phone screenshots (light theme, consent banner suppressed).
+    // 3. Phone screenshots (light theme).
     const ctx = await browser.newContext({
       viewport: { width: 540, height: 960 },
       deviceScaleFactor: 2,
       colorScheme: 'light',
-    });
-    await ctx.addInitScript(() => {
-      try { localStorage.setItem('tineghir-consent', 'granted'); } catch {}
     });
     let n = 0;
     for (const [slug, label] of SHOTS) {

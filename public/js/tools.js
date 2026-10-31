@@ -1,3 +1,4 @@
+// Built from src/js/tools.js — do not edit directly. Run: npm run build:js
 // Trip tools: guarded localStorage lists + packing checklist.
 // Planner UI and star buttons build on window.__tools (see Task 2).
 function store() {
