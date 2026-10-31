@@ -305,6 +305,27 @@ async function resolveTilesManifest() {
   }
 }
 
+// Protomaps is only needed when the online layer fails. Load it on demand so
+// the initial page never pays for ~126 KiB of offline-map code.
+let protomapsPromise = null;
+function loadProtomaps() {
+  if (typeof protomapsL !== 'undefined') return Promise.resolve();
+  if (!protomapsPromise) {
+    protomapsPromise = new Promise((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'vendor/protomaps-leaflet/protomaps-leaflet.js';
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => {
+        protomapsPromise = null;
+        reject(new Error('protomaps-load'));
+      };
+      document.head.appendChild(script);
+    });
+  }
+  return protomapsPromise;
+}
+
 async function probeLiveTiles(timeoutMs) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
@@ -392,8 +413,18 @@ function initBaseLayers(map) {
   const useBundle = async (reason) => {
     if (!state.manifestPromise) state.manifestPromise = resolveTilesManifest();
     const manifest = await state.manifestPromise;
-    if (!manifest || typeof protomapsL === 'undefined') {
-      showTilesBanner(manifest ? 'fail' : 'missing');
+    if (!manifest) {
+      showTilesBanner('missing');
+      return;
+    }
+    try {
+      await loadProtomaps();
+    } catch {
+      showTilesBanner('fail');
+      return;
+    }
+    if (typeof protomapsL === 'undefined') {
+      showTilesBanner('fail');
       return;
     }
     state.manifest = manifest;

@@ -91,11 +91,11 @@
     <link rel="stylesheet" href="style.css" />
 <!--IF:leaflet-->
     <!-- Leaflet Map CSS & JS (vendored: npm leaflet@1.9.4, protomaps-leaflet@5.1.0 — CDN cannot load offline).
-         defer keeps them off the render-blocking path; document order still runs
-         them before script.js, so `L` exists when the map initialises. -->
+         defer keeps Leaflet off the render-blocking path; document order still
+         runs it before script.js, so `L` exists when the map initialises.
+         Protomaps is loaded on demand only when the offline layer is needed. -->
     <link rel="stylesheet" href="vendor/leaflet/leaflet.css" />
     <script src="vendor/leaflet/leaflet.js" defer></script>
-    <script src="vendor/protomaps-leaflet/protomaps-leaflet.js" defer></script>
 <!--ENDIF-->
   </head>
 
