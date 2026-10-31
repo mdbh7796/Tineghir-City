@@ -48,7 +48,7 @@
     "@capacitor/app": "^8.1.2",
     "@capacitor/cli": "^8.5.3",
     "@capacitor/core": "^8.5.3",
-    "@capacitor/geolocation": "^8.2.3",
+    "@capacitor/geolocation": "^8.2.4",
     "@capacitor/share": "^8.0.3",
     "leaflet": "^1.9.4",
     "protomaps-leaflet": "^5.1.0"
